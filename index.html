@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>شركة تراستون للتنمية الزراعية | Truston AG</title>
   
-  <!-- مكتبة Google Model-Viewer للـ 3D -->
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-  
   <!-- خط Cairo الفاخر -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,20 +16,35 @@
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #f7faf9;
-      color: #1e293b;
+      background-color: #fcfdfc;
+      color: #0f172a;
       overflow-x: hidden;
     }
 
-    /* خلفية تراستون البترولية الأصلية */
-    .hero-teal-gradient {
-      background: radial-gradient(circle at 85% 20%, #007a87 0%, #005660 55%, #00363d 100%);
-      border-radius: 0 0 55px 55px;
+    /* دمج صورة الحقول مع الخلفية الضبابية الفاتحة */
+    .hero-mist-mask {
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+    }
+    @media (max-width: 1024px) {
+      .hero-mist-mask {
+        mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+        -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+      }
     }
 
-    /* شريط الرول المتحرك المائل والضخم */
+    /* كروت زجاجية عائمة */
+    .glass-floating-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* شريط الرول المتحرك المائل */
     .marquee-container-tilted {
-      transform: rotate(-2.5deg) scale(1.03);
+      transform: rotate(-2.2deg) scale(1.03);
       overflow: hidden;
       padding: 30px 0;
     }
@@ -45,7 +57,7 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      animation: marqueeMove 40s linear infinite;
+      animation: marqueeMove 46s linear infinite;
     }
 
     .marquee-track:hover {
@@ -53,7 +65,7 @@
     }
 
     .pack-shadow {
-      filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.18));
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
     }
 
     .custom-scroll::-webkit-scrollbar {
@@ -63,147 +75,175 @@
       background-color: #005660;
       border-radius: 10px;
     }
-
-    model-viewer {
-      width: 100%;
-      height: 420px;
-      outline: none;
-      --poster-color: transparent;
-    }
   </style>
 </head>
-<body class="selection:bg-amber-400 selection:text-slate-950">
+<body class="selection:bg-emerald-500 selection:text-white">
 
-  <!-- ==================== HERO SECTION (هوية تراستون الفاتحة الأصلية) ==================== -->
-  <header class="hero-teal-gradient text-white relative shadow-xl pb-24 overflow-hidden">
+  <!-- ==================== HEADER & HERO (الشركة أولاً وبدون إحصائيات) ==================== -->
+  <header class="relative bg-[#fbfdfb] overflow-hidden border-b border-slate-100">
     
-    <!-- النافبار الرسمي -->
-    <nav class="container mx-auto px-6 py-6 flex justify-between items-center relative z-20">
+    <!-- النافبار -->
+    <nav class="container mx-auto px-6 py-6 flex justify-between items-center relative z-30">
       <a href="#" class="flex items-center gap-3">
-        <img src="logo.png" alt="تراستون للتنمية الزراعية" class="h-16 md:h-20 object-contain drop-shadow" onerror="this.outerHTML='<span class=\'text-2xl font-black text-amber-400\'>TRUSTON AG</span>'">
+        <img src="logo.png" alt="تراستون" class="h-16 md:h-20 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-black text-[#005660]\'>TRUSTON AG</span>'">
       </a>
 
-      <div class="hidden lg:flex items-center gap-8 font-bold text-teal-100 text-sm">
-        <a href="#" class="text-amber-400 font-black">الرئيسية</a>
-        <a href="#marquee-section" class="hover:text-amber-300 transition">شريط المنتجات</a>
-        <a href="#catalog" class="hover:text-amber-300 transition">الكتالوج الفني (11)</a>
-        <a href="#contact" class="hover:text-amber-300 transition">المبيعات والدعم</a>
+      <div class="hidden lg:flex items-center gap-10 font-bold text-slate-600 text-sm">
+        <a href="#" class="text-[#005660] font-black">الرئيسية</a>
+        <a href="#marquee-section" class="hover:text-[#005660] transition">أبرز المركبات</a>
+        <a href="#catalog" class="hover:text-[#005660] transition">كتالوج المنتجات (16)</a>
+        <a href="tel:+201000008203" class="hover:text-[#005660] transition">اتصل بنا</a>
       </div>
 
-      <div class="flex items-center gap-4">
-        <a href="tel:01005892898" class="hidden sm:inline-block text-xs font-bold text-teal-100 bg-white/10 px-4 py-2.5 rounded-full border border-white/20">
-          <span dir="ltr">01005892898</span>
+      <div class="flex items-center gap-3">
+        <a href="tel:+201000008203" class="hidden sm:inline-flex items-center gap-2 text-xs font-black text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-full transition" dir="ltr">
+          +20 10 00008203
         </a>
-        <a href="https://wa.me/201005892898" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-2.5 rounded-full text-xs shadow-lg transition transform hover:scale-105">
+        <a href="https://wa.me/201000008203" target="_blank" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-md transition transform hover:scale-105">
           طلب استشارة فنية
         </a>
       </div>
     </nav>
 
-    <!-- محتوى الهيرو الرئيسي -->
-    <div class="container mx-auto px-6 pt-10 text-center max-w-4xl space-y-6 relative z-10">
-      
-      <div class="inline-flex items-center gap-2 bg-teal-900/60 border border-teal-400/30 px-5 py-1.5 rounded-full text-emerald-300 font-bold text-xs">
-        شركة تراستون للتنمية الزراعية | إنتاج يفوق طموحاتك
+    <!-- الهيرو المخصص للشركة فقط -->
+    <div class="container mx-auto px-6 py-12 md:py-20 relative z-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- الجانب الأيمن: اللوجو + اسم الشركة الأكبر + السلوجن -->
+        <div class="lg:col-span-6 space-y-6 text-right">
+          
+          <div class="inline-block">
+            <img src="logo.png" alt="شعار تراستون" class="h-20 md:h-24 object-contain" onerror="this.style.display='none'">
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-[#005660] leading-[1.15] tracking-tight">
+            شركة تراستون <br>
+            <span class="text-slate-900">للتنمية الزراعية</span>
+          </h1>
+
+          <div class="text-xl sm:text-2xl font-bold text-emerald-700 tracking-wide">
+            إنتاج يفوق طموحاتك
+          </div>
+
+          <p class="text-slate-600 text-base md:text-lg font-medium max-w-lg leading-relaxed pt-1">
+            صرح زراعي رائد في تصنيع وتوريد أحدث الأسمدة المخلبية، منظمات النمو، المبيدات الفطرية والحشرية، ومعالجات الملوحة لتلبية متطلبات المزارع الاستثمارية والتصدير.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4 max-w-md">
+            <a href="#catalog" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-8 py-4 rounded-2xl shadow-lg transition text-center text-sm flex items-center justify-center gap-2">
+              <span>تصفح كتالوج المنتجات</span>
+              <span>➔</span>
+            </a>
+            <a href="https://wa.me/201000008203" target="_blank" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold px-6 py-4 rounded-2xl shadow-sm text-center text-sm transition">
+              تواصل مع الدعم الفني
+            </a>
+          </div>
+
+        </div>
+
+        <!-- الجانب الأيسر: منظر الحقول مع 3 كروت عائمة لأبرز المركبات -->
+        <div class="lg:col-span-6 relative min-h-[460px] lg:min-h-[520px] flex items-center justify-center">
+          
+          <div class="absolute inset-0 rounded-[40px] overflow-hidden hero-mist-mask shadow-xl">
+            <img src="hero-bg.jpg" alt="حقول زراعية" class="w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 w-full max-w-sm space-y-4 px-4 my-auto">
+            
+            <div onclick="openProductModal('vola-k')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
+              <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                <img src="./images/vola-k.png" alt="فولا كي" class="max-h-full object-contain drop-shadow" onerror="this.src='images/vola-k.png'">
+              </div>
+              <div class="flex-1 text-right">
+                <div class="flex justify-between items-center">
+                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">سحر البوتاسيوم (Vola K)</h4>
+                  <span class="text-[10px] bg-orange-100 text-orange-700 font-black px-2 py-0.5 rounded-full">36% K</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">تحجيم ورفع نسب السكريات للثمار التصديرية</p>
+              </div>
+            </div>
+
+            <div onclick="openProductModal('trustzol')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
+              <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                <img src="./images/trustzol.png" alt="ترستزول" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustzol.png'">
+              </div>
+              <div class="flex-1 text-right">
+                <div class="flex justify-between items-center">
+                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">ترستزول (Trustzol 25% EC)</h4>
+                  <span class="text-[10px] bg-blue-100 text-blue-800 font-black px-2 py-0.5 rounded-full">مبيد فطري</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">علاج الصدأ الأصفر في القمح وأمراض الأصداء</p>
+              </div>
+            </div>
+
+            <div onclick="openProductModal('trustnem')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
+              <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                <img src="./images/trustnem.png" alt="ترست نيم" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustnem.png'">
+              </div>
+              <div class="flex-1 text-right">
+                <div class="flex justify-between items-center">
+                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">ترست نيم (TrustNem 24%)</h4>
+                  <span class="text-[10px] bg-red-100 text-red-800 font-black px-2 py-0.5 rounded-full">مبيد نيماتودي</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">إبادة النيماتودا وحماية المجموع الجذري</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
-
-      <h1 class="text-4xl sm:text-6xl font-black leading-tight tracking-tight">
-        شريكك الموثوق لنماء <br>
-        <span class="text-amber-400">أعلى إنتاجية زراعية</span> ومواصفات تصديرية
-      </h1>
-
-      <p class="text-teal-100/90 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-        باقة متطورة من منظمات النمو، الأسمدة المخلبية، معالجات الملوحة، والمبيدات الفطرية المسجلة رسمياً لتلبية احتياجات المزارع الاستثمارية.
-      </p>
-
-      <div class="flex flex-wrap justify-center items-center gap-4 pt-3">
-        <a href="#catalog" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-8 py-3.5 rounded-2xl shadow-xl transition transform hover:-translate-y-1">
-          استعراض الكتالوج الفني
-        </a>
-        <a href="#marquee-section" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-8 py-3.5 rounded-2xl transition">
-          معاينة المنتجات
-        </a>
-      </div>
-
-      <!-- مؤشرات الثقة الرسمية -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 max-w-3xl mx-auto text-center">
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-3.5">
-          <span class="block text-2xl font-black text-amber-400">100%</span>
-          <span class="text-xs text-teal-100 font-bold">تركيبات مخلبية نقية</span>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-3.5">
-          <span class="block text-2xl font-black text-amber-400">11+</span>
-          <span class="text-xs text-teal-100 font-bold">مركب معتمد ومسجل</span>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-3.5">
-          <span class="block text-2xl font-black text-amber-400">360°</span>
-          <span class="text-xs text-teal-100 font-bold">معاينة تفاعلية حرة</span>
-        </div>
-        <div class="bg-white/10 border border-white/15 rounded-2xl p-3.5">
-          <span class="block text-2xl font-black text-amber-400">معتمد</span>
-          <span class="text-xs text-teal-100 font-bold">وزارة الزراعة</span>
-        </div>
-      </div>
-
     </div>
   </header>
 
-  <!-- ==================== الرول المتحرك المائل والضخم (TILTED PRODUCT MARQUEE) ==================== -->
-  <section id="marquee-section" class="py-14 overflow-hidden relative">
-    
-    <div class="container mx-auto px-6 mb-6 flex justify-between items-end">
-      <div>
-        <span class="text-xs font-black text-[#005660] tracking-wider uppercase">استعراض سريع</span>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-1">كافة مركبات تراستون (شريط متحرك)</h2>
-      </div>
-      <span class="text-xs font-bold text-slate-400 hidden sm:inline-block">تتوقف الحركة عند التمرير بالماوس</span>
+  <!-- ==================== شريط بعض من منتجاتنا (مائل وضخم) ==================== -->
+  <section id="marquee-section" class="py-12 overflow-hidden relative bg-[#f4f8f5] border-y border-slate-200/60">
+    <div class="container mx-auto px-6 mb-4 text-right">
+      <h2 class="text-2xl md:text-3xl font-black text-slate-900">بعض من منتجاتنا</h2>
     </div>
 
-    <!-- الحاوية المائلة مع الكروت الضخمة -->
-    <div class="marquee-container-tilted bg-[#edf5f3] py-8 border-y-2 border-teal-800/10 shadow-inner">
-      <div class="marquee-track gap-8 px-6" id="marqueeTrack">
-        <!-- يتم ملء الكروت تلقائياً مرتين بواسطة JavaScript لتدور للأبد -->
-      </div>
+    <div class="marquee-container-tilted py-6">
+      <div class="marquee-track gap-8 px-6" id="marqueeTrack"></div>
     </div>
   </section>
 
-  <!-- ==================== الكتالوج الكامل والفلترة (11 منتج) ==================== -->
+  <!-- ==================== كتالوج المنتجات (16 منتجاً مع الفلاتر) ==================== -->
   <main id="catalog" class="container mx-auto px-6 py-16">
-    
     <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
       <div>
-        <span class="text-xs font-black text-emerald-700 bg-emerald-100 px-3.5 py-1.5 rounded-full inline-block">الكتالوج الفني الكامل</span>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-2">قائمة المركبات الزراعية المعتمدة</h2>
-        <p class="text-slate-500 font-bold mt-1 text-sm">اضغط على أي مركب لعرض كامل النشرة الفنية وتفعيل وضع الـ 3D التفاعلي</p>
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900">كتالوج المنتجات</h2>
       </div>
 
       <!-- أزرار الفلترة -->
       <div class="flex flex-wrap gap-2">
-        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] text-white shadow">الكل (11)</button>
-        <button onclick="filterCategory('growth', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">منظمات نمو وتزهير</button>
+        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] text-white shadow">الكل (16)</button>
         <button onclick="filterCategory('fertilizer', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">أسمدة ومخصبات</button>
+        <button onclick="filterCategory('growth', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">منظمات نمو وتزهير</button>
+        <button onclick="filterCategory('fungicide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">مبيدات فطرية</button>
+        <button onclick="filterCategory('insecticide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">مبيدات حشرية ونيماتودية</button>
         <button onclick="filterCategory('salinity', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">معالجات ملوحة</button>
-        <button onclick="filterCategory('protection', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">مبيدات فطرية</button>
       </div>
     </div>
 
-    <!-- شبكة المنتجات الـ 11 -->
+    <!-- شبكة المنتجات الـ 16 -->
     <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
   </main>
 
-  <!-- ==================== النافذة المنبثقة الشاملة (2D/3D + عربي/إنجليزي) ==================== -->
+  <!-- ==================== النافذة المنبثقة للنشرة الفنية (بدون 3D - سريعة وفائقة الدقة) ==================== -->
   <div id="productModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
     <div class="bg-white w-full max-w-6xl max-h-[94vh] rounded-[32px] shadow-2xl flex flex-col overflow-hidden relative border border-slate-100">
       
       <!-- هيدر النافذة -->
       <div class="px-6 py-4 bg-slate-50 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3">
         <div class="flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          <span class="w-3.5 h-3.5 rounded-full bg-emerald-500"></span>
           <h3 id="modalTopTitle" class="font-black text-lg text-slate-900">النشرة الفنية المعتمدة</h3>
         </div>
 
         <div class="flex items-center gap-3">
-          <!-- زر التبديل اللغوي عربي / إنجليزي -->
+          <!-- تبديل اللغة -->
           <div class="bg-slate-200 p-1 rounded-xl flex items-center text-xs font-black">
             <button id="langBtnAr" onclick="setModalLanguage('ar')" class="px-3.5 py-1.5 rounded-lg bg-[#005660] text-white transition">عربي</button>
             <button id="langBtnEn" onclick="setModalLanguage('en')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-950 transition">English</button>
@@ -216,53 +256,20 @@
       <!-- محتوى النافذة المنقسم -->
       <div class="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto custom-scroll flex-1">
         
-        <!-- مسرح العرض (التحويل بين HD و 3D) -->
-        <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-200 p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-l border-slate-200 relative min-h-[460px]">
+        <!-- جانب عرض صورة العبوة فائقة الدقة -->
+        <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-200 p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-l border-slate-200 relative min-h-[440px]">
           
           <div class="w-full flex justify-between items-center text-xs font-bold">
             <span id="packSizeBadge" class="bg-amber-500 text-slate-950 px-3 py-1 rounded-full font-black"></span>
-            <span id="viewModeIndicator" class="bg-slate-800 text-white px-3 py-1 rounded-full">صورة فائقة الدقة HD</span>
+            <span class="bg-slate-800 text-white px-3 py-1 rounded-full">صورة العبوة الرسمية HD</span>
           </div>
 
-          <!-- حاوية العرض التفاعلي -->
-          <div class="w-full h-80 lg:h-[390px] flex items-center justify-center relative my-auto">
-            <img id="modal2DImage" src="" alt="Product" class="max-h-full max-w-full object-contain pack-shadow transition-all duration-300">
-
-            <model-viewer 
-              id="modal3DViewer"
-              class="hidden pack-shadow"
-              src="" 
-              poster=""
-              auto-rotate 
-              camera-controls 
-              touch-action="pan-y" 
-              shadow-intensity="1.5" 
-              exposure="1.0">
-            </model-viewer>
+          <div class="w-full h-80 lg:h-[400px] flex items-center justify-center relative my-auto">
+            <img id="modalProductImage" src="" alt="Product" class="max-h-full max-w-full object-contain pack-shadow transition-all duration-300 hover:scale-105">
           </div>
 
-          <!-- أزرار التبديل + حل مشكلة الـ 3D المحلي -->
-          <div class="w-full space-y-2 text-center pt-2">
-            <div class="flex gap-2">
-              <button id="btnShow2D" onclick="switchVisualMode('2d')" class="flex-1 bg-white text-slate-800 font-bold py-2.5 rounded-xl border border-slate-200 shadow-sm text-xs transition">
-                صورة العبوة HD
-              </button>
-              <button id="btnShow3D" onclick="switchVisualMode('3d')" class="flex-1 bg-[#005660] text-white font-black py-2.5 rounded-xl shadow text-xs transition">
-                تفعيل مجسم 3D حر (360°)
-              </button>
-            </div>
-
-            <!-- زر لتخطي قيود الأمان المحلية عند فتح الملف بالكمبيوتر مباشرة -->
-            <div id="localFileHelper" class="hidden bg-white/90 border border-slate-300 rounded-xl p-2 text-center text-[10px] text-slate-500">
-              <label class="cursor-pointer text-emerald-700 font-bold block hover:underline">
-                <span>لتشغيل الـ 3D على جهازك محلياً: اختر ملف .glb من هنا</span>
-                <input type="file" id="localGlbInput" accept=".glb,.gltf" class="hidden">
-              </label>
-            </div>
-
-            <p id="modeHintText" class="text-[11px] text-slate-500 font-bold">
-              اضغط على زر الـ 3D لتدوير وفحص العبوة بزاوية 360 درجة
-            </p>
+          <div class="w-full text-center text-[11px] text-slate-500 font-bold bg-white/70 py-2 rounded-xl border border-slate-200">
+            إنتاج وتوزيع شركة تراستون للتنمية الزراعية
           </div>
 
         </div>
@@ -282,7 +289,7 @@
             <div id="modalCompGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs"></div>
           </div>
 
-          <!-- الخصائص الفسيولوجية -->
+          <!-- الخصائص الفسيولوجية والتأثير -->
           <div class="space-y-2 text-sm leading-relaxed text-slate-700">
             <h4 id="labelFeatures" class="font-black text-slate-900 text-base border-r-4 border-[#005660] pr-2">الخصائص والمميزات الفنية:</h4>
             <ul id="modalFeaturesList" class="space-y-2 pt-1 list-disc list-inside"></ul>
@@ -294,14 +301,14 @@
             <div id="modalUsageList" class="text-xs text-emerald-900 space-y-1.5 font-bold"></div>
           </div>
 
-          <!-- بيانات التسجيل والصلاحية -->
-          <div id="modalMetaBox" class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1 font-semibold"></div>
+          <!-- بيانات التسجيل والصلاحية وفترات الأمان -->
+          <div id="modalMetaBox" class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1.5 font-semibold"></div>
 
           <!-- أزرار التواصل للمبيعات -->
           <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
             <div class="text-xs text-slate-500">
-              <span id="labelSales">المبيعات والتوريد:</span>
-              <a href="tel:01005892898" class="block font-black text-base text-[#005660] hover:underline">01005892898</a>
+              <span id="labelSales">المبيعات والتوريد المباشر:</span>
+              <a href="tel:+201000008203" class="block font-black text-base text-[#005660] hover:underline" dir="ltr">+20 10 00008203</a>
             </div>
             
             <a id="modalWhatsappBtn" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl shadow transition flex items-center gap-2">
@@ -316,28 +323,30 @@
   </div>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer id="contact" class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-amber-400 mt-20">
+  <footer class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-[#005660] mt-20">
     <div class="container mx-auto px-6 text-center space-y-4">
-      <img src="logo.png" alt="تراستون" class="h-16 mx-auto object-contain brightness-125" onerror="this.outerHTML='<h3 class=\'text-2xl font-black text-amber-400\'>شركة تراستون للتنمية الزراعية</h3>'">
+      <img src="logo.png" alt="تراستون" class="h-16 mx-auto object-contain brightness-125" onerror="this.outerHTML='<h3 class=\'text-2xl font-black text-white\'>شركة تراستون للتنمية الزراعية</h3>'">
       <p class="text-xs text-slate-400 max-w-md mx-auto">
         إنتاج يفوق طموحاتك | حلول متكاملة للتسميد، مكافحة الآفات، وتحقيق أعلى مواصفات التصدير القياسية.
       </p>
+      <div class="text-xs text-slate-400">
+        هاتف المبيعات والاستفسارات: <a href="tel:+201000008203" class="text-white font-bold hover:underline" dir="ltr">+20 10 00008203</a>
+      </div>
       <div class="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
         جميع الحقوق محفوظة © 2026 لشركة تراستون للتنمية الزراعية (Truston AG).
       </div>
     </div>
   </footer>
 
-  <!-- ==================== JAVASCRIPT: قاعدة البيانات والتشغيل الكامل ==================== -->
+  <!-- ==================== JAVASCRIPT: قاعدة البيانات الشاملة (16 منتجاً) ==================== -->
   <script>
-    // قاعدة بيانات الـ 11 منتج بالتفصيل التام من الـ PDF
     const productsDB = [
+      // 1. فولا كي
       {
         id: 'vola-k',
         category: 'fertilizer',
         pack: '5 لتر | 5 Litre',
-        image: 'images/vola-k.png',
-        model: 'models/vola-k.glb',
+        image: './images/vola-k.png',
         ar: {
           name: 'فولا كي (Vola K)',
           category: 'تسميد وتحجيم الثمار',
@@ -352,8 +361,7 @@
             'سماد سائل تام الذوبان يحتوي على 36% بوتاسيوم في صورة سترات بوتاسيوم سهلة الامتصاص.',
             'يعمل على فتح وغلق الثغور وتنظيم الضغط الإسموزي داخل الخلايا.',
             'يزيد في عدد الخلايا وحجمها وبالتالي إعطاء مدى أكبر لزيادة الحجم بأقل وقت.',
-            'يسرع من العمليات الفسيولوجية ويعمل على تحويل النيتروجين إلى بروتينات.',
-            'يزيد من انتقال الكربوهيدرات من المجموع الخضري إلى أماكن التخزين لزيادة حجم الثمار.',
+            'يسرع تحويل النيتروجين إلى بروتينات ونقل الكربوهيدرات إلى الثمار.',
             'يزيد محتوى الثمار من السكر ليرفع من مواصفات الثمار التصديرية والتبكير في النضج.'
           ],
           usage: [
@@ -396,12 +404,290 @@
           ]
         }
       },
+
+      // 2. ترستزول 25% EC (جديد)
+      {
+        id: 'trustzol',
+        category: 'fungicide',
+        pack: '100 سم³ & 200 سم³',
+        image: './images/trustzol.png',
+        ar: {
+          name: 'ترستزول 25% EC (Trustzol)',
+          category: 'مبيد فطري جهازي واسع المجال',
+          subtitle: 'المتخصص في مكافحة وعلاج الصدأ الأصفر وأمراض الأصداء الفطرية',
+          comp: [
+            { k: 'بروبيكونازول Propiconazole', v: '25% (حجم/وزن)' },
+            { k: 'مواد مستحلبة', v: '10.57%' },
+            { k: 'مذيبات عضوية', v: '64.43%' },
+            { k: 'تركيز المادة الفعالة', v: '250 جم/لتر' }
+          ],
+          features: [
+            'مبيد فطري جهازي واسع المجال يمتص عبر الأوراق وينتقل جهازياً داخل العصارة النباتية.',
+            'ذو تأثير علاجي ووقائي سريع وحاسم ضد فطريات الأصداء والبياض الدقيقي.',
+            'الاسم الكيميائي: (t)-(2-(2,4-dichlorophenyl)-4-propyl-1,3-dioxolan-2-ylmethyl)-1H-1,2,4-triazole.',
+            'صورة المستحضر: مركز قابل للاستحلاب (EC).'
+          ],
+          usage: [
+            'القمح (مكافحة وعلاج الصدأ الأصفر): 25 سم³ / 100 لتر ماء طبقاً لتوصيات وزارة الزراعة.'
+          ],
+          meta: [
+            'فترة ما قبل الحصاد (PHI): القمح 30 يوماً.',
+            'الضمان: 3 سنوات من تاريخ الإنتاج في عبواته الأصلية.',
+            'العقار المضاد في حالة التسمم: لا يوجد عقار مضاد محدد، ويعالج المصاب حسب الأعراض.'
+          ]
+        },
+        en: {
+          name: 'Trustzol 25% EC',
+          category: 'Broad-Spectrum Systemic Fungicide',
+          subtitle: 'Propiconazole 25% EC for curative and preventive rust control',
+          comp: [
+            { k: 'Propiconazole', v: '25% w/v' },
+            { k: 'Emulsifiers', v: '10.57%' },
+            { k: 'Solvents', v: '64.43%' },
+            { k: 'Active Density', v: '250 g/L' }
+          ],
+          features: [
+            'Systemic triazole fungicide with protective, curative, and eradicative activity.',
+            'Rapid acropetal translocation via xylem tissues protects new growth.',
+            'Highly effective against yellow stripe rust and powdery mildews in cereals.'
+          ],
+          usage: [
+            'Wheat (Yellow Rust Control): 25 ml per 100 Liters of water.'
+          ],
+          meta: [
+            'Pre-Harvest Interval (PHI): Wheat: 30 Days.',
+            'Packaging: 100 ml & 200 ml aluminum/HDPE bottles.'
+          ]
+        }
+      },
+
+      // 3. أوتو ستار توب 325 SC (جديد)
+      {
+        id: 'autostar-top',
+        category: 'fungicide',
+        pack: '100 سم³ & 200 سم³',
+        image: './images/autostar-top.png',
+        ar: {
+          name: 'أوتو ستار توب 325 SC (AutoStar Top)',
+          category: 'مبيد فطري جهازي وقائي وعلاجي',
+          subtitle: 'تركيبة مزدوجة: أزوكسي ستروبين 20% + دايفينوكونازول 12.5%',
+          comp: [
+            { k: 'أزوكسي ستروبين Azoxystrobin', v: '20% (حجم/وزن)' },
+            { k: 'دايفينوكونازول Difenoconazole', v: '12.5% (حجم/وزن)' },
+            { k: 'إجمالي المادة الفعالة', v: '325 جم/لتر' },
+            { k: 'مواد ناشرة ومبللة ومخففة', v: '67.5%' }
+          ],
+          features: [
+            'مركب جهازي مزدوج يجمع بين ستروبيلورين وترايازول لتوفير أقوى درجات الحماية والعلاج.',
+            'يمنع إنبات الجراثيم ويوقف نمو الغزل الفطري داخل الأنسجة النباتية.',
+            'مستحضر في صورة مركز معلق (SC) عالي الثبات وسهل الخلط والتوزيع.'
+          ],
+          usage: [
+            'الجوافة (تبقع الأوراق): 50 سم³ / 100 لتر ماء (كمية المياه: 400 - 600 لتر/فدان).',
+            'الكنتالوب (البياض الزغبي): 300 سم³ / فدان.',
+            'العنب (البياض الدقيقي): 75 سم³ / 100 لتر ماء (كمية المياه: 400 - 600 لتر/فدان).',
+            'عدد مرات الرش: 3 رشات كحد أقصى، بين الرشة والأخرى 7 إلى 14 يوماً.'
+          ],
+          meta: [
+            'فترة ما قبل الحصاد (PHI): الجوافة 7 أيام | البصل 10 أيام | العنب 21 يوماً.',
+            'كمية مياه البصل: لا تزيد عن 400 لتر للفدان.'
+          ]
+        },
+        en: {
+          name: 'AutoStar Top 325 SC',
+          category: 'Systemic Fungicide (Suspension Concentrate)',
+          subtitle: 'Dual Active Ingredients: Azoxystrobin 20% + Difenoconazole 12.5%',
+          comp: [
+            { k: 'Azoxystrobin', v: '20% w/v' },
+            { k: 'Difenoconazole', v: '12.5% w/v' },
+            { k: 'Total Active Active', v: '325 g/L' },
+            { k: 'Inerts & Wetting Agents', v: '67.5%' }
+          ],
+          features: [
+            'Combines two proven chemistries to prevent resistance and guarantee total cure.',
+            'Inhibits fungal respiration and sterol biosynthesis across leaf and fruit surfaces.',
+            'Superb persistence and rainfastness.'
+          ],
+          usage: [
+            'Guava (Leaf Spot): 50 ml per 100 L of water.',
+            'Cantaloupe (Downy Mildew): 300 ml per acre.',
+            'Grapes (Powdery Mildew): 75 ml per 100 L of water.'
+          ],
+          meta: [
+            'PHI: Guava 7 days, Onion 10 days, Grapes 21 days.',
+            'Bottles: 100 ml & 200 ml.'
+          ]
+        }
+      },
+
+      // 4. ترست فوس 28% EC (جديد)
+      {
+        id: 'trustfos',
+        category: 'insecticide',
+        pack: '250 مل | 250 ml',
+        image: './images/trustfos.png',
+        ar: {
+          name: 'ترست فوس 28% EC (Trustfos)',
+          category: 'مبيد حشري شبه جهازي بالملامسة',
+          subtitle: 'كلوربيريفوس 25% + ألفا سايبرمثرين 3% للقضاء على الحشرات القارضة والمصية',
+          comp: [
+            { k: 'كلوربيريفوس Chlorpyrifos', v: '25% (وزن/حجم)' },
+            { k: 'ألفا سايبرمثرين Alpha-cypermethrin', v: '3% (وزن/حجم)' },
+            { k: 'مادة مذيبة ومساعدة', v: '72%' },
+            { k: 'إجمالي المادة الفعالة', v: '280 جم/لتر' }
+          ],
+          features: [
+            'مبيد حشري شبه جهازي قوي يعمل بالملامسة وكسم معدي بضربة قاضية سريعة (Knockdown).',
+            'مكافحة فعالة للحشرة القشرية، الدودة القارضة، الذبابة البيضاء، والتربس.',
+            'المستحضر في صورة مركز قابل للاستحلاب (EC).'
+          ],
+          usage: [
+            'مكافحة الديدان والحشرات القشرية والتربس: 100 سم³ / 100 لتر ماء.'
+          ],
+          meta: [
+            'فترة ما قبل الحصاد (PHI): من 7 إلى 10 أيام حسب كثافة الرش.',
+            'يخزن في مكان جيد التهوية بعيداً عن الحرارة المرتفعة والرطوبة ومخازن الأعلاف.'
+          ]
+        },
+        en: {
+          name: 'Trustfos 28% EC',
+          category: 'Insecticide (Contact & Stomach)',
+          subtitle: 'Chlorpyrifos 25% + Alpha-cypermethrin 3% with fast knockdown effect',
+          comp: [
+            { k: 'Chlorpyrifos', v: '25% w/v' },
+            { k: 'Alpha-cypermethrin', v: '3% w/v' },
+            { k: 'Solvent & Emulsifier', v: '72%' },
+            { k: 'Active Content', v: '280 g/L' }
+          ],
+          features: [
+            'Organophosphate and synthetic pyrethroid combination with strong repellent action.',
+            'Controls chewing and sucking pests: Cutworms, scale insects, whiteflies, and thrips.'
+          ],
+          usage: [
+            'Application Rate: 100 ml per 100 Liters of water.'
+          ],
+          meta: [
+            'PHI Interval: 7 - 10 Days.',
+            'Net Content: 250 ml.'
+          ]
+        }
+      },
+
+      // 5. ترستميك 1.8% EC (جديد)
+      {
+        id: 'trustmec',
+        category: 'insecticide',
+        pack: '250 مل | 250 ml',
+        image: './images/trustmec.png',
+        ar: {
+          name: 'ترستميك 1.8% EC (Trustmec)',
+          category: 'مبيد أكاروسي وحشري متخصص',
+          subtitle: 'أبامكتين 1.8% مدعم بـ 1% ألفا سايبرمثرين و 3% زنك نقي',
+          comp: [
+            { k: 'أبامكتين Abamectin', v: '1.8% (وزن/حجم)' },
+            { k: 'ألفا سايبرمثرين', v: '1% (وزن/حجم)' },
+            { k: 'زنك مخلبي مضاف', v: '3% (وزن/حجم)' },
+            { k: 'مواد مستحلبة', v: '94.2%' }
+          ],
+          features: [
+            'مبيد أكاروسي وحشري فائق التخصص لمكافحة سلالات العنكبوت الأحمر وصانعات الأنفاق.',
+            'يحتوي اللتر منه على 18 جرام مادة فعالة أبامكتين نقي (Avermectin B1a/B1b).',
+            'الزنك المضاف يدعم حيوية ونضارة الأوراق بعد القضاء على الأكاروسات.'
+          ],
+          usage: [
+            'مكافحة العنكبوت الأحمر على الخيار: 40 سم³ / 100 لتر ماء.'
+          ],
+          meta: [
+            'فترة ما قبل الحصاد (PHI): الخيار 7 أيام.',
+            'يحفظ بعيداً عن متناول الأطفال وأشعة الشمس المباشرة.'
+          ]
+        },
+        en: {
+          name: 'Trustmec 1.8% EC',
+          category: 'Acaricide & Insecticide',
+          subtitle: 'Abamectin 1.8% fortified with 1% Alpha-cypermethrin & 3% Zinc',
+          comp: [
+            { k: 'Abamectin', v: '1.8% w/v' },
+            { k: 'Alpha-cypermethrin', v: '1% w/v' },
+            { k: 'Zinc', v: '3% w/v' },
+            { k: 'Emulsifiers', v: '94.2%' }
+          ],
+          features: [
+            'Translaminar activity protects both upper and lower leaf surfaces.',
+            'Proven efficacy against two-spotted red spider mites and leafminers.',
+            'Zinc fortification promotes leaf recovery and vigor.'
+          ],
+          usage: [
+            'Red Spider Mites on Cucumbers: 40 ml per 100 Liters of water.'
+          ],
+          meta: [
+            'PHI: Cucumbers: 7 Days.',
+            'Bottle: 250 ml.'
+          ]
+        }
+      },
+
+      // 6. ترست نيم 24% SL (جديد)
+      {
+        id: 'trustnem',
+        category: 'insecticide',
+        pack: '1 لتر | 1 Litre',
+        image: './images/trustnem.png',
+        ar: {
+          name: 'ترست نيم 24% SL (TrustNem)',
+          category: 'مبيد نيماتودي جهازي واسع المدى',
+          subtitle: 'أوكساميل 24% مركز قابل للذوبان في الماء لحماية الجذور والعقد الجذرية',
+          comp: [
+            { k: 'أوكساميل Oxamyl', v: '24% (وزن/حجم)' },
+            { k: 'مادة مذيبة', v: '74.25%' },
+            { k: 'مادة ناشرة ومحسنة', v: '1.60%' },
+            { k: 'تركيز المادة الفعالة', v: '240 جم/لتر' }
+          ],
+          features: [
+            'مبيد نيماتودي جهازي عالي الكفاءة يمتص عبر الجذور والأوراق لمكافحة نيماتودا تعقد الجذور.',
+            'الاسم الكيميائي: N,N-dimethyl-2-methylcarbamoyloxyimino-2-(methylthio)acetamide.',
+            'مقيد الاستخدام (RUP) نظراً لسميته العالية ويستخدم تحت إشراف زراعي متخصص.',
+            'مزود بعامل مرارة (0.10%) لمنع الابتلاع العرضي.'
+          ],
+          usage: [
+            'حقناً مع مياه الري بالتنقيط لمكافحة نيماتودا تعقد الجذور والنيماتودا الحرة حسب توصيات الدعم الفني.'
+          ],
+          meta: [
+            'تنبيه: مركب سام جداً، يجب ارتداء قفازات، كمامات، ونظارات واقية أثناء التطبيق.',
+            'مراكز علاج السموم: عين شمس (0224346789) - القومي بالقاهرة (0223640402) - الإسكندرية (034862244).'
+          ]
+        },
+        en: {
+          name: 'TrustNem 24% SL',
+          category: 'Systemic Nematicide & Insecticide',
+          subtitle: 'Oxamyl 24% Soluble Concentrate for root knot and free-living nematodes',
+          comp: [
+            { k: 'Oxamyl', v: '24% w/v' },
+            { k: 'Solvents', v: '74.25%' },
+            { k: 'Adjuvants & Wetting', v: '1.60%' },
+            { k: 'Bittering Agent', v: '0.10%' }
+          ],
+          features: [
+            'Powerful systemic carbamate nematicide translocated both upward and downward in plants.',
+            'Paralyzes root-knot, cyst, and lesion nematodes upon contact or feeding.',
+            'Restricted Use Pesticide (RUP) applied under agronomist supervision.'
+          ],
+          usage: [
+            'Drip fertigation application targeted at root-zone nematode infestations.'
+          ],
+          meta: [
+            'Danger: Highly Toxic. Full protective gear mandatory.',
+            'Pack size: 1 Litre container.'
+          ]
+        }
+      },
+
+      // 7. فولا فول
       {
         id: 'vola-ful',
         category: 'fertilizer',
         pack: '1 كجم | 1 Kg',
-        image: 'images/vola-ful.png',
-        model: 'models/vola-ful.glb',
+        image: './images/vola-ful.png',
         ar: {
           name: 'فولا فول (Vola Ful)',
           category: 'مخصب عضوي ومنشط للجذور',
@@ -439,19 +725,17 @@
             'Stimulates soil microflora and beneficial microorganisms.',
             'Improves soil structure and water retention during drought stress.'
           ],
-          usage: [
-            'Foliar: 250 g per 100 Liters of water.',
-            'Drip Irrigation: 1.25 Kg per acre.'
-          ],
+          usage: ['Foliar: 250 g per 100 L.', 'Drip: 1.25 Kg / acre.'],
           meta: ['100% Water Soluble Powder.', 'Net Wt: 1 Kg.']
         }
       },
+
+      // 8. أوكسي ترست
       {
         id: 'oxy-trust',
         category: 'growth',
         pack: '60 جم & 250 جم',
-        image: 'images/oxy-trust.png',
-        model: 'models/oxy-trust.glb',
+        image: './images/oxy-trust.png',
         ar: {
           name: 'أوكسي ترست 4% (Oxy Trust)',
           category: 'منظم نمو وتثبيت عقد الأزهار',
@@ -483,20 +767,18 @@
             { k: 'BNOA', v: '1.8%' },
             { k: 'Carrier', v: '96%' }
           ],
-          features: [
-            'Proven auxin mixture to maximize blossom retention and fertilization.',
-            'Shields flowers against sudden thermal drop or heatwaves.'
-          ],
-          usage: ['Drip Fertigation: 6 g / 15 Liters of water at flower initiation.'],
+          features: ['Proven auxin mixture to maximize blossom retention and fertilization.'],
+          usage: ['Drip Fertigation: 6 g / 15 L at flower initiation.'],
           meta: ['Packages: 60g & 250g.']
         }
       },
+
+      // 9. كاترست بي
       {
         id: 'ca-trust-b',
         category: 'fertilizer',
         pack: '60 جم & 250 جم',
-        image: 'images/ca-trust-b.png',
-        model: 'models/ca-trust-b.glb',
+        image: './images/ca-trust-b.png',
         ar: {
           name: 'كاترست بي (Ca-Trust B)',
           category: 'كالسيوم وبورون وموليبدنم مخلبي',
@@ -512,10 +794,7 @@
             'يقضي نهائياً على عفن الطرف الزهري والقلب الأجوف وتشوه الثمار.',
             'البورون المضاف ينشط حبوب اللقاح ويثبت الثمار على الأفرع.'
           ],
-          usage: [
-            'الرش الورقي: 1 جرام / لتر ماء.',
-            'التسميد: 1 كجم مع مياه الري لكافة المحاصيل.'
-          ],
+          usage: ['الرش الورقي: 1 جرام / لتر ماء.', 'التسميد: 1 كجم مع مياه الري لكافة المحاصيل.'],
           meta: ['قابل للخلط مع معظم الأسمدة والمبيدات.', 'العبوات: 60 جرام & 250 جرام.']
         },
         en: {
@@ -528,20 +807,18 @@
             { k: 'Boron', v: '5%' },
             { k: 'Molybdenum', v: 'Trace' }
           ],
-          features: [
-            'Dramatically elevates fruit firmness and prevents transit bruising.',
-            'Eradicates Blossom End Rot (BER) and tip-burn disorders.'
-          ],
-          usage: ['Foliar: 1 g per Liter of water.', 'Drip: 1 Kg per acre.'],
+          features: ['Dramatically elevates fruit firmness and prevents transit bruising.'],
+          usage: ['Foliar: 1 g / L.', 'Drip: 1 Kg / acre.'],
           meta: ['Packages: 60g & 250g.']
         }
       },
+
+      // 10. روفا ترست
       {
         id: 'roufa-trust',
         category: 'fertilizer',
         pack: '1 كجم | 1 Kg',
-        image: 'images/roufa-trust.png',
-        model: 'models/roufa-trust.glb',
+        image: './images/roufa-trust.png',
         ar: {
           name: 'روفا ترست (Roufa Trust)',
           category: 'حديد مخلبي FeEDDHA 6%',
@@ -557,10 +834,7 @@
             'علاج اصفرار الأوراق في الترب القاعدية والكلسية ذات الـ pH المرتفع.',
             'ثابت وميسر لامتصاص الجذور لفترات طويلة دون ترسب.'
           ],
-          usage: [
-            'الفاكهة: 300-350 جم رش ورقي، أو 500-750 جم أرضياً.',
-            'الخضر: 250-300 جم رش ورقي، أو 500-600 جم أرضياً.'
-          ],
+          usage: ['الفاكهة: 300-350 جم رش ورقي، أو 500-750 جم أرضياً.', 'الخضر: 250-300 جم رش ورقي، أو 500-600 جم أرضياً.'],
           meta: ['في التربة المتماسكة الجافة يفضل حرثها قبل الإضافة.', 'الوزن الصافي: 1 كجم.']
         },
         en: {
@@ -570,20 +844,20 @@
           comp: [
             { k: 'Iron (Fe)', v: '6.6%' },
             { k: 'Form', v: 'FeEDDHA' },
-            { k: 'Solubility', v: '100%' },
-            { k: 'pH Range', v: '3 - 11' }
+            { k: 'Solubility', v: '100%' }
           ],
-          features: ['Cures leaf yellowing (chlorosis) in difficult calcareous and alkaline soils.'],
-          usage: ['Fruit Trees: 500-750 g / acre.', 'Vegetables: 500-600 g / acre.'],
+          features: ['Cures leaf chlorosis in difficult calcareous and alkaline soils.'],
+          usage: ['Deciduous: 500-750 g / acre.', 'Vegetables: 500-600 g / acre.'],
           meta: ['Weight: 1 Kg.']
         }
       },
+
+      // 11. تشيجا ترست
       {
         id: 'tachiga-trust',
-        category: 'protection',
+        category: 'fungicide',
         pack: '500 مل | 500 ml',
-        image: 'images/tachiga-trust.png',
-        model: 'models/tachiga-trust.glb',
+        image: './images/tachiga-trust.png',
         ar: {
           name: 'تشيجا ترست 30% SL (Tachiga Trust)',
           category: 'مبيد فطري جهازي وقائي وعلاجي',
@@ -599,10 +873,7 @@
             'يكافح بفاعلية أعفان الجذور وخناق البادرات وأمراض التربة الفطرية.',
             'يعزز نمو الشعيرات الجذرية الماصة ويبكر بنضج المحصول.'
           ],
-          usage: [
-            'أعفان الجذور وموت البادرات: 1 سم / 3 لتر ماء رياً.',
-            'الري بالتنقيط العام: 2.5 لتر للفدان ويكرر حسب الحالة.'
-          ],
+          usage: ['أعفان الجذور وموت البادرات: 1 سم / 3 لتر ماء رياً.', 'الري بالتنقيط العام: 2.5 لتر للفدان ويكرر حسب الحالة.'],
           meta: ['الصلاحية 3 سنوات في عبوته الأصلية.', 'مادة سامة تحفظ بعيداً عن الأطفال.']
         },
         en: {
@@ -612,20 +883,20 @@
           comp: [
             { k: 'Hymexazol', v: '30%' },
             { k: 'Inerts', v: '70%' },
-            { k: 'Form', v: 'SL' },
-            { k: 'PHI', v: '45 Days' }
+            { k: 'Form', v: 'SL' }
           ],
           features: ['Combats Fusarium, Pythium, and Aphanomyces soil pathogens.'],
           usage: ['Drench: 1 ml per 3 Liters water.', 'Drip: 2.5 L / acre.'],
           meta: ['500 ml bottle.']
         }
       },
+
+      // 12. فولجا ترست
       {
         id: 'volga-trust',
         category: 'fertilizer',
         pack: '500 جم & 1 كجم',
-        image: 'images/volga-trust.png',
-        model: 'models/volga-trust.glb',
+        image: './images/volga-trust.png',
         ar: {
           name: 'فولجا ترست (Volga Trust)',
           category: 'تغذية وتنشيط إنزيمي متكامل',
@@ -651,20 +922,20 @@
           comp: [
             { k: 'Fulvic Acid', v: '50%' },
             { k: 'Potassium', v: '17%' },
-            { k: 'Amino Acids', v: '12%' },
-            { k: 'Seaweed', v: '3%' }
+            { k: 'Amino Acids', v: '12%' }
           ],
           features: ['Restores electro-chemical equilibrium and mitigates cold/frost stress.'],
           usage: ['Foliar: 1 g / L.', 'Soil: 2 - 3 Kg / acre.'],
           meta: ['500g & 1Kg.']
         }
       },
+
+      // 13. فينو سال
       {
         id: 'vino-sal',
         category: 'salinity',
         pack: '5 لتر | 5 Litre',
-        image: 'images/vino-sal.png',
-        model: 'models/vino-sal.glb',
+        image: './images/vino-sal.png',
         ar: {
           name: 'فينو سال (Vino Sal)',
           category: 'معالج ملوحة التربة ومياه الري',
@@ -680,10 +951,7 @@
             'حمض الساليسيليك ينشط المناعة المستحثة ضد أمراض الجذور.',
             'يخفض قلوية التربة ويعالج ملوحة مياه الآبار الارتوازية.'
           ],
-          usage: [
-            'الري بالتنقيط: 3 إلى 5 لتر / فدان كل 15:30 يوم.',
-            'مياه الري: 10:70 مل / متر مكعب ماء حسب الملوحة.'
-          ],
+          usage: ['الري بالتنقيط: 3 إلى 5 لتر / فدان كل 15:30 يوم.', 'مياه الري: 10:70 مل / متر مكعب ماء حسب الملوحة.'],
           meta: ['مدعم بالطحالب البحرية وحمض الساليسيليك.']
         },
         en: {
@@ -693,20 +961,20 @@
           comp: [
             { k: 'Calcium', v: '10%' },
             { k: 'Carboxylic', v: '12%' },
-            { k: 'Fulvic/Humic', v: '5%' },
-            { k: 'Nitrogen', v: '4%' }
+            { k: 'Fulvic/Humic', v: '5%' }
           ],
           features: ['Lowers soil pH and flushes toxic chlorides.'],
           usage: ['Drip: 3 to 5 L / acre.'],
           meta: ['5 Liters.']
         }
       },
+
+      // 14. فولا سال
       {
         id: 'vola-sal',
         category: 'salinity',
         pack: '5 لتر | 5 Litre',
-        image: 'images/vola-sal.png',
-        model: 'models/vola-sal.glb',
+        image: './images/vola-sal.png',
         ar: {
           name: 'فولا سال (Vola Sal)',
           category: 'معالج ملوحة فائق التركيز',
@@ -730,21 +998,20 @@
           subtitle: '14% Calcium & 17% Carboxylic Acid Complex',
           comp: [
             { k: 'Calcium', v: '14%' },
-            { k: 'Carboxylic', v: '17%' },
-            { k: 'Fulvic/Humic', v: '10%' },
-            { k: 'Nitrogen', v: '7%' }
+            { k: 'Carboxylic', v: '17%' }
           ],
           features: ['Breaks hard soil compaction and sodium crusts.'],
           usage: ['Drip: 2.5 - 3 L / acre.'],
           meta: ['5 Liters.']
         }
       },
+
+      // 15. فولا ميكس
       {
         id: 'vola-mix',
         category: 'fertilizer',
         pack: '5 لتر | 5 Litre',
-        image: 'images/vola-mix.png',
-        model: 'models/vola-mix.glb',
+        image: './images/vola-mix.png',
         ar: {
           name: 'فولا ميكس (Vola Mix)',
           category: 'مستخلصات نباتية وعناصر صغرى',
@@ -769,21 +1036,20 @@
           subtitle: 'Restores degraded soils and stimulates beneficial soil flora',
           comp: [
             { k: 'Plant Extracts', v: '50%' },
-            { k: 'Potassium', v: '12%' },
-            { k: 'Iron (Fe)', v: '1%' },
-            { k: 'Zn+Mn+Mg', v: '1% each' }
+            { k: 'Potassium', v: '12%' }
           ],
           features: ['Elevates Cation Exchange Capacity (CEC) of soil.'],
           usage: ['Drip: 2.5 L / acre.'],
           meta: ['5 Liters container.']
         }
       },
+
+      // 16. خضراوي
       {
         id: 'khadrawy',
         category: 'growth',
         pack: '100 مل / 250 مل / 600 مل',
-        image: 'images/khadrawy.png',
-        model: 'models/khadrawy.glb',
+        image: './images/khadrawy.png',
         ar: {
           name: 'خضراوي (Khadrawy)',
           category: 'منشط مجموع خضري وكلوروفيل',
@@ -799,10 +1065,7 @@
             'علاج اصفرار وبهتان النبات وضعف التسميد.',
             'يزيد من عدد الحشات في الموسم لمحاصيل الأعلاف (كالبرسيم).'
           ],
-          usage: [
-            'الخضر والأعلاف: 250 مل / 200 لتر ماء.',
-            'الأشجار: 100 مل / 600 لتر ماء.'
-          ],
+          usage: ['الخضر والأعلاف: 250 مل / 200 لتر ماء.', 'الأشجار: 100 مل / 600 لتر ماء.'],
           meta: ['مدعم بحديد 2%، زنك 2%، منجنيز 0.5%.']
         },
         en: {
@@ -811,9 +1074,7 @@
           subtitle: 'Lush Chlorophyll Radiance: Stronger Vegetative Growth',
           comp: [
             { k: 'Nitrogen', v: '20%' },
-            { k: 'Seaweed', v: '10%' },
-            { k: 'Sulfur', v: '7%' },
-            { k: 'Mg + Carboxylic', v: '5% each' }
+            { k: 'Seaweed', v: '10%' }
           ],
           features: ['Triggers explosive vegetative branching and dark greening.'],
           usage: ['Foliar: 250 ml per 200 Liters of water.'],
@@ -824,23 +1085,21 @@
 
     let currentProduct = null;
     let currentLang = 'ar';
-    let currentVisualMode = '2d';
 
-    // 1. بناء شريط الرول المائل والضخم (Tilted Marquee)
+    // 1. شريط بعض من منتجاتنا
     const marqueeTrack = document.getElementById('marqueeTrack');
     function initMarquee() {
       const doubleList = [...productsDB, ...productsDB];
       marqueeTrack.innerHTML = '';
       doubleList.forEach(prod => {
         const item = document.createElement('div');
-        // كروت أضخم بشكل ملحوظ (w-64 ومساحة صورة h-44)
-        item.className = "w-64 flex-shrink-0 bg-white border border-teal-800/10 hover:border-[#005660] rounded-3xl p-5 text-center cursor-pointer transition transform hover:scale-105 shadow-md hover:shadow-xl group";
+        item.className = "w-64 flex-shrink-0 bg-white border border-slate-200/90 hover:border-[#005660] rounded-3xl p-5 text-center cursor-pointer transition transform hover:scale-105 shadow-sm hover:shadow-xl group";
         item.onclick = () => openProductModal(prod.id);
         item.innerHTML = `
           <div class="h-44 flex items-center justify-center p-2 mb-3 bg-slate-50 rounded-2xl group-hover:bg-emerald-50/50 transition">
-            <img src="${prod.image}" alt="${prod.ar.name}" class="max-h-full object-contain pack-shadow group-hover:scale-110 transition duration-300" onerror="this.src='images/vola-k.png'">
+            <img src="${prod.image}" alt="${prod.ar.name}" class="max-h-full object-contain pack-shadow group-hover:scale-110 transition duration-300" onerror="this.src='./images/vola-k.png'">
           </div>
-          <span class="text-[11px] bg-teal-50 text-[#005660] font-black px-3 py-1 rounded-full inline-block truncate max-w-full">${prod.ar.category}</span>
+          <span class="text-[11px] bg-emerald-50 text-[#005660] font-black px-3 py-1 rounded-full inline-block truncate max-w-full">${prod.ar.category}</span>
           <h4 class="text-sm font-black text-slate-900 truncate mt-2">${prod.ar.name}</h4>
           <span class="text-[11px] text-slate-400 font-bold block mt-1">${prod.pack}</span>
         `;
@@ -848,7 +1107,7 @@
       });
     }
 
-    // 2. رسم كروت الكتالوج الأبيض النظيف
+    // 2. رسم كروت كتالوج المنتجات الـ 16
     const grid = document.getElementById('productsGrid');
     function renderCatalog(items) {
       grid.innerHTML = '';
@@ -861,16 +1120,16 @@
         card.innerHTML = `
           <div>
             <div class="h-60 flex items-center justify-center p-3 relative overflow-hidden bg-slate-50/80 rounded-2xl mb-4 group-hover:bg-emerald-50/40 transition">
-              <img src="${prod.image}" alt="${d.name}" class="max-h-full object-contain pack-shadow transition duration-300 group-hover:scale-105" onerror="this.src='images/vola-k.png'">
+              <img src="${prod.image}" alt="${d.name}" class="max-h-full object-contain pack-shadow transition duration-300 group-hover:scale-105" onerror="this.src='./images/vola-k.png'">
             </div>
-            <span class="inline-block bg-teal-50 text-[#005660] text-[11px] font-black px-3 py-1 rounded-full mb-2">${d.category}</span>
+            <span class="inline-block bg-emerald-50 text-[#005660] text-[11px] font-black px-3 py-1 rounded-full mb-2">${d.category}</span>
             <h3 class="text-xl font-black text-slate-900 leading-snug">${d.name}</h3>
             <p class="text-xs font-bold text-slate-500 mt-1 line-clamp-2">${d.subtitle}</p>
           </div>
           <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
             <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg">${prod.pack}</span>
-            <span class="text-xs font-black text-[#005660] group-hover:text-amber-500 transition">
-              عرض النشرة والـ 3D ➔
+            <span class="text-xs font-black text-[#005660] group-hover:text-emerald-700 transition">
+              عرض النشرة الفنية ➔
             </span>
           </div>
         `;
@@ -889,65 +1148,19 @@
       else renderCatalog(productsDB.filter(p => p.category === cat));
     }
 
-    // 4. فتح النافذة المنبثقة
+    // 4. فتح النافذة المنبثقة وعرض صورة الـ HD مباشرة
     function openProductModal(id) {
       currentProduct = productsDB.find(p => p.id === id);
       if (!currentProduct) return;
 
-      document.getElementById('modal2DImage').src = currentProduct.image;
-      const viewer = document.getElementById('modal3DViewer');
-      viewer.src = currentProduct.model;
-      viewer.poster = currentProduct.image;
-
-      if (window.location.protocol === 'file:') {
-        document.getElementById('localFileHelper').classList.remove('hidden');
-      }
-
-      switchVisualMode('2d');
+      document.getElementById('modalProductImage').src = currentProduct.image;
       updateModalTexts();
 
       document.getElementById('productModal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
 
-    // 5. التبديل بين صورة HD ومجسم 3D
-    function switchVisualMode(mode) {
-      currentVisualMode = mode;
-      const img = document.getElementById('modal2DImage');
-      const viewer = document.getElementById('modal3DViewer');
-      const btn2D = document.getElementById('btnShow2D');
-      const btn3D = document.getElementById('btnShow3D');
-      const indicator = document.getElementById('viewModeIndicator');
-
-      if (mode === '3d') {
-        img.classList.add('hidden');
-        viewer.classList.remove('hidden');
-        btn3D.className = "flex-1 bg-amber-400 text-slate-950 font-black py-2.5 rounded-xl shadow text-xs transition";
-        btn2D.className = "flex-1 bg-white text-slate-700 font-bold py-2.5 rounded-xl border border-slate-200 text-xs transition";
-        indicator.innerText = (currentLang === 'ar') ? "وضع 3D نشط (360°)" : "Active 3D (360°)";
-        indicator.className = "bg-amber-400 text-slate-950 px-3 py-1 rounded-full font-black animate-pulse";
-      } else {
-        viewer.classList.add('hidden');
-        img.classList.remove('hidden');
-        btn2D.className = "flex-1 bg-[#005660] text-white font-black py-2.5 rounded-xl shadow text-xs transition";
-        btn3D.className = "flex-1 bg-white text-slate-800 font-bold py-2.5 rounded-xl border border-slate-200 text-xs transition";
-        indicator.innerText = (currentLang === 'ar') ? "صورة فائقة الدقة HD" : "High-Res HD Image";
-        indicator.className = "bg-slate-800 text-white px-3 py-1 rounded-full";
-      }
-    }
-
-    // 6. تشغيل الـ 3D محلياً عبر اختيار الملف المباشر (لحين الرفع على سيرفر)
-    document.getElementById('localGlbInput').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const objectURL = URL.createObjectURL(file);
-        const viewer = document.getElementById('modal3DViewer');
-        viewer.src = objectURL;
-        switchVisualMode('3d');
-      }
-    });
-
-    // 7. تبديل لغة النشرة الفنية
+    // 5. تبديل لغة النشرة الفنية
     function setModalLanguage(lang) {
       currentLang = lang;
       const btnAr = document.getElementById('langBtnAr');
@@ -1005,11 +1218,11 @@
       // بيانات التسجيل
       const metaBox = document.getElementById('modalMetaBox');
       metaBox.innerHTML = '';
-      d.meta.forEach(m => { metaBox.innerHTML += `<p>${m}</p>`; });
+      d.meta.forEach(m => { metaBox.innerHTML += `<p>• ${m}</p>`; });
 
       // واتساب
       const msg = isAr ? `السلام عليكم، أريد الاستفسار عن مركب ${d.name}` : `Hello, I'd like to inquire about ${d.name}`;
-      document.getElementById('modalWhatsappBtn').href = `https://wa.me/201005892898?text=${encodeURIComponent(msg)}`;
+      document.getElementById('modalWhatsappBtn').href = `https://wa.me/201000008203?text=${encodeURIComponent(msg)}`;
     }
 
     function closeProductModal() {
