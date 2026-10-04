@@ -1,27 +1,69 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>شركة تراستون للتنمية الزراعية | Truston AG</title>
+  <title>شركة ترستون للتنمية الزراعية | Truston AG</title>
   
   <!-- خط Cairo الفاخر -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS مع تفعيل خاصية Dark Mode -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
 
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #fcfdfc;
-      color: #0f172a;
+      transition: background-color 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
     }
 
-    /* دمج صورة الحقول مع الخلفية الضبابية الفاتحة */
+    /* حركة النبضة / النغمة الحيوية في الخلفية (Rhythmic Pulse) */
+    @keyframes organicPulse {
+      0%, 100% {
+        transform: scale(0.92) translate(0, 0);
+        opacity: 0.25;
+      }
+      50% {
+        transform: scale(1.18) translate(-15px, 12px);
+        opacity: 0.55;
+      }
+    }
+    @keyframes organicPulseDelayed {
+      0%, 100% {
+        transform: scale(1.15) translate(10px, -10px);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(0.9) translate(-10px, 15px);
+        opacity: 0.5;
+      }
+    }
+
+    .pulse-orb-1 {
+      animation: organicPulse 8s ease-in-out infinite;
+    }
+    .pulse-orb-2 {
+      animation: organicPulseDelayed 10s ease-in-out infinite;
+    }
+
+    /* تكيف اللوجو: أسود في الفاتح وأبيض في الغامق */
+    .brand-logo-adapt {
+      transition: filter 0.3s ease;
+      filter: brightness(0); /* أسود في الوضع الفاتح */
+    }
+    .dark .brand-logo-adapt {
+      filter: brightness(0) invert(1); /* أبيض في الوضع الداكن */
+    }
+
+    /* دمج صورة الحقول مع الخلفية الضبابية */
     .hero-mist-mask {
       mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
       -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
@@ -35,11 +77,8 @@
 
     /* كروت زجاجية عائمة */
     .glass-floating-card {
-      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
     }
 
     /* شريط الرول المتحرك المائل */
@@ -77,116 +116,134 @@
     }
   </style>
 </head>
-<body class="selection:bg-emerald-500 selection:text-white">
+<body class="bg-[#fcfdfc] text-[#0f172a] dark:bg-[#07100e] dark:text-[#f1f5f9] relative">
 
-  <!-- ==================== HEADER & HERO (الشركة أولاً وبدون إحصائيات) ==================== -->
-  <header class="relative bg-[#fbfdfb] overflow-hidden border-b border-slate-100">
+  <!-- ==================== خلفية النبضة الحيوية المتحركة (Rhythmic Glow Background) ==================== -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="pulse-orb-1 absolute -top-20 right-10 w-[520px] h-[520px] rounded-full bg-emerald-400/20 dark:bg-emerald-500/15 blur-3xl"></div>
+    <div class="pulse-orb-2 absolute top-1/3 -left-20 w-[600px] h-[600px] rounded-full bg-teal-500/20 dark:bg-teal-600/15 blur-3xl"></div>
+    <div class="pulse-orb-1 absolute -bottom-24 right-1/4 w-[550px] h-[550px] rounded-full bg-amber-400/15 dark:bg-emerald-400/10 blur-3xl"></div>
+  </div>
+
+  <!-- ==================== HEADER & HERO (خاص بشركة ترستون) ==================== -->
+  <header class="relative z-10 overflow-hidden border-b border-slate-200/60 dark:border-slate-800/80">
     
     <!-- النافبار -->
     <nav class="container mx-auto px-6 py-6 flex justify-between items-center relative z-30">
       <a href="#" class="flex items-center gap-3">
-        <img src="logo.png" alt="تراستون" class="h-16 md:h-20 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-black text-[#005660]\'>TRUSTON AG</span>'">
+        <!-- اللوجو المتكيف (أسود في الفاتح وأبيض في الداكن) -->
+        <img src="logo.png" alt="ترستون" class="brand-logo-adapt h-16 md:h-20 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-black text-[#005660] dark:text-emerald-400\'>TRUSTON AG</span>'">
       </a>
 
-      <div class="hidden lg:flex items-center gap-10 font-bold text-slate-600 text-sm">
-        <a href="#" class="text-[#005660] font-black">الرئيسية</a>
-        <a href="#marquee-section" class="hover:text-[#005660] transition">أبرز المركبات</a>
-        <a href="#catalog" class="hover:text-[#005660] transition">كتالوج المنتجات (16)</a>
-        <a href="tel:+201000008203" class="hover:text-[#005660] transition">اتصل بنا</a>
+      <div class="hidden lg:flex items-center gap-10 font-bold text-slate-600 dark:text-slate-300 text-sm">
+        <a href="#" class="text-[#005660] dark:text-emerald-400 font-black">الرئيسية</a>
+        <a href="#marquee-section" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">أبرز المركبات</a>
+        <a href="#catalog" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">كتالوج المنتجات (16)</a>
+        <a href="tel:+201000008203" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">اتصل بنا</a>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="tel:+201000008203" class="hidden sm:inline-flex items-center gap-2 text-xs font-black text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2.5 rounded-full transition" dir="ltr">
+        <!-- زر التبديل بين الوضع الفاتح والداكن (Dark / Light Mode Toggle) -->
+        <button onclick="toggleTheme()" id="themeBtn" title="تبديل المظهر" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-amber-400 transition shadow-sm border border-slate-200 dark:border-slate-700">
+          <span id="themeIcon" class="text-base">🌙</span>
+        </button>
+
+        <a href="tel:+201000008203" class="hidden sm:inline-flex items-center gap-2 text-xs font-black text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 px-4 py-2.5 rounded-full transition" dir="ltr">
           +20 10 00008203
         </a>
-        <a href="https://wa.me/201000008203" target="_blank" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-md transition transform hover:scale-105">
+
+        <a href="https://wa.me/201000008203" target="_blank" class="bg-[#005660] dark:bg-emerald-600 hover:bg-teal-900 dark:hover:bg-emerald-500 text-white font-black px-6 py-2.5 rounded-full text-xs shadow-md transition transform hover:scale-105">
           طلب استشارة فنية
         </a>
       </div>
     </nav>
 
-    <!-- الهيرو المخصص للشركة فقط -->
+    <!-- الهيرو المخصص لشركة ترستون -->
     <div class="container mx-auto px-6 py-12 md:py-20 relative z-20">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <!-- الجانب الأيمن: اللوجو + اسم الشركة الأكبر + السلوجن -->
+        <!-- الجانب الأيمن: اللوجو + اسم الشركة الأضخم + السلوجن -->
         <div class="lg:col-span-6 space-y-6 text-right">
           
+          <!-- لوجو فوق اسم الشركة متكيف مع الخلفية -->
           <div class="inline-block">
-            <img src="logo.png" alt="شعار تراستون" class="h-20 md:h-24 object-contain" onerror="this.style.display='none'">
+            <img src="logo.png" alt="شعار ترستون" class="brand-logo-adapt h-20 md:h-24 object-contain" onerror="this.style.display='none'">
           </div>
 
-          <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-[#005660] leading-[1.15] tracking-tight">
-            شركة تراستون <br>
-            <span class="text-slate-900">للتنمية الزراعية</span>
+          <!-- اسم الشركة هو العنوان الأساسي الأكبر -->
+          <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-[#005660] dark:text-white leading-[1.15] tracking-tight">
+            شركة ترستون <br>
+            <span class="text-slate-900 dark:text-emerald-400">للتنمية الزراعية</span>
           </h1>
 
-          <div class="text-xl sm:text-2xl font-bold text-emerald-700 tracking-wide">
+          <!-- السلوجن أصغر وواضح -->
+          <div class="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 tracking-wide">
             إنتاج يفوق طموحاتك
           </div>
 
-          <p class="text-slate-600 text-base md:text-lg font-medium max-w-lg leading-relaxed pt-1">
+          <p class="text-slate-600 dark:text-slate-300 text-base md:text-lg font-medium max-w-lg leading-relaxed pt-1">
             صرح زراعي رائد في تصنيع وتوريد أحدث الأسمدة المخلبية، منظمات النمو، المبيدات الفطرية والحشرية، ومعالجات الملوحة لتلبية متطلبات المزارع الاستثمارية والتصدير.
           </p>
 
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4 max-w-md">
-            <a href="#catalog" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-8 py-4 rounded-2xl shadow-lg transition text-center text-sm flex items-center justify-center gap-2">
+            <a href="#catalog" class="bg-[#005660] dark:bg-emerald-600 hover:bg-teal-900 dark:hover:bg-emerald-500 text-white font-black px-8 py-4 rounded-2xl shadow-lg transition text-center text-sm flex items-center justify-center gap-2">
               <span>تصفح كتالوج المنتجات</span>
               <span>➔</span>
             </a>
-            <a href="https://wa.me/201000008203" target="_blank" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold px-6 py-4 rounded-2xl shadow-sm text-center text-sm transition">
+            <a href="https://wa.me/201000008203" target="_blank" class="bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white font-bold px-6 py-4 rounded-2xl shadow-sm text-center text-sm transition">
               تواصل مع الدعم الفني
             </a>
           </div>
 
         </div>
 
-        <!-- الجانب الأيسر: منظر الحقول مع 3 كروت عائمة لأبرز المركبات -->
+        <!-- الجانب الأيسر: منظر الحقول مع 3 كروت عائمة -->
         <div class="lg:col-span-6 relative min-h-[460px] lg:min-h-[520px] flex items-center justify-center">
           
           <div class="absolute inset-0 rounded-[40px] overflow-hidden hero-mist-mask shadow-xl">
             <img src="hero-bg.jpg" alt="حقول زراعية" class="w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
           </div>
 
+          <!-- كروت عائمة لأبرز المركبات -->
           <div class="relative z-10 w-full max-w-sm space-y-4 px-4 my-auto">
             
-            <div onclick="openProductModal('vola-k')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
-              <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+            <div onclick="openProductModal('vola-k')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
+              <div class="w-14 h-14 bg-orange-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                 <img src="./images/vola-k.png" alt="فولا كي" class="max-h-full object-contain drop-shadow" onerror="this.src='images/vola-k.png'">
               </div>
               <div class="flex-1 text-right">
                 <div class="flex justify-between items-center">
-                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">سحر البوتاسيوم (Vola K)</h4>
-                  <span class="text-[10px] bg-orange-100 text-orange-700 font-black px-2 py-0.5 rounded-full">36% K</span>
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">سحر البوتاسيوم (Vola K)</h4>
+                  <span class="text-[10px] bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 font-black px-2 py-0.5 rounded-full">36% K</span>
                 </div>
-                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">تحجيم ورفع نسب السكريات للثمار التصديرية</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">تحجيم ورفع نسب السكريات للثمار التصديرية</p>
               </div>
             </div>
 
-            <div onclick="openProductModal('trustzol')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
-              <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+            <div onclick="openProductModal('trustzol')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
+              <div class="w-14 h-14 bg-blue-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                 <img src="./images/trustzol.png" alt="ترستزول" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustzol.png'">
               </div>
               <div class="flex-1 text-right">
                 <div class="flex justify-between items-center">
-                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">ترستزول (Trustzol 25% EC)</h4>
-                  <span class="text-[10px] bg-blue-100 text-blue-800 font-black px-2 py-0.5 rounded-full">مبيد فطري</span>
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">ترستزول (Trustzol 25% EC)</h4>
+                  <span class="text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 font-black px-2 py-0.5 rounded-full">مبيد فطري</span>
                 </div>
-                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">علاج الصدأ الأصفر في القمح وأمراض الأصداء</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">علاج الصدأ الأصفر في القمح وأمراض الأصداء</p>
               </div>
             </div>
 
-            <div onclick="openProductModal('trustnem')" class="glass-floating-card rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 group">
-              <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+            <div onclick="openProductModal('trustnem')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
+              <div class="w-14 h-14 bg-red-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                 <img src="./images/trustnem.png" alt="ترست نيم" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustnem.png'">
               </div>
               <div class="flex-1 text-right">
                 <div class="flex justify-between items-center">
-                  <h4 class="font-black text-xs text-slate-900 group-hover:text-[#005660] transition">ترست نيم (TrustNem 24%)</h4>
-                  <span class="text-[10px] bg-red-100 text-red-800 font-black px-2 py-0.5 rounded-full">مبيد نيماتودي</span>
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">ترست نيم (TrustNem 24%)</h4>
+                  <span class="text-[10px] bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 font-black px-2 py-0.5 rounded-full">مبيد نيماتودي</span>
                 </div>
-                <p class="text-[11px] text-slate-500 font-bold line-clamp-1 mt-0.5">إبادة النيماتودا وحماية المجموع الجذري</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">إبادة النيماتودا وحماية المجموع الجذري</p>
               </div>
             </div>
 
@@ -199,9 +256,9 @@
   </header>
 
   <!-- ==================== شريط بعض من منتجاتنا (مائل وضخم) ==================== -->
-  <section id="marquee-section" class="py-12 overflow-hidden relative bg-[#f4f8f5] border-y border-slate-200/60">
+  <section id="marquee-section" class="py-12 overflow-hidden relative z-10 bg-[#f4f8f5] dark:bg-[#0c1915] border-y border-slate-200/60 dark:border-slate-800/80">
     <div class="container mx-auto px-6 mb-4 text-right">
-      <h2 class="text-2xl md:text-3xl font-black text-slate-900">بعض من منتجاتنا</h2>
+      <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">بعض من منتجاتنا</h2>
     </div>
 
     <div class="marquee-container-tilted py-6">
@@ -210,20 +267,20 @@
   </section>
 
   <!-- ==================== كتالوج المنتجات (16 منتجاً مع الفلاتر) ==================== -->
-  <main id="catalog" class="container mx-auto px-6 py-16">
+  <main id="catalog" class="container mx-auto px-6 py-16 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
       <div>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900">كتالوج المنتجات</h2>
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">كتالوج المنتجات</h2>
       </div>
 
       <!-- أزرار الفلترة -->
       <div class="flex flex-wrap gap-2">
-        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] text-white shadow">الكل (16)</button>
-        <button onclick="filterCategory('fertilizer', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">أسمدة ومخصبات</button>
-        <button onclick="filterCategory('growth', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">منظمات نمو وتزهير</button>
-        <button onclick="filterCategory('fungicide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">مبيدات فطرية</button>
-        <button onclick="filterCategory('insecticide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">مبيدات حشرية ونيماتودية</button>
-        <button onclick="filterCategory('salinity', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">معالجات ملوحة</button>
+        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] dark:bg-emerald-600 text-white shadow">الكل (16)</button>
+        <button onclick="filterCategory('fertilizer', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">أسمدة ومخصبات</button>
+        <button onclick="filterCategory('growth', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">منظمات نمو وتزهير</button>
+        <button onclick="filterCategory('fungicide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">مبيدات فطرية</button>
+        <button onclick="filterCategory('insecticide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">مبيدات حشرية ونيماتودية</button>
+        <button onclick="filterCategory('salinity', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">معالجات ملوحة</button>
       </div>
     </div>
 
@@ -231,25 +288,25 @@
     <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
   </main>
 
-  <!-- ==================== النافذة المنبثقة للنشرة الفنية (بدون 3D - سريعة وفائقة الدقة) ==================== -->
-  <div id="productModal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
-    <div class="bg-white w-full max-w-6xl max-h-[94vh] rounded-[32px] shadow-2xl flex flex-col overflow-hidden relative border border-slate-100">
+  <!-- ==================== النافذة المنبثقة للنشرة الفنية ==================== -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+    <div class="bg-white dark:bg-[#0e1d18] text-[#0f172a] dark:text-[#f1f5f9] w-full max-w-6xl max-h-[94vh] rounded-[32px] shadow-2xl flex flex-col overflow-hidden relative border border-slate-100 dark:border-slate-800">
       
       <!-- هيدر النافذة -->
-      <div class="px-6 py-4 bg-slate-50 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3">
+      <div class="px-6 py-4 bg-slate-50 dark:bg-[#0a1612] border-b border-slate-100 dark:border-slate-800 flex flex-wrap justify-between items-center gap-3">
         <div class="flex items-center gap-3">
-          <span class="w-3.5 h-3.5 rounded-full bg-emerald-500"></span>
-          <h3 id="modalTopTitle" class="font-black text-lg text-slate-900">النشرة الفنية المعتمدة</h3>
+          <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <h3 id="modalTopTitle" class="font-black text-lg text-slate-900 dark:text-white">النشرة الفنية المعتمدة</h3>
         </div>
 
         <div class="flex items-center gap-3">
           <!-- تبديل اللغة -->
-          <div class="bg-slate-200 p-1 rounded-xl flex items-center text-xs font-black">
-            <button id="langBtnAr" onclick="setModalLanguage('ar')" class="px-3.5 py-1.5 rounded-lg bg-[#005660] text-white transition">عربي</button>
-            <button id="langBtnEn" onclick="setModalLanguage('en')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-950 transition">English</button>
+          <div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-xl flex items-center text-xs font-black">
+            <button id="langBtnAr" onclick="setModalLanguage('ar')" class="px-3.5 py-1.5 rounded-lg bg-[#005660] dark:bg-emerald-600 text-white transition">عربي</button>
+            <button id="langBtnEn" onclick="setModalLanguage('en')" class="px-3.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-950 transition">English</button>
           </div>
 
-          <button onclick="closeProductModal()" class="w-10 h-10 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black flex items-center justify-center transition">✕</button>
+          <button onclick="closeProductModal()" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-white font-black flex items-center justify-center transition">✕</button>
         </div>
       </div>
 
@@ -257,19 +314,19 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto custom-scroll flex-1">
         
         <!-- جانب عرض صورة العبوة فائقة الدقة -->
-        <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-200 p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-l border-slate-200 relative min-h-[440px]">
+        <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-200 dark:from-[#0f211b] dark:to-[#07130f] p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-l border-slate-200 dark:border-slate-800 relative min-h-[440px]">
           
           <div class="w-full flex justify-between items-center text-xs font-bold">
             <span id="packSizeBadge" class="bg-amber-500 text-slate-950 px-3 py-1 rounded-full font-black"></span>
-            <span class="bg-slate-800 text-white px-3 py-1 rounded-full">صورة العبوة الرسمية HD</span>
+            <span class="bg-slate-800 dark:bg-slate-700 text-white px-3 py-1 rounded-full">صورة العبوة الرسمية HD</span>
           </div>
 
           <div class="w-full h-80 lg:h-[400px] flex items-center justify-center relative my-auto">
             <img id="modalProductImage" src="" alt="Product" class="max-h-full max-w-full object-contain pack-shadow transition-all duration-300 hover:scale-105">
           </div>
 
-          <div class="w-full text-center text-[11px] text-slate-500 font-bold bg-white/70 py-2 rounded-xl border border-slate-200">
-            إنتاج وتوزيع شركة تراستون للتنمية الزراعية
+          <div class="w-full text-center text-[11px] text-slate-500 dark:text-slate-400 font-bold bg-white/70 dark:bg-slate-900/60 py-2 rounded-xl border border-slate-200 dark:border-slate-800">
+            إنتاج وتوزيع شركة ترستون للتنمية الزراعية
           </div>
 
         </div>
@@ -278,37 +335,37 @@
         <div class="lg:col-span-7 p-6 sm:p-8 space-y-6">
           
           <div>
-            <span id="modalCategoryBadge" class="text-xs font-black text-emerald-800 bg-emerald-100 px-3.5 py-1 rounded-full inline-block"></span>
-            <h2 id="modalTitle" class="text-3xl font-black text-slate-900 mt-2"></h2>
-            <p id="modalSubtitle" class="text-orange-600 font-bold text-sm mt-1"></p>
+            <span id="modalCategoryBadge" class="text-xs font-black text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/60 px-3.5 py-1 rounded-full inline-block"></span>
+            <h2 id="modalTitle" class="text-3xl font-black text-slate-900 dark:text-white mt-2"></h2>
+            <p id="modalSubtitle" class="text-orange-600 dark:text-orange-400 font-bold text-sm mt-1"></p>
           </div>
 
           <!-- جدول التحليل والتركيب -->
-          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-            <h4 id="labelComp" class="font-black text-slate-900 text-sm mb-3">التحليل والتركيب المضمون:</h4>
+          <div class="bg-slate-50 dark:bg-[#091511] border border-slate-200 dark:border-slate-800 rounded-2xl p-4">
+            <h4 id="labelComp" class="font-black text-slate-900 dark:text-white text-sm mb-3">التحليل والتركيب المضمون:</h4>
             <div id="modalCompGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs"></div>
           </div>
 
           <!-- الخصائص الفسيولوجية والتأثير -->
-          <div class="space-y-2 text-sm leading-relaxed text-slate-700">
-            <h4 id="labelFeatures" class="font-black text-slate-900 text-base border-r-4 border-[#005660] pr-2">الخصائص والمميزات الفنية:</h4>
+          <div class="space-y-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            <h4 id="labelFeatures" class="font-black text-slate-900 dark:text-white text-base border-r-4 border-[#005660] dark:border-emerald-500 pr-2">الخصائص والمميزات الفنية:</h4>
             <ul id="modalFeaturesList" class="space-y-2 pt-1 list-disc list-inside"></ul>
           </div>
 
           <!-- معدلات وطرق الاستخدام -->
-          <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4">
-            <h4 id="labelUsage" class="font-black text-emerald-950 text-sm mb-2">معدلات وطرق الاستخدام المعتمدة:</h4>
-            <div id="modalUsageList" class="text-xs text-emerald-900 space-y-1.5 font-bold"></div>
+          <div class="bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 rounded-2xl p-4">
+            <h4 id="labelUsage" class="font-black text-emerald-950 dark:text-emerald-300 text-sm mb-2">معدلات وطرق الاستخدام المعتمدة:</h4>
+            <div id="modalUsageList" class="text-xs text-emerald-900 dark:text-emerald-200 space-y-1.5 font-bold"></div>
           </div>
 
           <!-- بيانات التسجيل والصلاحية وفترات الأمان -->
-          <div id="modalMetaBox" class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1.5 font-semibold"></div>
+          <div id="modalMetaBox" class="bg-slate-50 dark:bg-[#091511] p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1.5 font-semibold"></div>
 
           <!-- أزرار التواصل للمبيعات -->
-          <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
-            <div class="text-xs text-slate-500">
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 items-center justify-between">
+            <div class="text-xs text-slate-500 dark:text-slate-400">
               <span id="labelSales">المبيعات والتوريد المباشر:</span>
-              <a href="tel:+201000008203" class="block font-black text-base text-[#005660] hover:underline" dir="ltr">+20 10 00008203</a>
+              <a href="tel:+201000008203" class="block font-black text-base text-[#005660] dark:text-emerald-400 hover:underline" dir="ltr">+20 10 00008203</a>
             </div>
             
             <a id="modalWhatsappBtn" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl shadow transition flex items-center gap-2">
@@ -323,9 +380,10 @@
   </div>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-[#005660] mt-20">
+  <footer class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-[#005660] mt-20 relative z-10">
     <div class="container mx-auto px-6 text-center space-y-4">
-      <img src="logo.png" alt="تراستون" class="h-16 mx-auto object-contain brightness-125" onerror="this.outerHTML='<h3 class=\'text-2xl font-black text-white\'>شركة تراستون للتنمية الزراعية</h3>'">
+      <!-- اللوجو في الفوتر أبيض ناصع دائماً -->
+      <img src="logo.png" alt="ترستون" class="h-16 mx-auto object-contain brightness-0 invert" onerror="this.outerHTML='<h3 class=\'text-2xl font-black text-white\'>شركة ترستون للتنمية الزراعية</h3>'">
       <p class="text-xs text-slate-400 max-w-md mx-auto">
         إنتاج يفوق طموحاتك | حلول متكاملة للتسميد، مكافحة الآفات، وتحقيق أعلى مواصفات التصدير القياسية.
       </p>
@@ -333,15 +391,39 @@
         هاتف المبيعات والاستفسارات: <a href="tel:+201000008203" class="text-white font-bold hover:underline" dir="ltr">+20 10 00008203</a>
       </div>
       <div class="text-[11px] text-slate-500 pt-4 border-t border-slate-800">
-        جميع الحقوق محفوظة © 2026 لشركة تراستون للتنمية الزراعية (Truston AG).
+        جميع الحقوق محفوظة © 2026 لشركة ترستون للتنمية الزراعية (Truston AG).
       </div>
     </div>
   </footer>
 
-  <!-- ==================== JAVASCRIPT: قاعدة البيانات الشاملة (16 منتجاً) ==================== -->
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
+    // نظام التبديل الذكي بين المظهر الفاتح والداكن (Light/Dark Mode)
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.innerText = '🌙';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.innerText = '☀️';
+      }
+    }
+
+    // استرجاع المظهر المفضل المخزن مسبقاً
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').innerText = '☀️';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeIcon').innerText = '🌙';
+    }
+
+    // قاعدة البيانات الشاملة (16 منتجاً مع تصحيح اسم ترستون)
     const productsDB = [
-      // 1. فولا كي
       {
         id: 'vola-k',
         category: 'fertilizer',
@@ -404,8 +486,6 @@
           ]
         }
       },
-
-      // 2. ترستزول 25% EC (جديد)
       {
         id: 'trustzol',
         category: 'fungicide',
@@ -460,8 +540,6 @@
           ]
         }
       },
-
-      // 3. أوتو ستار توب 325 SC (جديد)
       {
         id: 'autostar-top',
         category: 'fungicide',
@@ -500,27 +578,20 @@
           comp: [
             { k: 'Azoxystrobin', v: '20% w/v' },
             { k: 'Difenoconazole', v: '12.5% w/v' },
-            { k: 'Total Active Active', v: '325 g/L' },
-            { k: 'Inerts & Wetting Agents', v: '67.5%' }
+            { k: 'Total Active Content', v: '325 g/L' }
           ],
           features: [
             'Combines two proven chemistries to prevent resistance and guarantee total cure.',
-            'Inhibits fungal respiration and sterol biosynthesis across leaf and fruit surfaces.',
-            'Superb persistence and rainfastness.'
+            'Inhibits fungal respiration and sterol biosynthesis across leaf and fruit surfaces.'
           ],
           usage: [
-            'Guava (Leaf Spot): 50 ml per 100 L of water.',
+            'Guava (Leaf Spot): 50 ml per 100 L water.',
             'Cantaloupe (Downy Mildew): 300 ml per acre.',
-            'Grapes (Powdery Mildew): 75 ml per 100 L of water.'
+            'Grapes (Powdery Mildew): 75 ml per 100 L water.'
           ],
-          meta: [
-            'PHI: Guava 7 days, Onion 10 days, Grapes 21 days.',
-            'Bottles: 100 ml & 200 ml.'
-          ]
+          meta: ['PHI: Guava 7 days, Onion 10 days, Grapes 21 days.']
         }
       },
-
-      // 4. ترست فوس 28% EC (جديد)
       {
         id: 'trustfos',
         category: 'insecticide',
@@ -556,24 +627,13 @@
           comp: [
             { k: 'Chlorpyrifos', v: '25% w/v' },
             { k: 'Alpha-cypermethrin', v: '3% w/v' },
-            { k: 'Solvent & Emulsifier', v: '72%' },
             { k: 'Active Content', v: '280 g/L' }
           ],
-          features: [
-            'Organophosphate and synthetic pyrethroid combination with strong repellent action.',
-            'Controls chewing and sucking pests: Cutworms, scale insects, whiteflies, and thrips.'
-          ],
-          usage: [
-            'Application Rate: 100 ml per 100 Liters of water.'
-          ],
-          meta: [
-            'PHI Interval: 7 - 10 Days.',
-            'Net Content: 250 ml.'
-          ]
+          features: ['Organophosphate and pyrethroid blend against chewing and sucking pests.'],
+          usage: ['Rate: 100 ml per 100 Liters of water.'],
+          meta: ['PHI Interval: 7 - 10 Days.']
         }
       },
-
-      // 5. ترستميك 1.8% EC (جديد)
       {
         id: 'trustmec',
         category: 'insecticide',
@@ -609,25 +669,13 @@
           comp: [
             { k: 'Abamectin', v: '1.8% w/v' },
             { k: 'Alpha-cypermethrin', v: '1% w/v' },
-            { k: 'Zinc', v: '3% w/v' },
-            { k: 'Emulsifiers', v: '94.2%' }
+            { k: 'Zinc', v: '3% w/v' }
           ],
-          features: [
-            'Translaminar activity protects both upper and lower leaf surfaces.',
-            'Proven efficacy against two-spotted red spider mites and leafminers.',
-            'Zinc fortification promotes leaf recovery and vigor.'
-          ],
-          usage: [
-            'Red Spider Mites on Cucumbers: 40 ml per 100 Liters of water.'
-          ],
-          meta: [
-            'PHI: Cucumbers: 7 Days.',
-            'Bottle: 250 ml.'
-          ]
+          features: ['Translaminar activity against two-spotted red spider mites and leafminers.'],
+          usage: ['Rate: 40 ml per 100 Liters of water.'],
+          meta: ['PHI: Cucumbers: 7 Days.']
         }
       },
-
-      // 6. ترست نيم 24% SL (جديد)
       {
         id: 'trustnem',
         category: 'insecticide',
@@ -645,7 +693,6 @@
           ],
           features: [
             'مبيد نيماتودي جهازي عالي الكفاءة يمتص عبر الجذور والأوراق لمكافحة نيماتودا تعقد الجذور.',
-            'الاسم الكيميائي: N,N-dimethyl-2-methylcarbamoyloxyimino-2-(methylthio)acetamide.',
             'مقيد الاستخدام (RUP) نظراً لسميته العالية ويستخدم تحت إشراف زراعي متخصص.',
             'مزود بعامل مرارة (0.10%) لمنع الابتلاع العرضي.'
           ],
@@ -654,35 +701,22 @@
           ],
           meta: [
             'تنبيه: مركب سام جداً، يجب ارتداء قفازات، كمامات، ونظارات واقية أثناء التطبيق.',
-            'مراكز علاج السموم: عين شمس (0224346789) - القومي بالقاهرة (0223640402) - الإسكندرية (034862244).'
+            'مراكز علاج السموم: عين شمس (0224346789) - القومي بالقاهرة (0223640402).'
           ]
         },
         en: {
           name: 'TrustNem 24% SL',
-          category: 'Systemic Nematicide & Insecticide',
+          category: 'Systemic Nematicide',
           subtitle: 'Oxamyl 24% Soluble Concentrate for root knot and free-living nematodes',
           comp: [
             { k: 'Oxamyl', v: '24% w/v' },
-            { k: 'Solvents', v: '74.25%' },
-            { k: 'Adjuvants & Wetting', v: '1.60%' },
-            { k: 'Bittering Agent', v: '0.10%' }
+            { k: 'Solvents & Inerts', v: '76%' }
           ],
-          features: [
-            'Powerful systemic carbamate nematicide translocated both upward and downward in plants.',
-            'Paralyzes root-knot, cyst, and lesion nematodes upon contact or feeding.',
-            'Restricted Use Pesticide (RUP) applied under agronomist supervision.'
-          ],
-          usage: [
-            'Drip fertigation application targeted at root-zone nematode infestations.'
-          ],
-          meta: [
-            'Danger: Highly Toxic. Full protective gear mandatory.',
-            'Pack size: 1 Litre container.'
-          ]
+          features: ['Paralyzes root-knot, cyst, and lesion nematodes upon contact or feeding.'],
+          usage: ['Drip fertigation application targeted at root-zone nematode infestations.'],
+          meta: ['Restricted Use Pesticide (RUP).']
         }
       },
-
-      // 7. فولا فول
       {
         id: 'vola-ful',
         category: 'fertilizer',
@@ -716,21 +750,13 @@
           subtitle: '100% Natural high-purity Fulvic Acid with seaweed and auxins',
           comp: [
             { k: 'Fulvic Acid', v: '60%' },
-            { k: 'Seaweed Extract', v: '2%' },
-            { k: 'Auxins', v: '1%' },
-            { k: 'Carboxylic & CMS', v: '37%' }
+            { k: 'Seaweed Extract', v: '2%' }
           ],
-          features: [
-            'Low molecular weight enables fast cellular absorption.',
-            'Stimulates soil microflora and beneficial microorganisms.',
-            'Improves soil structure and water retention during drought stress.'
-          ],
+          features: ['Stimulates soil microflora and beneficial microorganisms.'],
           usage: ['Foliar: 250 g per 100 L.', 'Drip: 1.25 Kg / acre.'],
-          meta: ['100% Water Soluble Powder.', 'Net Wt: 1 Kg.']
+          meta: ['100% Water Soluble Powder.']
         }
       },
-
-      // 8. أوكسي ترست
       {
         id: 'oxy-trust',
         category: 'growth',
@@ -763,17 +789,13 @@
           subtitle: 'Safe Growth .. Abundant Flowering .. Superior Fruit Set',
           comp: [
             { k: 'NAA', v: '0.5%' },
-            { k: 'NAD', v: '1.7%' },
-            { k: 'BNOA', v: '1.8%' },
-            { k: 'Carrier', v: '96%' }
+            { k: 'NAD', v: '1.7%' }
           ],
           features: ['Proven auxin mixture to maximize blossom retention and fertilization.'],
           usage: ['Drip Fertigation: 6 g / 15 L at flower initiation.'],
           meta: ['Packages: 60g & 250g.']
         }
       },
-
-      // 9. كاترست بي
       {
         id: 'ca-trust-b',
         category: 'fertilizer',
@@ -803,17 +825,13 @@
           subtitle: 'Stronger Fruits .. Superior Storage and Export Shelf-Life',
           comp: [
             { k: 'Calcium', v: '20%' },
-            { k: 'Citric Acid', v: '20%' },
-            { k: 'Boron', v: '5%' },
-            { k: 'Molybdenum', v: 'Trace' }
+            { k: 'Citric Acid', v: '20%' }
           ],
           features: ['Dramatically elevates fruit firmness and prevents transit bruising.'],
           usage: ['Foliar: 1 g / L.', 'Drip: 1 Kg / acre.'],
           meta: ['Packages: 60g & 250g.']
         }
       },
-
-      // 10. روفا ترست
       {
         id: 'roufa-trust',
         category: 'fertilizer',
@@ -843,16 +861,13 @@
           subtitle: 'Micro-granules 100% Water Soluble for immediate chlorosis cure',
           comp: [
             { k: 'Iron (Fe)', v: '6.6%' },
-            { k: 'Form', v: 'FeEDDHA' },
-            { k: 'Solubility', v: '100%' }
+            { k: 'Form', v: 'FeEDDHA' }
           ],
           features: ['Cures leaf chlorosis in difficult calcareous and alkaline soils.'],
-          usage: ['Deciduous: 500-750 g / acre.', 'Vegetables: 500-600 g / acre.'],
+          usage: ['Fruit Trees: 500-750 g / acre.'],
           meta: ['Weight: 1 Kg.']
         }
       },
-
-      // 11. تشيجا ترست
       {
         id: 'tachiga-trust',
         category: 'fungicide',
@@ -881,17 +896,13 @@
           category: 'Systemic Fungicide (Root Rot)',
           subtitle: 'Specialized in combating root rots, damping-off, and seedling wilt',
           comp: [
-            { k: 'Hymexazol', v: '30%' },
-            { k: 'Inerts', v: '70%' },
-            { k: 'Form', v: 'SL' }
+            { k: 'Hymexazol', v: '30%' }
           ],
           features: ['Combats Fusarium, Pythium, and Aphanomyces soil pathogens.'],
-          usage: ['Drench: 1 ml per 3 Liters water.', 'Drip: 2.5 L / acre.'],
+          usage: ['Drench: 1 ml per 3 Liters water.'],
           meta: ['500 ml bottle.']
         }
       },
-
-      // 12. فولجا ترست
       {
         id: 'volga-trust',
         category: 'fertilizer',
@@ -921,16 +932,13 @@
           subtitle: 'Synergistic formulation of Fulvic Acid, Potassium & Seaweed',
           comp: [
             { k: 'Fulvic Acid', v: '50%' },
-            { k: 'Potassium', v: '17%' },
-            { k: 'Amino Acids', v: '12%' }
+            { k: 'Potassium', v: '17%' }
           ],
           features: ['Restores electro-chemical equilibrium and mitigates cold/frost stress.'],
-          usage: ['Foliar: 1 g / L.', 'Soil: 2 - 3 Kg / acre.'],
+          usage: ['Foliar: 1 g / L.'],
           meta: ['500g & 1Kg.']
         }
       },
-
-      // 13. فينو سال
       {
         id: 'vino-sal',
         category: 'salinity',
@@ -960,16 +968,13 @@
           subtitle: 'Displaces harmful sodium and unlocks bound nutrients',
           comp: [
             { k: 'Calcium', v: '10%' },
-            { k: 'Carboxylic', v: '12%' },
-            { k: 'Fulvic/Humic', v: '5%' }
+            { k: 'Carboxylic', v: '12%' }
           ],
           features: ['Lowers soil pH and flushes toxic chlorides.'],
           usage: ['Drip: 3 to 5 L / acre.'],
           meta: ['5 Liters.']
         }
       },
-
-      // 14. فولا سال
       {
         id: 'vola-sal',
         category: 'salinity',
@@ -1005,8 +1010,6 @@
           meta: ['5 Liters.']
         }
       },
-
-      // 15. فولا ميكس
       {
         id: 'vola-mix',
         category: 'fertilizer',
@@ -1035,16 +1038,13 @@
           category: 'Plant Extracts & Micronutrients',
           subtitle: 'Restores degraded soils and stimulates beneficial soil flora',
           comp: [
-            { k: 'Plant Extracts', v: '50%' },
-            { k: 'Potassium', v: '12%' }
+            { k: 'Plant Extracts', v: '50%' }
           ],
           features: ['Elevates Cation Exchange Capacity (CEC) of soil.'],
           usage: ['Drip: 2.5 L / acre.'],
           meta: ['5 Liters container.']
         }
       },
-
-      // 16. خضراوي
       {
         id: 'khadrawy',
         category: 'growth',
@@ -1065,7 +1065,10 @@
             'علاج اصفرار وبهتان النبات وضعف التسميد.',
             'يزيد من عدد الحشات في الموسم لمحاصيل الأعلاف (كالبرسيم).'
           ],
-          usage: ['الخضر والأعلاف: 250 مل / 200 لتر ماء.', 'الأشجار: 100 مل / 600 لتر ماء.'],
+          usage: [
+            'الخضر والأعلاف: 250 مل / 200 لتر ماء.',
+            'الأشجار: 100 مل / 600 لتر ماء.'
+          ],
           meta: ['مدعم بحديد 2%، زنك 2%، منجنيز 0.5%.']
         },
         en: {
@@ -1093,14 +1096,14 @@
       marqueeTrack.innerHTML = '';
       doubleList.forEach(prod => {
         const item = document.createElement('div');
-        item.className = "w-64 flex-shrink-0 bg-white border border-slate-200/90 hover:border-[#005660] rounded-3xl p-5 text-center cursor-pointer transition transform hover:scale-105 shadow-sm hover:shadow-xl group";
+        item.className = "w-64 flex-shrink-0 bg-white dark:bg-[#11231e] border border-slate-200/90 dark:border-emerald-500/20 hover:border-[#005660] dark:hover:border-emerald-400 rounded-3xl p-5 text-center cursor-pointer transition transform hover:scale-105 shadow-sm hover:shadow-xl group";
         item.onclick = () => openProductModal(prod.id);
         item.innerHTML = `
-          <div class="h-44 flex items-center justify-center p-2 mb-3 bg-slate-50 rounded-2xl group-hover:bg-emerald-50/50 transition">
+          <div class="h-44 flex items-center justify-center p-2 mb-3 bg-slate-50 dark:bg-slate-900/60 rounded-2xl group-hover:bg-emerald-50/50 dark:group-hover:bg-emerald-950/40 transition">
             <img src="${prod.image}" alt="${prod.ar.name}" class="max-h-full object-contain pack-shadow group-hover:scale-110 transition duration-300" onerror="this.src='./images/vola-k.png'">
           </div>
-          <span class="text-[11px] bg-emerald-50 text-[#005660] font-black px-3 py-1 rounded-full inline-block truncate max-w-full">${prod.ar.category}</span>
-          <h4 class="text-sm font-black text-slate-900 truncate mt-2">${prod.ar.name}</h4>
+          <span class="text-[11px] bg-emerald-50 dark:bg-emerald-950/60 text-[#005660] dark:text-emerald-300 font-black px-3 py-1 rounded-full inline-block truncate max-w-full">${prod.ar.category}</span>
+          <h4 class="text-sm font-black text-slate-900 dark:text-white truncate mt-2">${prod.ar.name}</h4>
           <span class="text-[11px] text-slate-400 font-bold block mt-1">${prod.pack}</span>
         `;
         marqueeTrack.appendChild(item);
@@ -1114,21 +1117,21 @@
       items.forEach(prod => {
         const d = prod[currentLang];
         const card = document.createElement('div');
-        card.className = "bg-white border-2 border-slate-100 hover:border-[#005660] rounded-[30px] p-6 shadow-sm hover:shadow-xl transition duration-300 transform hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer group";
+        card.className = "bg-white dark:bg-[#11231e] border-2 border-slate-100 dark:border-slate-800/80 hover:border-[#005660] dark:hover:border-emerald-400 rounded-[30px] p-6 shadow-sm hover:shadow-xl transition duration-300 transform hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer group";
         card.onclick = () => openProductModal(prod.id);
 
         card.innerHTML = `
           <div>
-            <div class="h-60 flex items-center justify-center p-3 relative overflow-hidden bg-slate-50/80 rounded-2xl mb-4 group-hover:bg-emerald-50/40 transition">
+            <div class="h-60 flex items-center justify-center p-3 relative overflow-hidden bg-slate-50/80 dark:bg-slate-900/60 rounded-2xl mb-4 group-hover:bg-emerald-50/40 dark:group-hover:bg-emerald-950/40 transition">
               <img src="${prod.image}" alt="${d.name}" class="max-h-full object-contain pack-shadow transition duration-300 group-hover:scale-105" onerror="this.src='./images/vola-k.png'">
             </div>
-            <span class="inline-block bg-emerald-50 text-[#005660] text-[11px] font-black px-3 py-1 rounded-full mb-2">${d.category}</span>
-            <h3 class="text-xl font-black text-slate-900 leading-snug">${d.name}</h3>
-            <p class="text-xs font-bold text-slate-500 mt-1 line-clamp-2">${d.subtitle}</p>
+            <span class="inline-block bg-emerald-50 dark:bg-emerald-950/60 text-[#005660] dark:text-emerald-300 text-[11px] font-black px-3 py-1 rounded-full mb-2">${d.category}</span>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug">${d.name}</h3>
+            <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">${d.subtitle}</p>
           </div>
-          <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg">${prod.pack}</span>
-            <span class="text-xs font-black text-[#005660] group-hover:text-emerald-700 transition">
+          <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-lg">${prod.pack}</span>
+            <span class="text-xs font-black text-[#005660] dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
               عرض النشرة الفنية ➔
             </span>
           </div>
@@ -1140,9 +1143,9 @@
     // 3. فلترة الفئات
     function filterCategory(cat, btn) {
       document.querySelectorAll('.cat-btn').forEach(b => {
-        b.className = "cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white border border-slate-200 text-slate-700 hover:bg-slate-50";
+        b.className = "cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50";
       });
-      btn.className = "cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] text-white shadow";
+      btn.className = "cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] dark:bg-emerald-600 text-white shadow";
 
       if (cat === 'all') renderCatalog(productsDB);
       else renderCatalog(productsDB.filter(p => p.category === cat));
@@ -1167,11 +1170,11 @@
       const btnEn = document.getElementById('langBtnEn');
 
       if (lang === 'ar') {
-        btnAr.className = "px-3.5 py-1.5 rounded-lg bg-[#005660] text-white transition";
-        btnEn.className = "px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-950 transition";
+        btnAr.className = "px-3.5 py-1.5 rounded-lg bg-[#005660] dark:bg-emerald-600 text-white transition";
+        btnEn.className = "px-3.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-950 transition";
       } else {
-        btnEn.className = "px-3.5 py-1.5 rounded-lg bg-[#005660] text-white transition";
-        btnAr.className = "px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-950 transition";
+        btnEn.className = "px-3.5 py-1.5 rounded-lg bg-[#005660] dark:bg-emerald-600 text-white transition";
+        btnAr.className = "px-3.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-950 transition";
       }
       updateModalTexts();
     }
@@ -1198,9 +1201,9 @@
       compGrid.innerHTML = '';
       d.comp.forEach(c => {
         compGrid.innerHTML += `
-          <div class="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm text-center">
-            <span class="text-[11px] text-slate-500 font-bold block">${c.k}</span>
-            <span class="text-emerald-700 font-black text-sm">${c.v}</span>
+          <div class="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+            <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold block">${c.k}</span>
+            <span class="text-emerald-700 dark:text-emerald-400 font-black text-sm">${c.v}</span>
           </div>
         `;
       });
