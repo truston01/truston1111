@@ -25,7 +25,7 @@
       overflow-x: hidden;
     }
 
-    /* حركة النبضة / النغمة الحيوية في الخلفية (Rhythmic Pulse) */
+    /* حركة النبضة / النغمة الحيوية في الخلفية */
     @keyframes organicPulse {
       0%, 100% {
         transform: scale(0.92) translate(0, 0);
@@ -47,20 +47,16 @@
       }
     }
 
-    .pulse-orb-1 {
-      animation: organicPulse 8s ease-in-out infinite;
-    }
-    .pulse-orb-2 {
-      animation: organicPulseDelayed 10s ease-in-out infinite;
-    }
+    .pulse-orb-1 { animation: organicPulse 8s ease-in-out infinite; }
+    .pulse-orb-2 { animation: organicPulseDelayed 10s ease-in-out infinite; }
 
     /* تكيف اللوجو: أسود في الفاتح وأبيض في الغامق */
     .brand-logo-adapt {
       transition: filter 0.3s ease;
-      filter: brightness(0); /* أسود في الوضع الفاتح */
+      filter: brightness(0);
     }
     .dark .brand-logo-adapt {
-      filter: brightness(0) invert(1); /* أبيض في الوضع الداكن */
+      filter: brightness(0) invert(1);
     }
 
     /* دمج صورة الحقول مع الخلفية الضبابية */
@@ -79,6 +75,7 @@
     .glass-floating-card {
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.15s ease-out;
     }
 
     /* شريط الرول المتحرك المائل */
@@ -96,7 +93,7 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      animation: marqueeMove 46s linear infinite;
+      animation: marqueeMove 52s linear infinite;
     }
 
     .marquee-track:hover {
@@ -118,32 +115,31 @@
 </head>
 <body class="bg-[#fcfdfc] text-[#0f172a] dark:bg-[#07100e] dark:text-[#f1f5f9] relative">
 
-  <!-- ==================== خلفية النبضة الحيوية المتحركة (Rhythmic Glow Background) ==================== -->
+  <!-- ==================== خلفية النبضة الحيوية المتحركة ==================== -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <div class="pulse-orb-1 absolute -top-20 right-10 w-[520px] h-[520px] rounded-full bg-emerald-400/20 dark:bg-emerald-500/15 blur-3xl"></div>
     <div class="pulse-orb-2 absolute top-1/3 -left-20 w-[600px] h-[600px] rounded-full bg-teal-500/20 dark:bg-teal-600/15 blur-3xl"></div>
     <div class="pulse-orb-1 absolute -bottom-24 right-1/4 w-[550px] h-[550px] rounded-full bg-amber-400/15 dark:bg-emerald-400/10 blur-3xl"></div>
   </div>
 
-  <!-- ==================== HEADER & HERO (خاص بشركة ترستون) ==================== -->
+  <!-- ==================== HEADER & HERO ==================== -->
   <header class="relative z-10 overflow-hidden border-b border-slate-200/60 dark:border-slate-800/80">
     
     <!-- النافبار -->
     <nav class="container mx-auto px-6 py-6 flex justify-between items-center relative z-30">
       <a href="#" class="flex items-center gap-3">
-        <!-- اللوجو المتكيف (أسود في الفاتح وأبيض في الداكن) -->
         <img src="logo.png" alt="ترستون" class="brand-logo-adapt h-16 md:h-20 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-black text-[#005660] dark:text-emerald-400\'>TRUSTON AG</span>'">
       </a>
 
       <div class="hidden lg:flex items-center gap-10 font-bold text-slate-600 dark:text-slate-300 text-sm">
         <a href="#" class="text-[#005660] dark:text-emerald-400 font-black">الرئيسية</a>
         <a href="#marquee-section" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">أبرز المركبات</a>
-        <a href="#catalog" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">كتالوج المنتجات (16)</a>
+        <a href="#catalog" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">كتالوج المنتجات (21)</a>
         <a href="tel:+201000008203" class="hover:text-[#005660] dark:hover:text-emerald-400 transition">اتصل بنا</a>
       </div>
 
       <div class="flex items-center gap-3">
-        <!-- زر التبديل بين الوضع الفاتح والداكن (Dark / Light Mode Toggle) -->
+        <!-- زر تبديل المظهر -->
         <button onclick="toggleTheme()" id="themeBtn" title="تبديل المظهر" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-amber-400 transition shadow-sm border border-slate-200 dark:border-slate-700">
           <span id="themeIcon" class="text-base">🌙</span>
         </button>
@@ -158,25 +154,22 @@
       </div>
     </nav>
 
-    <!-- الهيرو المخصص لشركة ترستون -->
-    <div class="container mx-auto px-6 py-12 md:py-20 relative z-20">
+    <!-- الهيرو المخصص لشركة ترستون مع تفاعل ناعم لحركة الماوس -->
+    <div class="container mx-auto px-6 py-12 md:py-20 relative z-20" id="heroInteractiveArea">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- الجانب الأيمن: اللوجو + اسم الشركة الأضخم + السلوجن -->
         <div class="lg:col-span-6 space-y-6 text-right">
           
-          <!-- لوجو فوق اسم الشركة متكيف مع الخلفية -->
           <div class="inline-block">
             <img src="logo.png" alt="شعار ترستون" class="brand-logo-adapt h-20 md:h-24 object-contain" onerror="this.style.display='none'">
           </div>
 
-          <!-- اسم الشركة هو العنوان الأساسي الأكبر -->
           <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-[#005660] dark:text-white leading-[1.15] tracking-tight">
             شركة ترستون <br>
             <span class="text-slate-900 dark:text-emerald-400">للتنمية الزراعية</span>
           </h1>
 
-          <!-- السلوجن أصغر وواضح -->
           <div class="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 tracking-wide">
             إنتاج يفوق طموحاتك
           </div>
@@ -197,18 +190,18 @@
 
         </div>
 
-        <!-- الجانب الأيسر: منظر الحقول مع 3 كروت عائمة -->
+        <!-- الجانب الأيسر: منظر الحقول مع 3 كروت عائمة متفاعلة -->
         <div class="lg:col-span-6 relative min-h-[460px] lg:min-h-[520px] flex items-center justify-center">
           
-          <div class="absolute inset-0 rounded-[40px] overflow-hidden hero-mist-mask shadow-xl">
+          <div id="heroBgImage" class="absolute inset-0 rounded-[40px] overflow-hidden hero-mist-mask shadow-xl transition-transform duration-300 ease-out">
             <img src="hero-bg.jpg" alt="حقول زراعية" class="w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80'">
             <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
           </div>
 
-          <!-- كروت عائمة لأبرز المركبات -->
-          <div class="relative z-10 w-full max-w-sm space-y-4 px-4 my-auto">
+          <!-- كروت عائمة تتفاعل بحركة بارالاكس خفيفة مع الماوس -->
+          <div class="relative z-10 w-full max-w-sm space-y-4 px-4 my-auto" id="floatingCardsContainer">
             
-            <div onclick="openProductModal('vola-k')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
+            <div onclick="openProductModal('vola-k')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-2 shadow-lg group">
               <div class="w-14 h-14 bg-orange-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
                 <img src="./images/vola-k.png" alt="فولا كي" class="max-h-full object-contain drop-shadow" onerror="this.src='images/vola-k.png'">
               </div>
@@ -221,29 +214,29 @@
               </div>
             </div>
 
-            <div onclick="openProductModal('trustzol')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
-              <div class="w-14 h-14 bg-blue-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
-                <img src="./images/trustzol.png" alt="ترستزول" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustzol.png'">
+            <div onclick="openProductModal('actrust')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-2 shadow-lg group">
+              <div class="w-14 h-14 bg-emerald-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                <img src="./images/actrust.png" alt="اكتراست" class="max-h-full object-contain drop-shadow" onerror="this.src='images/actrust.png'">
               </div>
               <div class="flex-1 text-right">
                 <div class="flex justify-between items-center">
-                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">ترستزول (Trustzol 25% EC)</h4>
-                  <span class="text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 font-black px-2 py-0.5 rounded-full">مبيد فطري</span>
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">اكتراست 25% WG</h4>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 font-black px-2 py-0.5 rounded-full">مبيد حشري</span>
                 </div>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">علاج الصدأ الأصفر في القمح وأمراض الأصداء</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">مكافحة الذبابة البيضاء، المن، وصانعات الأنفاق</p>
               </div>
             </div>
 
-            <div onclick="openProductModal('trustnem')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-1.5 shadow-lg group">
-              <div class="w-14 h-14 bg-red-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
-                <img src="./images/trustnem.png" alt="ترست نيم" class="max-h-full object-contain drop-shadow" onerror="this.src='images/trustnem.png'">
+            <div onclick="openProductModal('vola-hum')" class="glass-floating-card bg-white/90 dark:bg-[#12231e]/90 border border-white/80 dark:border-emerald-500/20 rounded-2xl p-3.5 flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition transform hover:-translate-x-2 shadow-lg group">
+              <div class="w-14 h-14 bg-amber-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-1 flex-shrink-0">
+                <img src="./images/vola-hum.png" alt="فولا هوم" class="max-h-full object-contain drop-shadow" onerror="this.src='images/vola-hum.png'">
               </div>
               <div class="flex-1 text-right">
                 <div class="flex justify-between items-center">
-                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">ترست نيم (TrustNem 24%)</h4>
-                  <span class="text-[10px] bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 font-black px-2 py-0.5 rounded-full">مبيد نيماتودي</span>
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white group-hover:text-[#005660] dark:group-hover:text-emerald-400 transition">فولا هوم (Vola Hum)</h4>
+                  <span class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-black px-2 py-0.5 rounded-full">هيومات 80%</span>
                 </div>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">إبادة النيماتودا وحماية المجموع الجذري</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-bold line-clamp-1 mt-0.5">مش مجرد هيوميك .. تنشيط الجذور وكسر الملوحة</p>
               </div>
             </div>
 
@@ -266,16 +259,16 @@
     </div>
   </section>
 
-  <!-- ==================== كتالوج المنتجات (16 منتجاً مع الفلاتر) ==================== -->
+  <!-- ==================== كتالوج المنتجات (21 منتجاً مع الفلاتر) ==================== -->
   <main id="catalog" class="container mx-auto px-6 py-16 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
       <div>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">كتالوج المنتجات</h2>
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">كتالوج المنتجات (21)</h2>
       </div>
 
-      <!-- أزرار الفلترة -->
+      <!-- أزرار الفلترة المحدثة -->
       <div class="flex flex-wrap gap-2">
-        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] dark:bg-emerald-600 text-white shadow">الكل (16)</button>
+        <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-[#005660] dark:bg-emerald-600 text-white shadow">الكل (21)</button>
         <button onclick="filterCategory('fertilizer', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">أسمدة ومخصبات</button>
         <button onclick="filterCategory('growth', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">منظمات نمو وتزهير</button>
         <button onclick="filterCategory('fungicide', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-black bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50">مبيدات فطرية</button>
@@ -284,7 +277,7 @@
       </div>
     </div>
 
-    <!-- شبكة المنتجات الـ 16 -->
+    <!-- شبكة المنتجات الـ 21 -->
     <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
   </main>
 
@@ -300,7 +293,6 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <!-- تبديل اللغة -->
           <div class="bg-slate-200 dark:bg-slate-800 p-1 rounded-xl flex items-center text-xs font-black">
             <button id="langBtnAr" onclick="setModalLanguage('ar')" class="px-3.5 py-1.5 rounded-lg bg-[#005660] dark:bg-emerald-600 text-white transition">عربي</button>
             <button id="langBtnEn" onclick="setModalLanguage('en')" class="px-3.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-950 transition">English</button>
@@ -313,7 +305,7 @@
       <!-- محتوى النافذة المنقسم -->
       <div class="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto custom-scroll flex-1">
         
-        <!-- جانب عرض صورة العبوة فائقة الدقة -->
+        <!-- جانب عرض صورة العبوة -->
         <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-200 dark:from-[#0f211b] dark:to-[#07130f] p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-l border-slate-200 dark:border-slate-800 relative min-h-[440px]">
           
           <div class="w-full flex justify-between items-center text-xs font-bold">
@@ -382,7 +374,6 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-slate-900 text-white pt-14 pb-10 border-t-4 border-[#005660] mt-20 relative z-10">
     <div class="container mx-auto px-6 text-center space-y-4">
-      <!-- اللوجو في الفوتر أبيض ناصع دائماً -->
       <img src="logo.png" alt="ترستون" class="h-16 mx-auto object-contain brightness-0 invert" onerror="this.outerHTML='<h3 class=\'text-2xl font-black text-white\'>شركة ترستون للتنمية الزراعية</h3>'">
       <p class="text-xs text-slate-400 max-w-md mx-auto">
         إنتاج يفوق طموحاتك | حلول متكاملة للتسميد، مكافحة الآفات، وتحقيق أعلى مواصفات التصدير القياسية.
@@ -398,7 +389,7 @@
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // نظام التبديل الذكي بين المظهر الفاتح والداكن (Light/Dark Mode)
+    // نظام التبديل بين المظهر الفاتح والداكن
     function toggleTheme() {
       const html = document.documentElement;
       const themeIcon = document.getElementById('themeIcon');
@@ -413,7 +404,6 @@
       }
     }
 
-    // استرجاع المظهر المفضل المخزن مسبقاً
     if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
       document.getElementById('themeIcon').innerText = '☀️';
@@ -422,301 +412,98 @@
       document.getElementById('themeIcon').innerText = '🌙';
     }
 
-    // قاعدة البيانات الشاملة (16 منتجاً مع تصحيح اسم ترستون)
+    // تفاعل ناعم لحركة الماوس على كروت وصورة الهيرو (Parallax)
+    const heroArea = document.getElementById('heroInteractiveArea');
+    const heroBgImg = document.getElementById('heroBgImage');
+    const floatingCards = document.getElementById('floatingCardsContainer');
+
+    if (heroArea && heroBgImg && floatingCards) {
+      heroArea.addEventListener('mousemove', (e) => {
+        const rect = heroArea.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroBgImg.style.transform = `scale(1.02) translate(${x * -12}px, ${y * -12}px)`;
+        floatingCards.style.transform = `translate(${x * 15}px, ${y * 15}px)`;
+      });
+      heroArea.addEventListener('mouseleave', () => {
+        heroBgImg.style.transform = 'scale(1) translate(0px, 0px)';
+        floatingCards.style.transform = 'translate(0px, 0px)';
+      });
+    }
+
+    // قاعدة البيانات الشاملة (21 منتجاً مع التعديلات الجديدة كاملة)
+  // ==========================================
+    // قاعدة البيانات الفنية الكاملة والمفصلة (21 منتجاً)
+    // ==========================================
     const productsDB = [
+      // 1. فولا كي (Vola K)
       {
         id: 'vola-k',
         category: 'fertilizer',
         pack: '5 لتر | 5 Litre',
         image: './images/vola-k.png',
         ar: {
-          name: 'فولا كي (Vola K)',
+          name: 'سحر البوتاسيوم - فولا كي (Vola K)',
           category: 'تسميد وتحجيم الثمار',
-          subtitle: 'سحر البوتاسيوم 36% مدعم بطحالب، أوكسينات، وسيتوكينينات',
+          subtitle: 'سماد سائل تام الذوبان مدعم بطحالب، أوكسينات، وسيتوكينينات لملء الثمار والدرنات',
           comp: [
             { k: 'بوتاسيوم (K₂O)', v: '36%' },
             { k: 'طحالب بحرية', v: 'مدعم' },
-            { k: 'أحماض أمينية', v: 'متوفرة' },
-            { k: 'سيتوكينينات', v: 'نشطة' }
+            { k: 'أحماض أمينية حرة', v: 'مخلبية' },
+            { k: 'سيتوكينينات وأوكسينات', v: 'نشطة' }
           ],
           features: [
-            'سماد سائل تام الذوبان يحتوي على 36% بوتاسيوم في صورة سترات بوتاسيوم سهلة الامتصاص.',
-            'يعمل على فتح وغلق الثغور وتنظيم الضغط الإسموزي داخل الخلايا.',
-            'يزيد في عدد الخلايا وحجمها وبالتالي إعطاء مدى أكبر لزيادة الحجم بأقل وقت.',
-            'يسرع تحويل النيتروجين إلى بروتينات ونقل الكربوهيدرات إلى الثمار.',
-            'يزيد محتوى الثمار من السكر ليرفع من مواصفات الثمار التصديرية والتبكير في النضج.'
+            'سماد سائل تام الذوبان يحتوي على 36% بوتاسيوم في صورة سترات بوتاسيوم سهلة وسريعة الامتصاص داخل الأنسجة.',
+            'يعمل على فتح وغلق الثغور وكذلك تنظيم الضغط الإسموزي داخل الخلايا عن طريق البوتاسيوم سريع الامتصاص.',
+            'يزيد في عدد الخلايا وحجمها وبالتالي إعطاء مدى أكبر لزيادة الحجم بسرعة ووفق أقل وقت ممكن.',
+            'يسرع من العمليات الفسيولوجية ويعمل على تحويل النيتروجين إلى بروتينات هيكلية.',
+            'يزيد من انتقال الكربوهيدرات والسكريات من المجموع الخضري إلى أماكن التخزين مما يؤدي إلى زيادة حجم الثمار والدرنات.',
+            'يزيد محتوى الثمار من السكر ليرفع من مواصفات الثمار التصديرية القياسية.',
+            'يعمل على تحسين اللون الطبيعي للثمار والتبكير الملحوظ في نضج المحصول.'
           ],
           usage: [
-            'الرش الورقي: 2.5 لتر للفدان ويكرر حسب الحالة.',
+            'الرش الورقي: 2.5 لتر للفدان ويكرر حسب الحالة وعمر النبات.',
             'الري بالتنقيط: 5 لتر للفدان ويكرر حسب الحالة.',
-            'الرش العام: 1 لتر لكل 200 لتر ماء.'
+            'الرش العام: 1 لتر لكل 200 لتر ماء رش ورقي متجانس.'
           ],
           meta: [
-            'تنبيه: يُرج جيداً قبل الاستعمال (SHAKE WELL BEFORE USING).',
-            'المستورد من الأردن: شركة البتراء الأردنية للإنتاج الزراعي - شركة النجاح.',
-            'رقم التسجيل: ٢/٨٩٥١ | تاريخ الإنتاج: ٢٠٢٥/٠٥ | الصلاحية: ٥ سنوات.'
+            '🔹 تنبيه فني: يُرج جيداً قبل الاستعمال (SHAKE WELL BEFORE USING).',
+            '🔹 المستورد من الأردن: شركة البتراء الأردنية للإنتاج الزراعي - شركة النجاح.',
+            '🔹 رقم التسجيل: ٢/٨٩٥١ | تاريخ الإنتاج: ٢٠٢٥/٠٥ | الصلاحية: ٥ سنوات.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
           ]
         },
         en: {
           name: 'Vola K (Potassium Citrate 36%)',
-          category: 'Fruit Sizing & Nutrition',
-          subtitle: 'Fortified with Seaweed extracts, Auxins & Cytokinins for fruit swelling',
+          category: 'Fruit Sizing & High Potassium Fertilizer',
+          subtitle: 'Fortified with Seaweed extracts, Free Amino Acids, Auxins & Cytokinins',
           comp: [
             { k: 'Potassium (K₂O)', v: '36%' },
-            { k: 'Seaweed Extract', v: 'Active' },
+            { k: 'Marine Algae', v: 'Active' },
             { k: 'Amino Acids', v: 'Chelated' },
-            { k: 'Cytokinins', v: 'Pure' }
+            { k: 'Phytohormones', v: 'Enriched' }
           ],
           features: [
-            '100% Soluble liquid fertilizer containing 36% potassium in the form of rapidly absorbed citrate.',
-            'Regulates stomatal conductance and intracellular osmotic balance.',
-            'Promotes rapid cell multiplication and enlargement for optimal sizing.',
-            'Accelerates nitrogen conversion into structural proteins.',
-            'Increases carbohydrate transfer to storage sinks to enhance Brix & coloration.'
+            '100% Soluble liquid fertilizer containing 36% potassium as highly bio-available potassium citrate.',
+            'Regulates stomatal conductance and intracellular osmotic pressure via rapid systemic absorption.',
+            'Accelerates cell division and enlargement for maximum uniform sizing in record time.',
+            'Facilitates rapid nitrogen conversion into proteins and drives carbohydrate translocations to sinks.',
+            'Dramatically elevates fruit Brix degrees and coloration for premium export grades.'
           ],
           usage: [
-            'Foliar Spray: 2.5 Liters per acre (repeated as needed).',
-            'Drip Fertigation: 5 Liters per acre.',
+            'Foliar Spray: 2.5 Liters per acre (repeated based on crop stage).',
+            'Drip Fertigation: 5 Liters per acre (repeated as needed).',
             'Standard Foliar Application: 1 Liter per 200 Liters of water.'
           ],
           meta: [
-            'Caution: Shake well before using.',
-            'Imported from Jordan: Petra Jordanian Agricultural Co.',
-            'Registration No: 2/8951 | Shelf Life: 5 Years.'
+            '🔹 Caution: Shake well before using.',
+            '🔹 Imported from Jordan: Petra Jordanian Agricultural Production Co.',
+            '🔹 Registration No: 2/8951 | Shelf Life: 5 Years.'
           ]
         }
       },
-      {
-        id: 'trustzol',
-        category: 'fungicide',
-        pack: '100 سم³ & 200 سم³',
-        image: './images/trustzol.png',
-        ar: {
-          name: 'ترستزول 25% EC (Trustzol)',
-          category: 'مبيد فطري جهازي واسع المجال',
-          subtitle: 'المتخصص في مكافحة وعلاج الصدأ الأصفر وأمراض الأصداء الفطرية',
-          comp: [
-            { k: 'بروبيكونازول Propiconazole', v: '25% (حجم/وزن)' },
-            { k: 'مواد مستحلبة', v: '10.57%' },
-            { k: 'مذيبات عضوية', v: '64.43%' },
-            { k: 'تركيز المادة الفعالة', v: '250 جم/لتر' }
-          ],
-          features: [
-            'مبيد فطري جهازي واسع المجال يمتص عبر الأوراق وينتقل جهازياً داخل العصارة النباتية.',
-            'ذو تأثير علاجي ووقائي سريع وحاسم ضد فطريات الأصداء والبياض الدقيقي.',
-            'الاسم الكيميائي: (t)-(2-(2,4-dichlorophenyl)-4-propyl-1,3-dioxolan-2-ylmethyl)-1H-1,2,4-triazole.',
-            'صورة المستحضر: مركز قابل للاستحلاب (EC).'
-          ],
-          usage: [
-            'القمح (مكافحة وعلاج الصدأ الأصفر): 25 سم³ / 100 لتر ماء طبقاً لتوصيات وزارة الزراعة.'
-          ],
-          meta: [
-            'فترة ما قبل الحصاد (PHI): القمح 30 يوماً.',
-            'الضمان: 3 سنوات من تاريخ الإنتاج في عبواته الأصلية.',
-            'العقار المضاد في حالة التسمم: لا يوجد عقار مضاد محدد، ويعالج المصاب حسب الأعراض.'
-          ]
-        },
-        en: {
-          name: 'Trustzol 25% EC',
-          category: 'Broad-Spectrum Systemic Fungicide',
-          subtitle: 'Propiconazole 25% EC for curative and preventive rust control',
-          comp: [
-            { k: 'Propiconazole', v: '25% w/v' },
-            { k: 'Emulsifiers', v: '10.57%' },
-            { k: 'Solvents', v: '64.43%' },
-            { k: 'Active Density', v: '250 g/L' }
-          ],
-          features: [
-            'Systemic triazole fungicide with protective, curative, and eradicative activity.',
-            'Rapid acropetal translocation via xylem tissues protects new growth.',
-            'Highly effective against yellow stripe rust and powdery mildews in cereals.'
-          ],
-          usage: [
-            'Wheat (Yellow Rust Control): 25 ml per 100 Liters of water.'
-          ],
-          meta: [
-            'Pre-Harvest Interval (PHI): Wheat: 30 Days.',
-            'Packaging: 100 ml & 200 ml aluminum/HDPE bottles.'
-          ]
-        }
-      },
-      {
-        id: 'autostar-top',
-        category: 'fungicide',
-        pack: '100 سم³ & 200 سم³',
-        image: './images/autostar-top.png',
-        ar: {
-          name: 'أوتو ستار توب 325 SC (AutoStar Top)',
-          category: 'مبيد فطري جهازي وقائي وعلاجي',
-          subtitle: 'تركيبة مزدوجة: أزوكسي ستروبين 20% + دايفينوكونازول 12.5%',
-          comp: [
-            { k: 'أزوكسي ستروبين Azoxystrobin', v: '20% (حجم/وزن)' },
-            { k: 'دايفينوكونازول Difenoconazole', v: '12.5% (حجم/وزن)' },
-            { k: 'إجمالي المادة الفعالة', v: '325 جم/لتر' },
-            { k: 'مواد ناشرة ومبللة ومخففة', v: '67.5%' }
-          ],
-          features: [
-            'مركب جهازي مزدوج يجمع بين ستروبيلورين وترايازول لتوفير أقوى درجات الحماية والعلاج.',
-            'يمنع إنبات الجراثيم ويوقف نمو الغزل الفطري داخل الأنسجة النباتية.',
-            'مستحضر في صورة مركز معلق (SC) عالي الثبات وسهل الخلط والتوزيع.'
-          ],
-          usage: [
-            'الجوافة (تبقع الأوراق): 50 سم³ / 100 لتر ماء (كمية المياه: 400 - 600 لتر/فدان).',
-            'الكنتالوب (البياض الزغبي): 300 سم³ / فدان.',
-            'العنب (البياض الدقيقي): 75 سم³ / 100 لتر ماء (كمية المياه: 400 - 600 لتر/فدان).',
-            'عدد مرات الرش: 3 رشات كحد أقصى، بين الرشة والأخرى 7 إلى 14 يوماً.'
-          ],
-          meta: [
-            'فترة ما قبل الحصاد (PHI): الجوافة 7 أيام | البصل 10 أيام | العنب 21 يوماً.',
-            'كمية مياه البصل: لا تزيد عن 400 لتر للفدان.'
-          ]
-        },
-        en: {
-          name: 'AutoStar Top 325 SC',
-          category: 'Systemic Fungicide (Suspension Concentrate)',
-          subtitle: 'Dual Active Ingredients: Azoxystrobin 20% + Difenoconazole 12.5%',
-          comp: [
-            { k: 'Azoxystrobin', v: '20% w/v' },
-            { k: 'Difenoconazole', v: '12.5% w/v' },
-            { k: 'Total Active Content', v: '325 g/L' }
-          ],
-          features: [
-            'Combines two proven chemistries to prevent resistance and guarantee total cure.',
-            'Inhibits fungal respiration and sterol biosynthesis across leaf and fruit surfaces.'
-          ],
-          usage: [
-            'Guava (Leaf Spot): 50 ml per 100 L water.',
-            'Cantaloupe (Downy Mildew): 300 ml per acre.',
-            'Grapes (Powdery Mildew): 75 ml per 100 L water.'
-          ],
-          meta: ['PHI: Guava 7 days, Onion 10 days, Grapes 21 days.']
-        }
-      },
-      {
-        id: 'trustfos',
-        category: 'insecticide',
-        pack: '250 مل | 250 ml',
-        image: './images/trustfos.png',
-        ar: {
-          name: 'ترست فوس 28% EC (Trustfos)',
-          category: 'مبيد حشري شبه جهازي بالملامسة',
-          subtitle: 'كلوربيريفوس 25% + ألفا سايبرمثرين 3% للقضاء على الحشرات القارضة والمصية',
-          comp: [
-            { k: 'كلوربيريفوس Chlorpyrifos', v: '25% (وزن/حجم)' },
-            { k: 'ألفا سايبرمثرين Alpha-cypermethrin', v: '3% (وزن/حجم)' },
-            { k: 'مادة مذيبة ومساعدة', v: '72%' },
-            { k: 'إجمالي المادة الفعالة', v: '280 جم/لتر' }
-          ],
-          features: [
-            'مبيد حشري شبه جهازي قوي يعمل بالملامسة وكسم معدي بضربة قاضية سريعة (Knockdown).',
-            'مكافحة فعالة للحشرة القشرية، الدودة القارضة، الذبابة البيضاء، والتربس.',
-            'المستحضر في صورة مركز قابل للاستحلاب (EC).'
-          ],
-          usage: [
-            'مكافحة الديدان والحشرات القشرية والتربس: 100 سم³ / 100 لتر ماء.'
-          ],
-          meta: [
-            'فترة ما قبل الحصاد (PHI): من 7 إلى 10 أيام حسب كثافة الرش.',
-            'يخزن في مكان جيد التهوية بعيداً عن الحرارة المرتفعة والرطوبة ومخازن الأعلاف.'
-          ]
-        },
-        en: {
-          name: 'Trustfos 28% EC',
-          category: 'Insecticide (Contact & Stomach)',
-          subtitle: 'Chlorpyrifos 25% + Alpha-cypermethrin 3% with fast knockdown effect',
-          comp: [
-            { k: 'Chlorpyrifos', v: '25% w/v' },
-            { k: 'Alpha-cypermethrin', v: '3% w/v' },
-            { k: 'Active Content', v: '280 g/L' }
-          ],
-          features: ['Organophosphate and pyrethroid blend against chewing and sucking pests.'],
-          usage: ['Rate: 100 ml per 100 Liters of water.'],
-          meta: ['PHI Interval: 7 - 10 Days.']
-        }
-      },
-      {
-        id: 'trustmec',
-        category: 'insecticide',
-        pack: '250 مل | 250 ml',
-        image: './images/trustmec.png',
-        ar: {
-          name: 'ترستميك 1.8% EC (Trustmec)',
-          category: 'مبيد أكاروسي وحشري متخصص',
-          subtitle: 'أبامكتين 1.8% مدعم بـ 1% ألفا سايبرمثرين و 3% زنك نقي',
-          comp: [
-            { k: 'أبامكتين Abamectin', v: '1.8% (وزن/حجم)' },
-            { k: 'ألفا سايبرمثرين', v: '1% (وزن/حجم)' },
-            { k: 'زنك مخلبي مضاف', v: '3% (وزن/حجم)' },
-            { k: 'مواد مستحلبة', v: '94.2%' }
-          ],
-          features: [
-            'مبيد أكاروسي وحشري فائق التخصص لمكافحة سلالات العنكبوت الأحمر وصانعات الأنفاق.',
-            'يحتوي اللتر منه على 18 جرام مادة فعالة أبامكتين نقي (Avermectin B1a/B1b).',
-            'الزنك المضاف يدعم حيوية ونضارة الأوراق بعد القضاء على الأكاروسات.'
-          ],
-          usage: [
-            'مكافحة العنكبوت الأحمر على الخيار: 40 سم³ / 100 لتر ماء.'
-          ],
-          meta: [
-            'فترة ما قبل الحصاد (PHI): الخيار 7 أيام.',
-            'يحفظ بعيداً عن متناول الأطفال وأشعة الشمس المباشرة.'
-          ]
-        },
-        en: {
-          name: 'Trustmec 1.8% EC',
-          category: 'Acaricide & Insecticide',
-          subtitle: 'Abamectin 1.8% fortified with 1% Alpha-cypermethrin & 3% Zinc',
-          comp: [
-            { k: 'Abamectin', v: '1.8% w/v' },
-            { k: 'Alpha-cypermethrin', v: '1% w/v' },
-            { k: 'Zinc', v: '3% w/v' }
-          ],
-          features: ['Translaminar activity against two-spotted red spider mites and leafminers.'],
-          usage: ['Rate: 40 ml per 100 Liters of water.'],
-          meta: ['PHI: Cucumbers: 7 Days.']
-        }
-      },
-      {
-        id: 'trustnem',
-        category: 'insecticide',
-        pack: '1 لتر | 1 Litre',
-        image: './images/trustnem.png',
-        ar: {
-          name: 'ترست نيم 24% SL (TrustNem)',
-          category: 'مبيد نيماتودي جهازي واسع المدى',
-          subtitle: 'أوكساميل 24% مركز قابل للذوبان في الماء لحماية الجذور والعقد الجذرية',
-          comp: [
-            { k: 'أوكساميل Oxamyl', v: '24% (وزن/حجم)' },
-            { k: 'مادة مذيبة', v: '74.25%' },
-            { k: 'مادة ناشرة ومحسنة', v: '1.60%' },
-            { k: 'تركيز المادة الفعالة', v: '240 جم/لتر' }
-          ],
-          features: [
-            'مبيد نيماتودي جهازي عالي الكفاءة يمتص عبر الجذور والأوراق لمكافحة نيماتودا تعقد الجذور.',
-            'مقيد الاستخدام (RUP) نظراً لسميته العالية ويستخدم تحت إشراف زراعي متخصص.',
-            'مزود بعامل مرارة (0.10%) لمنع الابتلاع العرضي.'
-          ],
-          usage: [
-            'حقناً مع مياه الري بالتنقيط لمكافحة نيماتودا تعقد الجذور والنيماتودا الحرة حسب توصيات الدعم الفني.'
-          ],
-          meta: [
-            'تنبيه: مركب سام جداً، يجب ارتداء قفازات، كمامات، ونظارات واقية أثناء التطبيق.',
-            'مراكز علاج السموم: عين شمس (0224346789) - القومي بالقاهرة (0223640402).'
-          ]
-        },
-        en: {
-          name: 'TrustNem 24% SL',
-          category: 'Systemic Nematicide',
-          subtitle: 'Oxamyl 24% Soluble Concentrate for root knot and free-living nematodes',
-          comp: [
-            { k: 'Oxamyl', v: '24% w/v' },
-            { k: 'Solvents & Inerts', v: '76%' }
-          ],
-          features: ['Paralyzes root-knot, cyst, and lesion nematodes upon contact or feeding.'],
-          usage: ['Drip fertigation application targeted at root-zone nematode infestations.'],
-          meta: ['Restricted Use Pesticide (RUP).']
-        }
-      },
+
+      // 2. فولا فول (Vola Ful)
       {
         id: 'vola-ful',
         category: 'fertilizer',
@@ -724,39 +511,57 @@
         image: './images/vola-ful.png',
         ar: {
           name: 'فولا فول (Vola Ful)',
-          category: 'مخصب عضوي ومنشط للجذور',
-          subtitle: 'فولفيك أسيد عالي النقاوة 100% لتنشيط الجذور والميكروبات النافعة',
+          category: 'مخصب عضوي ومنشط للجذور عالي النقاوة',
+          subtitle: 'فولفيك أسيد 60% طبيعي 100% لتنشيط الجذور والميكروبات النافعة وزيادة الامتصاص',
           comp: [
             { k: 'فولفيك عالي النقاوة', v: '60%' },
-            { k: 'طحالب بحرية', v: '2%' },
-            { k: 'أوكسينات', v: '1%' },
-            { k: 'أحماض كربوكسيلية و CMS', v: '37%' }
+            { k: 'أحماض كربوكسيلية و CMS', v: '37%' },
+            { k: 'طحالب بحرية (SWE)', v: '2%' },
+            { k: 'أوكسينات طبيعية', v: '1%' }
           ],
           features: [
-            'يمد النبات بالعناصر الصغرى والنادرة والأحماض الكربوكسيلية والأوكسينات.',
-            'ذو وزن جزيئي خفيف يسمح للنبات بامتصاصه بسرعة وكميات كبيرة.',
-            'ينشط الكائنات الحية الدقيقة والبكتيريا النافعة في التربة لسرعة تحلله.',
-            'يحسن تهوية التربة وتنظيم احتفاظها بالماء ومقاومة الجفاف والإجهاد.'
+            'يمد النبات بالعناصر الغذائية الصغرى والنادرة والطحالب والأحماض الكربوكسيلية والأوكسينات الطبيعية.',
+            'ذو وزن جزيئي خفيف يسمح للنبات بامتصاصه بسرعة وبكميات كبيرة جداً حاملاً معه العناصر الغذائية المتوفرة في التربة.',
+            'يؤثر بالإيجاب على جميع الوظائف الحيوية ويحفز تكوين وعمل الهرمونات الطبيعية داخل النبات.',
+            'يقلل من تكلفة وفاقد الأسمدة الكيماوية عبر رفع كفاءة قدرة الجذور على امتصاص العناصر المترسبة.',
+            'ينشط عمل الكائنات الحية الدقيقة والبكتيريا النافعة في التربة لسرعة تحلله في محلول الرش أو ماء الري.',
+            'يعمل على تحسين تهوية التربة وتنظيم احتفاظها بالماء ورفع قدرة المحصول على مقاومة الإجهاد والحرارة والجفاف.'
           ],
           usage: [
-            'رشاً على الأوراق: 250 جم / 100 لتر ماء.',
-            'حقناً في التربة: 1.25 كجم / فدان بالتنقيط، وتضاعف الكمية في الغمر.'
+            'رشاً على الأوراق: 250 جم / 100 لتر ماء (أو 250 جم/لتر محلول مركز).',
+            'حقناً في التربة: 1.25 كجم / فدان في شبكات الري بالتنقيط، وتضاعف الكمية في حالة الري بالغمر.'
           ],
-          meta: ['قابل للذوبان التام في الماء 100%.', 'يقلل من تكلفة الأسمدة الكيماوية عبر تعظيم كفاءة الامتصاص.']
+          meta: [
+            '🔹 قابل للذوبان التام في الماء بنسبة 100% دون ترك أي رواسب بشبكات الري.',
+            '🔹 الوزن الصافي: 1 كجم مسحوق عالي النقاوة.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
           name: 'Vola Ful (Fulvic Acid 60%)',
-          category: 'Bio-stimulant & Root Booster',
-          subtitle: '100% Natural high-purity Fulvic Acid with seaweed and auxins',
+          category: 'High-Purity Organic Bio-stimulant & Root Activator',
+          subtitle: '100% Natural Fulvic Acid fortified with Carboxylic Acids, Seaweed & Auxins',
           comp: [
             { k: 'Fulvic Acid', v: '60%' },
-            { k: 'Seaweed Extract', v: '2%' }
+            { k: 'Carboxylic & CMS', v: '37%' },
+            { k: 'Seaweed Extract', v: '2%' },
+            { k: 'Natural Auxins', v: '1%' }
           ],
-          features: ['Stimulates soil microflora and beneficial microorganisms.'],
-          usage: ['Foliar: 250 g per 100 L.', 'Drip: 1.25 Kg / acre.'],
-          meta: ['100% Water Soluble Powder.']
+          features: [
+            'Provides trace minerals, carboxylic bio-complexes, and phytohormones for root vitality.',
+            'Ultra-low molecular weight ensures rapid nutrient penetration through foliage and root hairs.',
+            'Drastically reduces chemical fertilizer losses by chelating and unlocking bound nutrients in soil.',
+            'Stimulates soil microflora and elevates soil water retention during drought stress.'
+          ],
+          usage: [
+            'Foliar Application: 250 g per 100 Liters of water.',
+            'Soil Drip Fertigation: 1.25 Kg per acre (double dosage for flood irrigation).'
+          ],
+          meta: ['🔹 100% Water Soluble Powder | Net Weight: 1 Kg.']
         }
       },
+
+      // 3. أوكسي ترست 4% (Oxy Trust)
       {
         id: 'oxy-trust',
         category: 'growth',
@@ -765,23 +570,28 @@
         ar: {
           name: 'أوكسي ترست 4% (Oxy Trust)',
           category: 'منظم نمو وتثبيت عقد الأزهار',
-          subtitle: 'نمو آمن .. أزهار أكثر .. عقد أفضل ومنع التنفيل',
+          subtitle: 'نمو آمن .. أزهار أكثر .. عقد أفضل ومظهر خضري قوي',
           comp: [
-            { k: 'Naphthalene acetic acid', v: '0.5%' },
-            { k: 'Naphthalene acetamide', v: '1.7%' },
-            { k: 'Betanaphthoxyacetic acid', v: '1.8%' },
-            { k: 'Carrier substance', v: '96%' }
+            { k: 'Naphthalene acetic acid (NAA)', v: '0.5%' },
+            { k: 'Naphthalene acetamide (NAD)', v: '1.7%' },
+            { k: 'Betanaphthoxyacetic acid (BNOA)', v: '1.8%' },
+            { k: 'Carrier substance (مادة حاملة)', v: '96%' }
           ],
           features: [
-            'خليط منظمات نمو وأوكسينات يساعد في عمليات عقد وتثبيت الأزهار.',
-            'يمنع تساقط البراعم الزهرية ويحمي من صدمات الإجهاد المناخي.',
-            'يمنح النبات مظهراً خضرياً قوياً ونمواً متجانساً.'
+            'خليط متوازن من منظمات النمو والأوكسينات التي تساعد مباشرة في عمليات عقد الأزهار وتثبيتها.',
+            'يقوم بتثبيت العقد والأزهار ومنع التنفيل وسقوط الحبات حديثة التكوين.',
+            'يساعد النبات في التغلب على الظروف المناخية الصعبة ودرجات الحرارة المرتفعة والصقيع.',
+            'يستخدم على النباتات السليمة التي لا تعاني من نقص العناصر كباقي منظمات النمو لتحقيق أعلى استجابة.'
           ],
           usage: [
-            'الري بالتنقيط: 6 جرام / 15 لتر ماء مع بداية التزهير.',
-            'تجنب الرش وقت الظهيرة أو ارتفاع درجات الحرارة.'
+            'الري بالتنقيط: 6 جرام / 15 لتر ماء مع بداية التزهير وحسب حجم المجموع الخضري وتوصيات مهندس الدعم الفني.',
+            'تنبيه فني: لا يرش عند ارتفاع درجات الحرارة أو وقت الظهيرة.',
+            'يجب تجنب الإفراط عن النسب المقررة للجرعة.'
           ],
-          meta: ['العبوات المتوفرة: 60 جرام & 250 جرام.', 'يستخدم على النباتات السليمة من نقص العناصر.']
+          meta: [
+            '🔹 العبوات المتوفرة: 60 جرام & 250 جرام تقريباً.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
           name: 'Oxy Trust 4%',
@@ -789,13 +599,24 @@
           subtitle: 'Safe Growth .. Abundant Flowering .. Superior Fruit Set',
           comp: [
             { k: 'NAA', v: '0.5%' },
-            { k: 'NAD', v: '1.7%' }
+            { k: 'NAD', v: '1.7%' },
+            { k: 'BNOA', v: '1.8%' },
+            { k: 'Carrier Substance', v: '96%' }
           ],
-          features: ['Proven auxin mixture to maximize blossom retention and fertilization.'],
-          usage: ['Drip Fertigation: 6 g / 15 L at flower initiation.'],
-          meta: ['Packages: 60g & 250g.']
+          features: [
+            'Specialized auxin formulation designed to trigger fertilization and blossom retention.',
+            'Prevents blossom drop under severe heatwaves and climate fluctuations.',
+            'Ensures vigorous and balanced canopy growth.'
+          ],
+          usage: [
+            'Drip Irrigation: 6 g per 15 Liters of water at early flowering stage.',
+            'Avoid spraying during high midday temperatures.'
+          ],
+          meta: ['Available sizes: 60g & 250g.']
         }
       },
+
+      // 4. كاترست بي (Ca-Trust B)
       {
         id: 'ca-trust-b',
         category: 'fertilizer',
@@ -804,7 +625,7 @@
         ar: {
           name: 'كاترست بي (Ca-Trust B)',
           category: 'كالسيوم وبورون وموليبدنم مخلبي',
-          subtitle: 'صلابة أعلى للثمار ومقاومة لعفن الطرف الزهري والتشوهات',
+          subtitle: 'خلي ثمارك أقوى .. وجودة أعلى في الصلابة والتخزين والشحن التصديري',
           comp: [
             { k: 'كالسيوم سهل الامتصاص', v: '20%' },
             { k: 'ستريك أسيد ومخلبيات', v: '20%' },
@@ -812,26 +633,48 @@
             { k: 'موليبدنم (Mo)', v: 'مدعم' }
           ],
           features: [
-            'يزيد من صلابة الثمار ويضاعف قدرتها على تحمل الشحن والتخزين.',
-            'يقضي نهائياً على عفن الطرف الزهري والقلب الأجوف وتشوه الثمار.',
-            'البورون المضاف ينشط حبوب اللقاح ويثبت الثمار على الأفرع.'
+            'يزيد من صلابة الثمار فيزداد تحملها للنقل والشحن والتخزين الطويل دون تلف أو كدمات.',
+            'يحسن خواص التربة ويزيد من التهوية عند إضافته لمياه الري.',
+            'يساعد في بناء وتكوين الأغشية الخلوية وتقوية جدر الخلايا النباتية.',
+            'يعمل البورون الموجود به على زيادة التزهير والعقد وثبات الثمار على الأفرع.',
+            'يزيد من الامتصاص وانتقال الكربوهيدرات داخل النبات مما يرفع السكر بالمحاصيل الجذرية والثمرية.',
+            'سماد ذو تركيبة مثالية وكافية لتعويض نقص عنصر الكالسيوم في أسهل صور امتصاصه.',
+            'يقضي نهائياً على ظاهرة تشوه الثمار وعفن الطرف الزهري في الطماطم والفلفل والقلب الأجوف والعفن البني.'
           ],
-          usage: ['الرش الورقي: 1 جرام / لتر ماء.', 'التسميد: 1 كجم مع مياه الري لكافة المحاصيل.'],
-          meta: ['قابل للخلط مع معظم الأسمدة والمبيدات.', 'العبوات: 60 جرام & 250 جرام.']
+          usage: [
+            'الرش الورقي: 1 جرام / لتر ماء عند الرش الورقي للنباتات.',
+            'التسميد الأرضي: 1 كجم مع مياه الري لكافة محاصيل الخضر والفاكهة ويكرر بانتظام في النباتات التي يتم الجمع منها باستمرار.'
+          ],
+          meta: [
+            '🔹 قابل للخلط مع معظم الأسمدة والمبيدات ويفضل عمل تجربة خلط مسبقة.',
+            '🔹 العبوات المتوفرة: 60 جرام & 250 جرام تقريباً.'
+          ]
         },
         en: {
-          name: 'Ca-Trust B (Calcium + Boron)',
-          category: 'Firmness & Cell Wall Fortifier',
+          name: 'Ca-Trust B (Calcium 20% + Boron 5%)',
+          category: 'Fruit Firmness Fortifier & Anti-BER',
           subtitle: 'Stronger Fruits .. Superior Storage and Export Shelf-Life',
           comp: [
-            { k: 'Calcium', v: '20%' },
-            { k: 'Citric Acid', v: '20%' }
+            { k: 'Active Calcium', v: '20%' },
+            { k: 'Citric Acid & Chelates', v: '20%' },
+            { k: 'Boron (B)', v: '5%' },
+            { k: 'Molybdenum (Mo)', v: 'Trace' }
           ],
-          features: ['Dramatically elevates fruit firmness and prevents transit bruising.'],
-          usage: ['Foliar: 1 g / L.', 'Drip: 1 Kg / acre.'],
-          meta: ['Packages: 60g & 250g.']
+          features: [
+            'Dramatically elevates fruit firmness, resisting post-harvest transit damage.',
+            'Reinforces plant cell walls and cellular membrane integrity.',
+            'Boron synergism promotes pollen tube elongation and heavy fruit set.',
+            'Eradicates Blossom End Rot (BER) in tomatoes/peppers and hollow heart disorder.'
+          ],
+          usage: [
+            'Foliar: 1 g per Liter of water.',
+            'Fertigation: 1 Kg per acre through drip lines across vegetables and orchards.'
+          ],
+          meta: ['Sizes: 60g & 250g | Highly compatible with fertilizers.']
         }
       },
+
+      // 5. روفا ترست (Roufa Trust)
       {
         id: 'roufa-trust',
         category: 'fertilizer',
@@ -839,35 +682,57 @@
         image: './images/roufa-trust.png',
         ar: {
           name: 'روفا ترست (Roufa Trust)',
-          category: 'حديد مخلبي FeEDDHA 6%',
-          subtitle: 'حبيبات صغيرة قابلة للذوبان التام لعلاج اصفرار الأوراق والكلوروز',
+          category: 'حديد مخلبي FeEDDHA 6.6%',
+          subtitle: 'حبيبات صغيرة قابلة للذوبان التام في الماء لعلاج اصفرار الأوراق والكلوروز',
           comp: [
-            { k: 'مخلبات حديد (Fe)', v: '6.6%' },
+            { k: 'حديد مخلبي (Fe)', v: '6.6%' },
             { k: 'صورة المخلب', v: 'FeEDDHA' },
             { k: 'الذوبان في الماء', v: '100%' },
-            { k: 'الثبات في القلوية', v: 'High pH' }
+            { k: 'مدى ثبات الـ pH', v: '3 - 11' }
           ],
           features: [
-            'ضروري لعملية التمثيل الضوئي وتكوين صبغة الكلوروفيل الأخضر.',
-            'علاج اصفرار الأوراق في الترب القاعدية والكلسية ذات الـ pH المرتفع.',
-            'ثابت وميسر لامتصاص الجذور لفترات طويلة دون ترسب.'
+            'عنصر الحديد ضروري لعملية التمثيل الضوئي (تخليق الكلوروفيل)، لذلك يوصى بإضافته للتربة لتعويض نقص الحديد في المحاصيل الزراعية.',
+            'العلاج الجذري لاصفرار الأوراق في الترب القاعدية والكلسية الشائعة ذات الـ pH المرتفع.',
+            'مخلب ثابت جداً وميسر لامتصاص الجذور لفترات طويلة دون أن يترسب أو يثبت في معقد التربة.',
+            'يستعمل كمضبط ومنشط قوي للنمو الخضري واستعادة اللون الأخضر الداكن.'
           ],
-          usage: ['الفاكهة: 300-350 جم رش ورقي، أو 500-750 جم أرضياً.', 'الخضر: 250-300 جم رش ورقي، أو 500-600 جم أرضياً.'],
-          meta: ['في التربة المتماسكة الجافة يفضل حرثها قبل الإضافة.', 'الوزن الصافي: 1 كجم.']
+          usage: [
+            'محاصيل الفاكهة (عنب، خوخ، مانجو، كمثرى): 300:350 جم للفدان رشاً ورRowقياً (من 3:4 رشات)، أو 500:750 جم للفدان أرضياً (من 3:3 مرات حتى قبل الحصاد بـ 15 يوماً).',
+            'محاصيل الخضر الثمرية (طماطم، باذنجان، فلفل، بطاطا، فراولة): 250:300 جم للفدان رشاً، أو 500:600 جم للفدان أرضياً من 3:4 مرات.',
+            'محاصيل الخضر الورقية (خس، كرنب، جرجير): 250:300 جم رشاً، أو 250:300 جم أرضياً مرتين على الأقل.',
+            'المحاصيل الحقلية (ذرة، قمح، أرز، فول): 350:400 جم رشاً، أو 750 جم للفدان أرضياً.'
+          ],
+          meta: [
+            '🔹 في حالة وجود أعشاب تحت الأشجار المثمرة يتم زيادة معدل الاستعمال بنسبة 50%.',
+            '🔹 في التربة المتماسكة وخصوصاً الجافة يجب خلطه بالتربة بحرثها أو نكشها قبل الإضافة.',
+            '🔹 الوزن الصافي: 1 كجم.'
+          ]
         },
         en: {
-          name: 'Roufa Trust (Iron FeEDDHA 6%)',
+          name: 'Roufa Trust (Iron FeEDDHA 6.6%)',
           category: 'High-Stability Chelated Iron',
           subtitle: 'Micro-granules 100% Water Soluble for immediate chlorosis cure',
           comp: [
-            { k: 'Iron (Fe)', v: '6.6%' },
-            { k: 'Form', v: 'FeEDDHA' }
+            { k: 'Chelated Iron (Fe)', v: '6.6%' },
+            { k: 'Chelate Form', v: 'FeEDDHA' },
+            { k: 'Water Solubility', v: '100%' },
+            { k: 'pH Stability', v: '3 - 11' }
           ],
-          features: ['Cures leaf chlorosis in difficult calcareous and alkaline soils.'],
-          usage: ['Fruit Trees: 500-750 g / acre.'],
-          meta: ['Weight: 1 Kg.']
+          features: [
+            'Essential catalyst for chlorophyll synthesis and photosynthetic energy conversion.',
+            'Cures leaf yellowing (chlorosis) in difficult calcareous and high-pH alkaline soils.',
+            'Extremely stable chelation prevents iron precipitation in ground soil.'
+          ],
+          usage: [
+            'Fruit Trees: Foliar 300-350 g/acre, Soil 500-750 g/acre.',
+            'Vegetables: Foliar 250-300 g/acre, Soil 500-600 g/acre.',
+            'Field Crops: Foliar 350-400 g/acre, Soil 750 g/acre.'
+          ],
+          meta: ['Net Weight: 1 Kg | 100% Water Soluble Granules.']
         }
       },
+
+      // 6. تشيجا ترست 30% SL (Tachiga Trust)
       {
         id: 'tachiga-trust',
         category: 'fungicide',
@@ -878,31 +743,59 @@
           category: 'مبيد فطري جهازي وقائي وعلاجي',
           subtitle: 'المتخصص في مكافحة أعفان الجذور وموت البادرات وخناق المشتل',
           comp: [
-            { k: 'هيمكسازول (Hymexazol)', v: '30%' },
-            { k: 'مواد مضافة وحاملة', v: '70%' },
-            { k: 'صورة المستحضر', v: 'سائل SL' },
-            { k: 'فترة الأمان (PHI)', v: '45 يوم' }
+            { k: 'هيمكسازول (Hymexazol)', v: '30% (وزن/حجم)' },
+            { k: 'مواد مضافة وحاملة', v: '70% (وزن/حجم)' },
+            { k: 'محتوى المادة الفعالة', v: '300 جم/لتر' },
+            { k: 'صورة المستحضر', v: 'سائل SL' }
           ],
           features: [
-            'خاصية جهازية وسريعة الامتصاص لحماية الجذور والمجموع الخضري.',
-            'يكافح بفاعلية أعفان الجذور وخناق البادرات وأمراض التربة الفطرية.',
-            'يعزز نمو الشعيرات الجذرية الماصة ويبكر بنضج المحصول.'
+            'يحتوي على عناصر مضادة ومثبطة لنمو الفطر بجانب قواعد غذائية صغرى ونادرة.',
+            'ذو تأثير وقائي وعلاجي فعال ومنشط قوي لنمو النبات بالمشتل والأرض المستديمة.',
+            'ذو خاصية جهازية وسريعة الامتصاص لحماية الجذور والمجموع الخضري.',
+            'يعزز نمو الجذور ويزيد من كمية الشعيرات الجذرية الماصة وتضاعفها.',
+            'يعمل على تضاعف الكمية في المجموع الخضري ويستخدم لتعقيم البذور لمكافحة أمراض اللفحات.',
+            'يخزن المجموع الجذري جيداً ويحافظ على خصوبة التربة وتوفير العناصر بصورة سهلة وميسرة.',
+            'يساعد على زيادة الإنتاج وتحسين النمو والتبكير في نضج الثمار.'
           ],
-          usage: ['أعفان الجذور وموت البادرات: 1 سم / 3 لتر ماء رياً.', 'الري بالتنقيط العام: 2.5 لتر للفدان ويكرر حسب الحالة.'],
-          meta: ['الصلاحية 3 سنوات في عبوته الأصلية.', 'مادة سامة تحفظ بعيداً عن الأطفال.']
+          usage: [
+            'أعفان الجذور وموت البادرات في محصول الخيار: بمعدل 1 سم³ / 3 لتر ماء رياً حول النباتات.',
+            'معاملة البذرة بالمشتل لمحصول الطماطم: 1 سم³ / 3 لتر ماء رياً.',
+            'الري بالتنقيط العام: 2.5 لتر للفدان ويكرر حسب الحالة.',
+            'الري بالغمر: 5 لتر للفدان وتكرر حسب الإصابة.',
+            'الرش العام: 1 لتر لكل 200 لتر ماء رش ورقي.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): الخيار والطماطم: 45 يوماً.',
+            '🔹 الضمان: تضمن الشركة المنتج في عبواته الأصلية تحت ظروف التخزين المناسبة لمدة 3 سنوات.',
+            '🔹 تحذير: مادة سامة وتحفظ بعيداً عن متناول الأطفال | سعة العبوة: 500 مل.'
+          ]
         },
         en: {
           name: 'Tachiga Trust 30% SL',
-          category: 'Systemic Fungicide (Root Rot)',
-          subtitle: 'Specialized in combating root rots, damping-off, and seedling wilt',
+          category: 'Systemic Fungicide (Root Rot Specialist)',
+          subtitle: 'Hymexazol 30% SL for damping-off, fusarium, and soil-borne root rots',
           comp: [
-            { k: 'Hymexazol', v: '30%' }
+            { k: 'Hymexazol', v: '30% w/v' },
+            { k: 'Inerts & Adjuvants', v: '70% w/v' },
+            { k: 'Active Density', v: '300 g/L' },
+            { k: 'Formulation', v: 'Soluble Liquid (SL)' }
           ],
-          features: ['Combats Fusarium, Pythium, and Aphanomyces soil pathogens.'],
-          usage: ['Drench: 1 ml per 3 Liters water.'],
-          meta: ['500 ml bottle.']
+          features: [
+            'Dual action: Systemic preventive and curative protection against soil fungi.',
+            'Rapidly penetrates xylem tissues and accelerates root hair density.',
+            'Combats Fusarium, Pythium, and Aphanomyces soil pathogens.',
+            'Improves seedling survival rate in greenhouses and open fields.'
+          ],
+          usage: [
+            'Root Rot & Damping-off: 1 ml per 3 Liters water drench.',
+            'Drip Fertigation: 2.5 Liters per acre.',
+            'Flood Irrigation: 5 Liters per acre.'
+          ],
+          meta: ['PHI: Cucumbers & Tomatoes: 45 Days | Volume: 500 ml.']
         }
       },
+
+      // 7. فولجا ترست (Volga Trust)
       {
         id: 'volga-trust',
         category: 'fertilizer',
@@ -911,34 +804,59 @@
         ar: {
           name: 'فولجا ترست (Volga Trust)',
           category: 'تغذية وتنشيط إنزيمي متكامل',
-          subtitle: 'توليفة متكاملة من الفولفيك والبوتاسيوم والأحماض الأمينية والطحالب',
+          subtitle: 'توليفة متكاملة من الفولفيك والأحماض الأمينية والطحالب والبوتاسيوم والأوكسينات',
           comp: [
             { k: 'فولفيك أسيد', v: '50%' },
             { k: 'بوتاسيوم (K₂O)', v: '17%' },
             { k: 'أحماض أمينية', v: '12%' },
-            { k: 'طحالب بحرية', v: '3%' }
+            { k: 'طحالب بحرية', v: '3%' },
+            { k: 'سيتوكينين', v: '0.1%' },
+            { k: 'NAA', v: '0.6%' },
+            { k: 'GIB Acid', v: '0.6%' },
+            { k: 'IBA', v: '0.05%' }
           ],
           features: [
-            'يعزز انقسام الخلايا واستطالتها ويساعد في تخليق الكلوروفيل.',
-            'يعيد التوازن الكهروكيميائي للنبات ويزيد مقاومته للجفاف والصقيع.',
-            'يرفع نسبة السكر وحجم الثمار وينظم الضغط الإسموزي.'
+            'يعزز انقسام الخلايا واستطالتها ويساعد في تخليق الكلوروفيل ويمنع الذبول.',
+            'يعيد التوازن الكهروكيميائي للنبات ويزيد من مقاومة الجفاف والحرارة والصقيع.',
+            'يحتوي على نسبة عالية من الطحالب والسيتوكينين والأوكسين التي تعمل على زيادة انتشار الشعيرات الجذرية.',
+            'يحتوي على نسبة عالية من البوتاسيوم التي تعمل على زيادة نسبة السكر وحجم الثمار وتنظيم الضغط الإسموزي وخفض آثار الملوحة الضارة.',
+            'يشجع نمو الجذور ويعزز تبادل الأيونات الموجبة ويحفز عملية التغذية وتقليل تساقط الأزهار.',
+            'يعمل على زيادة النشاط الإنزيمي ويعمل كمحفز في تنفس النبات.'
           ],
-          usage: ['الرش الورقي: 1 جرام / لتر ماء.', 'التسميد الأرضي: 2 إلى 3 كجم / فدان.'],
-          meta: ['مدعم بـ NAA و Gibberellic Acid و Cytokinin.']
+          usage: [
+            'الرش الورقي: 1 جرام / لتر ماء.',
+            'التسميد الأرضي: 2 إلى 3 كجم / فدان حقناً مع مياه الري.'
+          ],
+          meta: [
+            '🔹 القابلية للخلط: قابل للخلط مع معظم الأسمدة والمبيدات ويفضل إجراء تجربة خلط مسبقة.',
+            '🔹 العبوات المتوفرة: 500 جرام / 1 كيلو جرام.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
           name: 'Volga Trust',
-          category: 'Bio-stimulant & Stress Reliever',
-          subtitle: 'Synergistic formulation of Fulvic Acid, Potassium & Seaweed',
+          category: 'Enzymatic Bio-stimulant & Stress Reliever',
+          subtitle: 'Synergistic formulation of Fulvic Acid, Potassium, Amino Acids & Phytohormones',
           comp: [
             { k: 'Fulvic Acid', v: '50%' },
-            { k: 'Potassium', v: '17%' }
+            { k: 'Potassium (K₂O)', v: '17%' },
+            { k: 'Amino Acids', v: '12%' },
+            { k: 'Seaweed', v: '3%' },
+            { k: 'Cytokinins', v: '0.1%' },
+            { k: 'Auxins (NAA/IBA/GA3)', v: '1.25%' }
           ],
-          features: ['Restores electro-chemical equilibrium and mitigates cold/frost stress.'],
-          usage: ['Foliar: 1 g / L.'],
-          meta: ['500g & 1Kg.']
+          features: [
+            'Promotes rapid cell elongation, chlorophyll biosynthesis, and wilt prevention.',
+            'Restores electro-chemical equilibrium and mitigates cold/frost stress.',
+            'High phytohormone balance triggers massive root branch density.',
+            'Increases fruit sweetness, regulates osmotic balance, and alleviates salinity burn.'
+          ],
+          usage: ['Foliar Spray: 1 g per 1 Liter of water.', 'Soil Fertigation: 2 to 3 Kg per acre.'],
+          meta: ['Sizes: 500g & 1Kg | Highly compatible.']
         }
       },
+
+      // 8. فينو سال (Vino Sal)
       {
         id: 'vino-sal',
         category: 'salinity',
@@ -947,34 +865,59 @@
         ar: {
           name: 'فينو سال (Vino Sal)',
           category: 'معالج ملوحة التربة ومياه الري',
-          subtitle: 'متخليش الملوحة تعطلك .. مركب أردني لمعالجة التربة والمياه المالحة',
+          subtitle: 'متخليش الملوحة تعطلك .. مركب أردني لمعالجة ملوحة التربة والمياه بأحدث الأبحاث',
           comp: [
             { k: 'كالسيوم سهل الامتصاص', v: '10%' },
-            { k: 'أحماض كربوكسيلية', v: '12%' },
+            { k: 'أحماض كربوكسيلية قصيرة السلسلة', v: '12%' },
             { k: 'فولفيك وهيوميك أسيد', v: '5%' },
-            { k: 'نيتروجين وساليسيليك', v: '4%' }
+            { k: 'نيتروجين', v: '4%' },
+            { k: 'مستخلص طحالب وساليسيليك', v: 'مدعم' }
           ],
           features: [
-            'يحتوي على مصدرين للكالسيوم لطرد الصوديوم الضار من حول الجذور.',
-            'حمض الساليسيليك ينشط المناعة المستحثة ضد أمراض الجذور.',
-            'يخفض قلوية التربة ويعالج ملوحة مياه الآبار الارتوازية.'
+            'مركب مصنوع وفق أحدث الأبحاث الأردنية لمعالجة ملوحة التربة والمياه بطريقة تتناسب مع طبيعة التربة المختلفة.',
+            'يحتوي على النيتروجين وحمضي الهيوميك والفولفيك اللذان يعملان على تنشيط الجذور مما يزيد من الإنتاجية.',
+            'يحتوي على حمض الساليسيليك والذي يعمل على تنشيط المناعة المستحثة في النبات ومقاومة الإصابة ببعض الأمراض وبالتالي يوفر في تكاليف المكافحة.',
+            'يحتوي على مصدرين مختلفين لأكسيد الكالسيوم الذي يحل محل الصوديوم كحل أول للتخلص من آثار الملوحة الضارة.',
+            'الحل السريع والاقتصادي للتخلص من أضرار الملوحة وتحفيز النمو والوقاية من أمراض الجذور.'
           ],
-          usage: ['الري بالتنقيط: 3 إلى 5 لتر / فدان كل 15:30 يوم.', 'مياه الري: 10:70 مل / متر مكعب ماء حسب الملوحة.'],
-          meta: ['مدعم بالطحالب البحرية وحمض الساليسيليك.']
+          usage: [
+            'الري بالتنقيط: 3 إلى 5 لتر / فدان ويكرر كل 15:30 يوم.',
+            'الري بالغمر: 5 إلى 10 لتر / فدان ويكرر حسب حالة الملوحة.',
+            'مياه الري: 10 : 70 مل / متر مكعب ماء حسب درجة ملوحة البئر (PPM).'
+          ],
+          meta: [
+            '🔹 يطرد أملاح الصوديوم ويخفض قلوية التربة ويحرر الفوسفور المحبوس.',
+            '🔹 سعة العبوة: 5 لتر جركن عالي الجودة.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
           name: 'Vino Sal',
-          category: 'Soil & Water Salinity Reducer',
-          subtitle: 'Displaces harmful sodium and unlocks bound nutrients',
+          category: 'Soil & Well Water Salinity Reducer',
+          subtitle: 'Jordanian formulation: Displaces harmful sodium and unlocks bound nutrients',
           comp: [
-            { k: 'Calcium', v: '10%' },
-            { k: 'Carboxylic', v: '12%' }
+            { k: 'Active Calcium', v: '10%' },
+            { k: 'Short-Chain Carboxylic', v: '12%' },
+            { k: 'Fulvic & Humic Acids', v: '5%' },
+            { k: 'Total Nitrogen', v: '4%' },
+            { k: 'Salicylic & Algae', v: 'Enriched' }
           ],
-          features: ['Lowers soil pH and flushes toxic chlorides.'],
-          usage: ['Drip: 3 to 5 L / acre.'],
-          meta: ['5 Liters.']
+          features: [
+            'Engineered to remediate harsh saline soils and brackish well water.',
+            'Active calcium replaces toxic sodium ions on soil colloids, facilitating leaching.',
+            'Fortified with Salicylic acid to trigger Systemic Acquired Resistance (SAR).',
+            'Lowers soil pH and liberates locked phosphorus and microelements.'
+          ],
+          usage: [
+            'Drip Irrigation: 3 to 5 Liters per acre every 15-30 days.',
+            'Flood Irrigation: 5 to 10 Liters per acre based on soil EC.',
+            'Irrigation Water Treatment: 10 to 70 ml per m³ of water.'
+          ],
+          meta: ['5 Litres heavy duty jerrycan.']
         }
       },
+
+      // 9. فولا سال (Vola Sal)
       {
         id: 'vola-sal',
         category: 'salinity',
@@ -983,33 +926,59 @@
         ar: {
           name: 'فولا سال (Vola Sal)',
           category: 'معالج ملوحة فائق التركيز',
-          subtitle: 'خلي التربة تتنفس .. الحل السريع والاقتصادي لكسر الأملاح والتكلس',
+          subtitle: 'خلي التربة تتنفس .. 14% كالسيوم و17% كربوكسيليك لكسر التكلس وتضاغط الأملاح',
           comp: [
-            { k: 'كالسيوم نشط', v: '14%' },
-            { k: 'أحماض كربوكسيلية', v: '17%' },
-            { k: 'فولفيك وهيوميك', v: '10%' },
-            { k: 'نيتروجين كلي', v: '7%' }
+            { k: 'كالسيوم سهل الامتصاص', v: '14%' },
+            { k: 'أحماض كربوكسيلية قصيرة السلسلة', v: '17%' },
+            { k: 'فولفيك وهيوميك أسيد', v: '10%' },
+            { k: 'نيتروجين كلي', v: '7%' },
+            { k: 'طحالب بحرية وساليسيليك', v: 'مدعم' }
           ],
           features: [
-            'تركيز فائق 17% أحماض كربوكسيلية لتفكيك قشور التربة الكلسية.',
-            'يحرر الشعيرات الجذرية ويزيد نفاذية التربة للماء والأسمدة.'
+            'مركب مصنوع وفق أحدث الأبحاث الأردنية لمعالجة ملوحة التربة والمياه وتفكيك الطبقات الصماء.',
+            'يحتوي على النيتروجين وحمضي الهيوميك والفولفيك لتنشيط الجذور وزيادة الإنتاجية.',
+            'يحتوي على حمض الساليسيليك لتنشيط المناعة المستحثة ومقاومة الأمراض الفطرية الجذرية.',
+            'يحتوي على مصدرين مختلفين لأكسيد الكالسيوم النشط ليحل محل الصوديوم كحل جذري.',
+            'الحل السريع والاقتصادي للتخلص من أضرار التملح وتحفيز النموات وتسهيل تنفس الجذور.'
           ],
-          usage: ['الري بالتنقيط: 2.5 إلى 3 لتر / فدان.', 'الري بالغمر: 5 لتر / فدان.'],
-          meta: ['يُرج جيداً قبل الاستعمال.']
+          usage: [
+            'الري بالتنقيط: 2.5 : 3 لتر / فدان ويكرر كل 15:20 يوم حسب تحليل الملوحة.',
+            'الري المغمور: 5 لتر / فدان ويكرر حسب حالة الملوحة.',
+            'مياه الري: 10 : 70 مل / متر مكعب ماء حسب درجة ملوحة البئر.'
+          ],
+          meta: [
+            '🔹 تنبيه فني: يُرج جيداً قبل الاستعمال (SHAKE WELL BEFORE USING).',
+            '🔹 سعة العبوة: 5 لتر.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
-          name: 'Vola Sal',
-          category: 'Heavy-Duty Salinity Breaker',
-          subtitle: '14% Calcium & 17% Carboxylic Acid Complex',
+          name: 'Vola Sal (Heavy-Duty Salinity Breaker)',
+          category: 'Concentrated Salinity & Soil Conditioner',
+          subtitle: 'Let the Soil Breathe: 14% Calcium & 17% Carboxylic Acid Complex',
           comp: [
-            { k: 'Calcium', v: '14%' },
-            { k: 'Carboxylic', v: '17%' }
+            { k: 'Active Calcium', v: '14%' },
+            { k: 'Short-Chain Carboxylic', v: '17%' },
+            { k: 'Fulvic & Humic Acids', v: '10%' },
+            { k: 'Total Nitrogen', v: '7%' },
+            { k: 'Salicylic & Algae', v: 'Enriched' }
           ],
-          features: ['Breaks hard soil compaction and sodium crusts.'],
-          usage: ['Drip: 2.5 - 3 L / acre.'],
-          meta: ['5 Liters.']
+          features: [
+            'Double-calcium source formulation to rapidly flush sodium chlorides.',
+            'Massive 17% carboxylic content breaks soil compaction and crusting.',
+            'Protects roots from osmotic suffocation caused by high electrical conductivity (EC).',
+            'Increases water infiltration and soil porosity.'
+          ],
+          usage: [
+            'Drip Irrigation: 2.5 to 3 Liters per acre every 15-20 days.',
+            'Flood Irrigation: 5 Liters per acre.',
+            'Saline Well Water Injection: 10 to 70 ml per m³ water.'
+          ],
+          meta: ['5 Liters heavy-duty container | Shake well.']
         }
       },
+
+      // 10. فولا ميكس (Vola Mix) - البيانات الكاملة والمصححة من البروشور
       {
         id: 'vola-mix',
         category: 'fertilizer',
@@ -1017,71 +986,671 @@
         image: './images/vola-mix.png',
         ar: {
           name: 'فولا ميكس (Vola Mix)',
-          category: 'مستخلصات نباتية وعناصر صغرى',
-          subtitle: 'مستخلصات نباتية عالية التركيز لتنشيط التربة واستعادة الخصوبة',
+          category: 'مستخلصات نباتية وعناصر صغرى عالية التركيز',
+          subtitle: 'روعة المستخلصات النباتية 50% مع البوتاسيوم والعناصر الصغرى لتنشيط التربة واستعادة الخصوبة',
           comp: [
-            { k: 'مستخلصات نباتية', v: '50%' },
+            { k: 'مستخلصات نباتية نقية', v: '50%' },
             { k: 'بوتاسيوم (K₂O)', v: '12%' },
             { k: 'حديد مخلبي (Fe)', v: '1%' },
-            { k: 'زنك + منجنيز + ماغنسيوم', v: '1% لكل عنصر' }
+            { k: 'زنك مخلبي (Zn)', v: '1%' },
+            { k: 'منجنيز مخلبي (Mn)', v: '1%' },
+            { k: 'ماغنسيوم (Mg)', v: '1%' }
           ],
           features: [
-            'غني بالمادة العضوية والدوبال لتحسين السعة التبادلية الكاتيونية (CEC) للتربة.',
-            'يوقف تدهور خواص التربة الناتج عن الإفراط في الأسمدة الكيماوية.',
-            'يحافظ على توازن البكتيريا النافعة.'
+            'فولا ميكس غني بالمادة العضوية ومادة الدوبال التي تحسن خواص التربة وتزيد من السعة التبادلية الكاتيونية (CEC)، مما يزيد من كفاءة امتصاص العناصر ويقلل من استهلاك الأسمدة الكيماوية.',
+            'يحتوي على عناصر صغرى من الحديد والزنك والمنجنيز والماغنسيوم، ويساعد على علاج أعراض نقص هذه العناصر الضرورية للنبات بصورة سريعة.',
+            'يساعد في استعادة التوازن الغذائي إلى التربة التي عانت من تكرار إضافة الأسمدة الكيماوية ويوقف تدهور خواص التربة الزراعية.',
+            'مناسب لجميع أنواع المحاصيل الزراعية: محاصيل الخضر، الفاكهة، المحاصيل الحقلية، ومزارع الإنتاج العضوي.',
+            'لا يؤدي تكرار إضافته إلى نشوء مركبات غير مرغوب فيها نظراً لتوازن محتواه المعدني والكيماوي، كما يحافظ على توازن البكتيريا النافعة بالتربة.'
           ],
-          usage: ['الري بالتنقيط: 2.5 لتر للفدان.', 'الرش الورقي: 2.5 لتر لكل 200 لتر ماء.'],
-          meta: ['مناسب لكافة الزراعات الحقلية والعضوية.']
+          usage: [
+            'الري بالتنقيط: 2.5 لتر للفدان ويكرر حسب الحالة وعمر النبات.',
+            'الري بالغمر: 5 لتر للفدان وتكرر حسب الحالة وتوصيات الدعم الفني.',
+            'الرش الورقي: 2.5 لتر لكل 200 لتر ماء رشاً متجانساً على المجموع الخضري.'
+          ],
+          meta: [
+            '🔹 القابلية للخلط: قابل للخلط مع معظم الأسمدة والمبيدات مع الأخذ في الاعتبار توصيات مهندس الدعم الفني الزراعي.',
+            '🔹 سعة العبوة: 5 لتر (جركن عالي الكثافة).',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
-          name: 'Vola Mix',
-          category: 'Plant Extracts & Micronutrients',
-          subtitle: 'Restores degraded soils and stimulates beneficial soil flora',
+          name: 'Vola Mix (5 Litres)',
+          category: 'Concentrated Plant Extracts & Chelated Micronutrients',
+          subtitle: '50% Plant Extracts with 12% Potassium and balanced Fe, Zn, Mn, Mg',
           comp: [
-            { k: 'Plant Extracts', v: '50%' }
+            { k: 'Plant Extracts', v: '50%' },
+            { k: 'Potassium (K₂O)', v: '12%' },
+            { k: 'Chelated Iron (Fe)', v: '1%' },
+            { k: 'Chelated Zinc (Zn)', v: '1%' },
+            { k: 'Manganese (Mn)', v: '1%' },
+            { k: 'Magnesium (Mg)', v: '1%' }
           ],
-          features: ['Elevates Cation Exchange Capacity (CEC) of soil.'],
-          usage: ['Drip: 2.5 L / acre.'],
-          meta: ['5 Liters container.']
+          features: [
+            'Rich in organic matter and humus, drastically improving soil Cation Exchange Capacity (CEC) and fertilizer efficiency.',
+            'Supplies balanced micronutrients (Iron, Zinc, Manganese, Magnesium) curing chlorosis and deficiencies.',
+            'Restores nutritional and biological equilibrium in soils damaged by intensive chemical fertilization.',
+            'Maintains healthy populations of beneficial soil bacteria without forming unwanted insoluble complexes.',
+            'Highly recommended across all open field vegetables, fruit orchards, and organic agricultural systems.'
+          ],
+          usage: [
+            'Drip Fertigation: 2.5 Liters per acre (repeated as needed).',
+            'Flood Irrigation: 5 Liters per acre (repeated as needed).',
+            'Foliar Application: 2.5 Liters per 200 Liters of water.'
+          ],
+          meta: [
+            '🔹 Excellent compatibility with standard fertilizers and crop protection products.',
+            '🔹 Container size: 5 Liters.'
+          ]
         }
       },
+
+      // 11. خضراوي (Khadrawy)
       {
         id: 'khadrawy',
-        category: 'growth',
+        category: 'fertilizer',
         pack: '100 مل / 250 مل / 600 مل',
         image: './images/khadrawy.png',
         ar: {
           name: 'خضراوي (Khadrawy)',
-          category: 'منشط مجموع خضري وكلوروفيل',
-          subtitle: 'خضار برونق الكلوروفيل .. لنمو أقوى ومحصول أوفر',
+          category: 'أسمدة ومخصبات ورقية ومحفزات نمو',
+          subtitle: 'خضار برونق الكلوروفيل .. لنمو أقوى ومجموع خضري متضاعف ومحصول أوفر',
           comp: [
-            { k: 'نيتروجين (N)', v: '20%' },
-            { k: 'طحالب بحرية', v: '10%' },
+            { k: 'نيتروجين كلي (N)', v: '20%' },
+            { k: 'طحالب بحرية نقية', v: '10%' },
             { k: 'كبريت (S)', v: '7%' },
-            { k: 'ماغنسيوم وكربوكسيليك', v: '5% لكل منهما' }
+            { k: 'ماغنسيوم (Mg)', v: '5%' },
+            { k: 'أحماض كربوكسيلية', v: '5%' },
+            { k: 'حديد مخلبي (Fe)', v: '2%' },
+            { k: 'زنك مخلبي (Zn)', v: '2%' },
+            { k: 'منجنيز مخلبي (Mn)', v: '0.5%' }
           ],
           features: [
-            'زيادة سريعة في التفريعات وحجم الأوراق وتكوين صبغة الكلوروفيل.',
-            'علاج اصفرار وبهتان النبات وضعف التسميد.',
-            'يزيد من عدد الحشات في الموسم لمحاصيل الأعلاف (كالبرسيم).'
+            'تركيبة فريدة تحتوي على مجموعة متوازنة من العناصر الكبرى والصغرى ومنظمات النمو والطحالب البحرية الهامة لجميع الزراعات.',
+            'تركيبة متكاملة سريعة الامتصاص وقوية المفعول تظهر نتائجها على النبات خلال أيام معدودة.',
+            'يعمل على الزيادة السريعة في حجم المجموع الخضري وبناء وتكوين صبغة الكلوروفيل الأخضر.',
+            'هامة جداً لزيادة حجم الأوراق والتفريعات الجانبية الجديدة بشكل أسرع.',
+            'مركب طبيعي غني بالطحالب البحرية لمقاومة الإجهاد المناخي غير أنه آمن تماماً على البيئة.',
+            'يعالج بكفاءة ضعف المجموع الخضري الناتج عن سوء التسميد والري.',
+            'يزيد من عدد الحشات في الموسم الواحد بالنسبة لمحاصيل الأعلاف (كالبرسيم الحجازي).'
           ],
           usage: [
-            'الخضر والأعلاف: 250 مل / 200 لتر ماء.',
-            'الأشجار: 100 مل / 600 لتر ماء.'
+            'الرش الورقي (محاصيل الخضر والأعلاف): 250 مل / 200 لتر ماء.',
+            'أشجار الفاكهة ونباتات الزينة: 100 مل / 600 لتر ماء.',
+            'بالنسبة لمحاصيل الأعلاف يتم الرش بعد كل حشة مباشرة لتحفيز التفريع السريع.'
           ],
-          meta: ['مدعم بحديد 2%، زنك 2%، منجنيز 0.5%.']
+          meta: [
+            '🔹 القابلية للخلط: قابل للخلط مع معظم الأسمدة والمبيدات مع الأخذ في الاعتبار توصيات الدعم الفني.',
+            '🔹 العبوات المتوفرة: 100 مل، 250 مل، 600 مل.',
+            '🔹 إنتاج وتوزيع: شركة ترستون للتنمية الزراعية.'
+          ]
         },
         en: {
-          name: 'Khadrawy',
-          category: 'Chlorophyll & Foliage Booster',
-          subtitle: 'Lush Chlorophyll Radiance: Stronger Vegetative Growth',
+          name: 'Khadrawy (Foliage & Chlorophyll Booster)',
+          category: 'Foliar Nutrient Complex',
+          subtitle: 'Lush Chlorophyll Radiance: Stronger Vegetative Growth & Higher Yields',
           comp: [
-            { k: 'Nitrogen', v: '20%' },
-            { k: 'Seaweed', v: '10%' }
+            { k: 'Total Nitrogen (N)', v: '20%' },
+            { k: 'Seaweed Extract', v: '10%' },
+            { k: 'Sulfur (S)', v: '7%' },
+            { k: 'Magnesium (Mg)', v: '5%' },
+            { k: 'Carboxylic Acids', v: '5%' },
+            { k: 'Fe + Zn + Mn', v: '4.5%' }
           ],
-          features: ['Triggers explosive vegetative branching and dark greening.'],
-          usage: ['Foliar: 250 ml per 200 Liters of water.'],
-          meta: ['Packages: 100ml, 250ml, 600ml.']
+          features: [
+            'Comprehensive formulation combining macro and micronutrients, carboxylic acids, and marine bio-algae.',
+            'Rapid assimilation triggers explosive vegetative branching and leaf surface expansion.',
+            'Cures canopy stunting and leaf yellowing caused by fertigation stress.',
+            'Significantly increases harvest cutting frequency in forage crops (alfalfa).'
+          ],
+          usage: [
+            'Vegetables & Forages: 250 ml per 200 Liters of water.',
+            'Fruit Trees & Ornamentals: 100 ml per 600 Liters of water.',
+            'Forages: Apply foliar spray immediately following each cutting.'
+          ],
+          meta: ['Available sizes: 100ml, 250ml, 600ml.']
+        }
+      },
+
+      // 12. ترستزول 25% EC (Trustzol)
+      {
+        id: 'trustzol',
+        category: 'fungicide',
+        pack: '100 سم³ & 200 سم³',
+        image: './images/trustzol.png',
+        ar: {
+          name: 'ترستزول 25% EC (Trustzol)',
+          category: 'مبيد فطري جهازي واسع المجال',
+          subtitle: 'بروبيكونازول 25% المتخصص في مكافحة وعلاج الصدأ الأصفر في القمح وأمراض الأصداء',
+          comp: [
+            { k: 'بروبيكونازول Propiconazole', v: '25% (حجم/وزن)' },
+            { k: 'مواد مستحلبة', v: '10.57% (وزن/حجم)' },
+            { k: 'مذيبات عضوية', v: '64.43% (وزن/حجم)' },
+            { k: 'تركيز المادة الفعالة', v: '250 جم/لتر' }
+          ],
+          features: [
+            'مبيد فطري جهازي واسع المجال يمتص عبر الأوراق وينتقل جهازياً داخل العصارة النباتية ليحمي النموات الحديثة.',
+            'ذو تأثير علاجي ووقائي سريع وحاسم ضد فطريات الأصداء والبياض الدقيقي وأمراض المجموع الخضري.',
+            'الاسم الكيميائي: (t)-(2-(2,4-dichlorophenyl)-4-propyl-1,3-dioxolan-2-ylmethyl)-1H-1,2,4-triazole.',
+            'المستحضر في صورة مركز قابل للاستحلاب (EC) سريع الانتشار والامتصاص.'
+          ],
+          usage: [
+            'القمح (مكافحة وعلاج الصدأ الأصفر): يستعمل بمعدل 25 سم³ / 100 لتر ماء طبقاً لتوصيات وزارة الزراعة.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): القمح 30 يوماً.',
+            '🔹 الضمان: تضمن الشركة المبيد في عبواته الأصلية تحت ظروف التخزين المناسبة لمدة 3 سنوات.',
+            '🔹 التخلص من العبوات: يجب عدم استعمال العبوات الفارغة في أي غرض آخر وإعدامها في الأماكن المخصصة لذلك.',
+            '🔹 العقار المضاد في حالة التسمم: لا يوجد عقار مضاد محدد، ويعالج المصاب حسب الأعراض الظاهرة عليه.'
+          ]
+        },
+        en: {
+          name: 'Trustzol 25% EC',
+          category: 'Broad-Spectrum Systemic Fungicide',
+          subtitle: 'Propiconazole 25% EC for preventive and curative cereal rust control',
+          comp: [
+            { k: 'Propiconazole', v: '25% w/v' },
+            { k: 'Emulsifiers', v: '10.57% w/v' },
+            { k: 'Solvents', v: '64.43% w/v' },
+            { k: 'Active Density', v: '250 g/L' }
+          ],
+          features: [
+            'Systemic triazole fungicide with fast acropetal movement via plant sap.',
+            'Provides immediate preventive and eradicative control of yellow stripe rust and powdery mildews.'
+          ],
+          usage: ['Wheat (Yellow Rust Control): 25 ml per 100 Liters of water.'],
+          meta: ['Pre-Harvest Interval (PHI): Wheat: 30 Days | Sizes: 100 cm³ & 200 cm³.']
+        }
+      },
+
+      // 13. أوتو ستار توب 325 SC (AutoStar Top)
+      {
+        id: 'autostar-top',
+        category: 'fungicide',
+        pack: '100 سم³ & 200 سم³',
+        image: './images/autostar-top.png',
+        ar: {
+          name: 'أوتو ستار توب 325 SC (AutoStar Top)',
+          category: 'مبيد فطري جهازي وقائي وعلاجي',
+          subtitle: 'تركيبة مزدوجة: أزوكسي ستروبين 20% + دايفينوكونازول 12.5% لمكافحة البياض والتبقعات',
+          comp: [
+            { k: 'أزوكسي ستروبين Azoxystrobin', v: '20% (حجم/وزن)' },
+            { k: 'دايفينوكونازول Difenoconazole', v: '12.5% (حجم/وزن)' },
+            { k: 'مواد مبللة', v: '20.70%' },
+            { k: 'مواد ناشرة ومخففة وحافظة', v: '46.80%' },
+            { k: 'إجمالي المادة الفعالة', v: '325 جم/لتر' }
+          ],
+          features: [
+            'مركب جهازي مزدوج يجمع بين فئتي ستروبيلورين وترايازول لتوفير حماية وقائية وعلاجية قاطعة تمنع تشكل المقاومة الفطرية.',
+            'يمنع إنبات جراثيم الفطريات ويوقف استطالة أنبوب الإنبات ونمو الميسليوم داخل أنسجة العائل.',
+            'المستحضر في صورة مركز معلق (SC) عالي الالتصاق ومقاوم للغسيل بمياه الأمطار والندى.'
+          ],
+          usage: [
+            'الجوافة (مكافحة مرض تبقع الأوراق): بمعدل 50 سم³ / 100 لتر ماء.',
+            'الكنتالوب (مكافحة مرض البياض الزغبي): بمعدل 300 سم³ / فدان.',
+            'العنب (مكافحة مرض البياض الدقيقي): بمعدل 75 سم³ / 100 لتر ماء.',
+            'عدد مرات الرش: 3 رشات كحد أقصى على أن تكون الفترة بين الرشات من 7 إلى 14 يوماً.',
+            'كمية المياه اللازمة: محصول البصل لا تزيد عن 400 لتر/فدان | محصول العنب والجوافة من 400 إلى 600 لتر/فدان.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): الجوافة: 7 أيام | البصل: 10 أيام | العنب: 21 يوماً.',
+            '🔹 الضمان: تضمن الشركة المنتج لمدة 3 سنوات في عبواته الأصلية المغلقة.',
+            '🔹 العبوات: 100 سم³ و 200 سم³.'
+          ]
+        },
+        en: {
+          name: 'AutoStar Top 325 SC',
+          category: 'Broad-Spectrum Suspension Concentrate Fungicide',
+          subtitle: 'Azoxystrobin 20% + Difenoconazole 12.5% (325 g/L total active)',
+          comp: [
+            { k: 'Azoxystrobin', v: '20% w/v' },
+            { k: 'Difenoconazole', v: '12.5% w/v' },
+            { k: 'Wetting Agents', v: '20.70%' },
+            { k: 'Inerts & Dispersants', v: '46.80%' }
+          ],
+          features: [
+            'Synergistic combination inhibiting fungal respiration and ergosterol synthesis.',
+            'Superior translaminar and systemic control of downy mildew, powdery mildew, and leaf spots.'
+          ],
+          usage: [
+            'Guava (Leaf Spot): 50 ml per 100 L water.',
+            'Cantaloupe (Downy Mildew): 300 ml per acre.',
+            'Grapes (Powdery Mildew): 75 ml per 100 L water.',
+            'Max 3 applications with 7-14 days intervals.'
+          ],
+          meta: ['PHI: Guava 7 days, Onion 10 days, Grapes 21 days | Sizes: 100ml & 200ml.']
+        }
+      },
+
+      // 14. ترست فوس 28% EC (Trustfos)
+      {
+        id: 'trustfos',
+        category: 'insecticide',
+        pack: '250 مل | 250 ml',
+        image: './images/trustfos.png',
+        ar: {
+          name: 'ترست فوس 28% EC (Trustfos)',
+          category: 'مبيد حشري شبه جهازي بالملامسة وسم معدي',
+          subtitle: 'كلوربيريفوس 25% + ألفا سايبرمثرين 3% للقضاء على الدودة القارضة والحشرات القشرية والتربس',
+          comp: [
+            { k: 'كلوربيريفوس Chlorpyrifos', v: '25% (وزن/حجم)' },
+            { k: 'ألفا سايبرمثرين Alpha-cypermethrin', v: '3% (وزن/حجم)' },
+            { k: 'مادة مذيبة ومستحلبة', v: '72% (وزن/حجم)' },
+            { k: 'محتوى المادة الفعالة', v: '280 جم/لتر' }
+          ],
+          features: [
+            'مبيد حشري شبه جهازي واسع المدى يعمل بالملامسة وكسم معدي بضربة قاضية سريعة وتأثير صعق فوري (Knockdown).',
+            'يقضي بكفاءة عالية على الدودة القارضة، الحشرة القشرية، الذبابة البيضاء، وحشرات التربس.',
+            'المستحضر في صورة مركز قابل للاستحلاب (EC) سريع الانتشار على أسطح النباتات.'
+          ],
+          usage: [
+            'مكافحة الدودة القارضة والحشرات القشرية والذبابة والتربس: بمعدل 100 سم³ / 100 لتر ماء طبقاً لتوصيات وزارة الزراعة.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): من 7 إلى 10 أيام حسب كثافة المبيد في محلول الرش.',
+            '🔹 الحفظ والتخزين: تجنب التخزين على درجات الحرارة المرتفعة ويخزن في منطقة جيدة التهوية بعيداً عن الشمس والرطوبة وأعلاف المزرعة.',
+            '🔹 سعة العبوة: 250 مللي.'
+          ]
+        },
+        en: {
+          name: 'Trustfos 28% EC',
+          category: 'Broad-Spectrum Insecticide (Contact & Stomach)',
+          subtitle: 'Chlorpyrifos 25% + Alpha-cypermethrin 3% (280 g/L active content)',
+          comp: [
+            { k: 'Chlorpyrifos', v: '25% w/v' },
+            { k: 'Alpha-cypermethrin', v: '3% w/v' },
+            { k: 'Solvents & Inerts', v: '72% w/v' }
+          ],
+          features: [
+            'Dual-mode organophosphate and synthetic pyrethroid blend with rapid knockdown and repellent action.',
+            'Controls chewing and sucking pests: Cutworms, scale insects, whiteflies, and thrips.'
+          ],
+          usage: ['100 ml per 100 Liters of water foliar spray.'],
+          meta: ['PHI: 7 - 10 Days | Pack: 250 ml.']
+        }
+      },
+
+      // 15. ترستميك 1.8% EC (Trustmec)
+      {
+        id: 'trustmec',
+        category: 'insecticide',
+        pack: '250 مل | 250 ml',
+        image: './images/trustmec.png',
+        ar: {
+          name: 'ترستميك 1.8% EC (Trustmec)',
+          category: 'مبيد أكاروسي وحشري متخصص',
+          subtitle: 'أبامكتين 1.8% مدعم بـ 1% ألفا سايبرمثرين و 3% زنك نقي لمكافحة العنكبوت الأحمر',
+          comp: [
+            { k: 'أبامكتين Abamectin', v: '1.8% (وزن/حجم)' },
+            { k: 'ألفا سايبرمثرين', v: '1% (وزن/حجم)' },
+            { k: 'زنك مخلبي نشط', v: '3% (وزن/حجم)' },
+            { k: 'مادة مستحلبة', v: '94.2% (وزن/حجم)' }
+          ],
+          features: [
+            'مبيد أكاروسي وحشري متخصص يحتوي اللتر منه على 18 جرام مادة فعالة أبامكتين نقي (Avermectin B1a / B1b).',
+            'ذو خاصية نفاذية عبر أنسجة الأوراق (Translaminar Activity) ليقضي على الأكاروسات وصانعات الأنفاق على سطحي الورقة.',
+            'الزنك المضاف يدعم سرعة استعادة حيوية الأوراق المصابة ويحفز تخليق الإنزيمات.',
+            'المستحضر في صورة مركز قابل للاستحلاب (EC).'
+          ],
+          usage: [
+            'يستعمل لمكافحة العنكبوت الأحمر على الخيار: بمعدل 40 سم³ / 100 لتر ماء طبقاً لتوصيات وزارة الزراعة.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): الخيار: 7 أيام.',
+            '🔹 الضمان: تضمن الشركة المبيد لمدة 3 سنوات في عبواته الأصلية المغلقة.',
+            '🔹 سعة العبوة: 250 مل.'
+          ]
+        },
+        en: {
+          name: 'Trustmec 1.8% EC',
+          category: 'Specialized Acaricide & Insecticide',
+          subtitle: 'Abamectin 1.8% fortified with 1% Alpha-cypermethrin & 3% Zinc',
+          comp: [
+            { k: 'Abamectin', v: '1.8% w/v' },
+            { k: 'Alpha-cypermethrin', v: '1% w/v' },
+            { k: 'Chelated Zinc', v: '3% w/v' },
+            { k: 'Emulsifiers', v: '94.2% w/v' }
+          ],
+          features: [
+            'Translaminar movement protects both upper and lower leaf surfaces.',
+            'Highly effective against two-spotted red spider mites and leafminers.',
+            'Enriched with Zinc to stimulate foliar recovery after mite infestations.'
+          ],
+          usage: ['Red Spider Mites on Cucumbers: 40 ml per 100 Liters of water.'],
+          meta: ['PHI: Cucumbers: 7 Days | Pack: 250 ml.']
+        }
+      },
+
+      // 16. ترست نيم 24% SL (TrustNem)
+      {
+        id: 'trustnem',
+        category: 'insecticide',
+        pack: '1 لتر | 1 Litre',
+        image: './images/trustnem.png',
+        ar: {
+          name: 'ترست نيم 24% SL (TrustNem)',
+          category: 'مبيد نيماتودي جهازي واسع المدى',
+          subtitle: 'أوكساميل 24% مركز قابل للذوبان في الماء لحماية الجذور والمجموع الخضري',
+          comp: [
+            { k: 'أوكساميل (Oxamyl)', v: '24% (وزن/حجم)' },
+            { k: 'مادة مذيبة', v: '74.25% (وزن/حجم)' },
+            { k: 'مادة ناشرة ومحسنة', v: '1.60% (وزن/حجم)' },
+            { k: 'مادة صمغية', v: '0.5% (وزن/حجم)' },
+            { k: 'عامل مرارة أمان', v: '0.10% (وزن/حجم)' }
+          ],
+          features: [
+            'مبيد نيماتودي جهازي عالي السمية والكفاءة يمتص عن طريق الجذور والأوراق وينتقل صاعداً وهابطاً داخل النبات.',
+            'يقضي على نيماتودا تعقد الجذور والنيماتودا الحرة ونيماتودا التكيس فور التلامس أو التغذية.',
+            'مقيد الاستخدام (RUP) نظراً لسميته العالية ويستخدم تحت إشراف زراعي متخصص.',
+            'مزود بعامل مرارة (0.10%) لمنع البلع العرضي ومادة صمغية لضمان ثبات التركيبة.'
+          ],
+          usage: [
+            'حقناً في شبكات الري بالتنقيط لمكافحة نيماتودا تعقد الجذور في الخضر والفاكهة حسب توصيات الدعم الفني.'
+          ],
+          meta: [
+            '🔹 تحذير: مركب سام جداً، يجب ارتداء ملابس واقية كاملة (أفرول، قفازات، أقنعة، ونظارات واقية).',
+            '🔹 مراكز علاج السموم: عين شمس (0224346789) | القومي بالقاهرة (0223640402) | الإسكندرية (034862244).',
+            '🔹 العبوة: 1 لتر.'
+          ]
+        },
+        en: {
+          name: 'TrustNem 24% SL',
+          category: 'Systemic Carbamate Nematicide',
+          subtitle: 'Oxamyl 24% Soluble Concentrate (240 g/L active) for root-knot nematodes',
+          comp: [
+            { k: 'Oxamyl', v: '24% w/v' },
+            { k: 'Solvents', v: '74.25%' },
+            { k: 'Dispersants & Inerts', v: '2.10%' },
+            { k: 'Bittering Safety Agent', v: '0.10%' }
+          ],
+          features: [
+            'Systemic nematicide translocating both basipetally and acropetally across vascular channels.',
+            'Rapidly paralyzes root-knot, cyst, and migratory nematode populations upon feeding.'
+          ],
+          usage: ['Drip fertigation application targeted directly at root zone.'],
+          meta: ['Restricted Use Pesticide (RUP) | Poison control emergency numbers listed | Size: 1 Litre.']
+        }
+      },
+
+      // 17. اكتراست 25% WG (Actrust)
+      {
+        id: 'actrust',
+        category: 'insecticide',
+        pack: '60 جرام | 60 gr',
+        image: './images/actrust.png',
+        ar: {
+          name: 'اكتراست 25% WG (Actrust)',
+          category: 'مبيد حشري جهازي واسع المدى',
+          subtitle: 'ثياميثوكسام 25% حبيبات قابلة للانتشار لمكافحة الذبابة البيضاء والمن وصانعات الأنفاق',
+          comp: [
+            { k: 'ثياميثوكسام Thiamethoxam', v: '25% (وزن/وزن)' },
+            { k: 'مواد مالئة ومكملة', v: '75% (وزن/وزن)' },
+            { k: 'محتوى المادة الفعالة', v: '250 جم/كجم' },
+            { k: 'صورة المستحضر', v: 'حبيبات WG' }
+          ],
+          features: [
+            'مبيد حشري جهازي فائق الفعالية وسريع الامتصاص والنفاذ داخل العصارة النباتية.',
+            'شديد الفعالية في القضاء على الذبابة البيضاء، حشرة المن، وحشرات صانعات الأنفاق.',
+            'الاسم الكيميائي: 3-(2-chloro-1,3-thiazol-5-ylmethyl)-5-methyl-1,3,5-oxadiazinan-4-ylidene(nitro)amine.',
+            'المستحضر في صورة حبيبات قابلة للانتشار في الماء (WG) سهلة الذوبان والتوزيع.'
+          ],
+          usage: [
+            'الذبابة البيضاء في الطماطم: بمعدل 20 جرام / 100 لتر ماء.',
+            'المن في الخيار: بمعدل 30 جرام / 100 لتر ماء.',
+            'صانعات الأنفاق في الخيار: بمعدل 60 جرام / فدان.',
+            'تنبيه فني: يجب مراعاة تجنب رش المبيد خلال فترة نشاط النحل أثناء التزهير.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): الطماطم (بيوت محمية): 7 أيام | الخيار (بيوت محمية): 7 أيام.',
+            '🔹 رقم التسجيل: 2749 | الصلاحية: 36 شهراً من تاريخ الإنتاج.',
+            '🔹 الشركة المنتجة: شركة البتراء للصناعات الزراعية - الأردن | المستورد: شركة ترستون للتنمية الزراعية | العبوة: 60 جم.'
+          ]
+        },
+        en: {
+          name: 'Actrust 25% WG',
+          category: 'Systemic Neonicotinoid Insecticide',
+          subtitle: 'Thiamethoxam 25% Water Dispersible Granules for whiteflies and aphids',
+          comp: [
+            { k: 'Thiamethoxam', v: '25% w/w' },
+            { k: 'Inerts & Fillers', v: '75% w/w' },
+            { k: 'Active Density', v: '250 g/Kg' },
+            { k: 'Formulation', v: 'WG' }
+          ],
+          features: [
+            'Fast-acting systemic neonicotinoid translocated quickly through foliage and root systems.',
+            'High residual control of whiteflies, aphids, and leafminers.'
+          ],
+          usage: [
+            'Whiteflies in Tomatoes: 20 g per 100 Liters water.',
+            'Aphids in Cucumbers: 30 g per 100 Liters water.',
+            'Leafminers in Cucumbers: 60 g per acre.',
+            'Avoid spraying during bee pollination activity.'
+          ],
+          meta: ['PHI: Tomatoes & Cucumbers (Greenhouse): 7 Days | Pack: 60g.']
+        }
+      },
+
+      // 18. إيمو ترست 5.7% WG (Emo Trust)
+      {
+        id: 'emo-trust',
+        category: 'insecticide',
+        pack: '60 جرام | 60 gr',
+        image: './images/emo-trust.png',
+        ar: {
+          name: 'إيمو ترست 5.7% WG (Emo Trust)',
+          category: 'مبيد حشري جهازي بالملامسة ومعدي',
+          subtitle: 'إمامكتين بنزوات 5.7% شديد الفعالية ضد دودة الحشد ودودة ورق القطن وديدان الثمار',
+          comp: [
+            { k: 'إمامكتين بنزوات Emamectin Benzoate', v: '5.7% (وزن/وزن)' },
+            { k: 'مواد ذات نشاط سطحي', v: '24.3% (وزن/وزن)' },
+            { k: 'مادة حاملة', v: '70% (وزن/وزن)' },
+            { k: 'محتوى المادة الفعالة', v: '57 جم/كجم' }
+          ],
+          features: [
+            'مبيد حشري حيوي متخصص يعمل بالملامسة وكسم معدي بضربة قاطعة لديدان الحراشف.',
+            'شديد الفعالية ضد دودة ورق القطن، دودة الحشد الخريفية، وتوتا أبسلوتا وديدان الثمار في الخضر والفاكهة.',
+            'الاسم الكيميائي: A mixture of emamectin B1a (≥90%) and emamectin B1b (≤10%) as benzoate salts.',
+            'المستحضر في صورة حبيبات قابلة للانتشار في الماء (WG) تذوب بالكامل دون انسداد البشابير.'
+          ],
+          usage: [
+            'مكافحة دودة ورق القطن وديدان الثمار: بمعدل 60 جرام / فدان رشاً خضرياً متجانساً طبقاً لتوصيات وزارة الزراعة.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): محصول القطن: 3 أيام.',
+            '🔹 رقم التسجيل: 1762 | تاريخ الإنتاج: 2025/05 | الصلاحية: 36 شهراً.',
+            '🔹 الشركة المنتجة: شركة البتراء - الأردن | المستورد: شركة ترستون للتنمية الزراعية | العبوة: 60 جم.'
+          ]
+        },
+        en: {
+          name: 'Emo Trust 5.7% WG',
+          category: 'Lepidoptera Specialist Insecticide',
+          subtitle: 'Emamectin Benzoate 5.7% WG for armyworms, bollworms, and fruit borers',
+          comp: [
+            { k: 'Emamectin Benzoate', v: '5.7% w/w' },
+            { k: 'Surfactants', v: '24.3% w/w' },
+            { k: 'Carriers', v: '70% w/w' },
+            { k: 'Active Density', v: '57 g/Kg' }
+          ],
+          features: [
+            'Acts on insect glutamate receptors, halting larval feeding within hours.',
+            'Superior eradication of Spodoptera armyworms, Tuta absoluta, and fruit borers.'
+          ],
+          usage: ['Cotton leafworm and fruit borers: 60 g per acre.'],
+          meta: ['PHI: Cotton: 3 Days | Shelf life: 36 Months | Size: 60g.']
+        }
+      },
+
+      // 19. ترست ميدا 70% WG (Trust Mida)
+      {
+        id: 'trust-mida',
+        category: 'insecticide',
+        pack: '60 جرام | 60 gr',
+        image: './images/trust-mida.png',
+        ar: {
+          name: 'ترست ميدا 70% WG (Trust Mida)',
+          category: 'مبيد حشري جهازي بالملامسة ومعدي',
+          subtitle: 'أيميداكلوبريد 70% شديد الفعالية في مكافحة الذبابة البيضاء والبق الدقيقي والتربس',
+          comp: [
+            { k: 'أيميداكلوبريد Imidacloprid', v: '70% (وزن/وزن)' },
+            { k: 'مواد حاملة وناشرة', v: '30% (وزن/وزن)' },
+            { k: 'محتوى المادة الفعالة', v: '700 جم/كجم' },
+            { k: 'صورة المستحضر', v: 'حبيبات WG' }
+          ],
+          features: [
+            'تركيز فائق 70% ذو حماية جهازية ممتدة داخل النسيج النباتي لحماية النموات الحديثة والأوراق.',
+            'يقضي بحسم على الذبابة البيضاء، البق الدقيقي، الجاسيد، المن، والتربس في مختلف المحاصيل.',
+            'الاسم الكيميائي: 1-(6-chloro-3-pyridylmethyl)-N-nitroimidazolidin-2-ylideneamine.',
+            'حبيبات قابلة للانتشار في الماء تضمن تغطية ورقية فائقة وثباتاً طويلاً.'
+          ],
+          usage: [
+            'الذبابة البيضاء في محصول الطماطم: بمعدل 30 جرام لكل 100 لتر ماء.',
+            'تنبيه فني: يجب مراعاة تجنب رش المبيد خلال فترة نشاط النحل أثناء التزهير.'
+          ],
+          meta: [
+            '🔹 فترة ما قبل الحصاد (PHI): الطماطم: 7 أيام.',
+            '🔹 رقم التسجيل: 2741 | تاريخ الإنتاج: 2025/05 | الصلاحية: 36 شهراً.',
+            '🔹 الشركة المنتجة: شركة البتراء - الأردن | المستورد: شركة ترستون للتنمية الزراعية | العبوة: 60 جم.'
+          ]
+        },
+        en: {
+          name: 'Trust Mida 70% WG',
+          category: 'Concentrated Systemic Insecticide',
+          subtitle: 'Imidacloprid 70% WG for whiteflies, mealybugs, and sucking insect vectors',
+          comp: [
+            { k: 'Imidacloprid', v: '70% w/w' },
+            { k: 'Dispersants & Inerts', v: '30% w/w' },
+            { k: 'Active Density', v: '700 g/Kg' },
+            { k: 'Formulation', v: 'WG' }
+          ],
+          features: [
+            'High concentration ensures long-lasting vascular protection against sucking pests.',
+            'Potent action against whiteflies, aphids, mealybugs, and leafhoppers.'
+          ],
+          usage: ['Whiteflies on Tomatoes: 30 g per 100 Liters of water.'],
+          meta: ['PHI: Tomatoes: 7 Days | Pack: 60g.']
+        }
+      },
+
+      // 20. فولا هوم (Vola Hum)
+      {
+        id: 'vola-hum',
+        category: 'fertilizer',
+        pack: '1 كجم | 1 Kg',
+        image: './images/vola-hum.png',
+        ar: {
+          name: 'فولا هوم (Vola Hum)',
+          category: 'أسمدة ومخصبات عضوية ومعالج ملوحة التربة',
+          subtitle: 'مش مجرد هيوميك .. هيومات بوتاسيوم 80% وفولفيك 7% وبوتاسيوم 10% وطحالب 3%',
+          comp: [
+            { k: 'هيومات بوتاسيوم (Humates)', v: '80%' },
+            { k: 'بوتاسيوم (K₂O)', v: '10%' },
+            { k: 'فولفيك أسيد (Fulvic)', v: '7%' },
+            { k: 'طحالب ومنظمات نمو (SWE)', v: '3%' }
+          ],
+          features: [
+            'فولا هوم يمد النبات بالهيوميك أسيد في صورة قشور تامة الذوبان 100% في الماء دون أي شوائب.',
+            'يحتوي على الطحالب البحرية ومنظمات النمو الطبيعية الهامة لتنشيط مختلف العمليات الحيوية.',
+            'ضروري لضبط العوامل والخواص الطينية وتحسين نفاذية ومسامية التربة.',
+            'ينشط نمو الجذور ويخفف أثر الملوحة في التربة بتحرير الأيونات وخفض الضغط الإسموزي للأملاح على الجذور.',
+            'يزيد نسبة الإنبات والفاعلية الخلوية عند إضافته لمعاملة البذور.',
+            'يعمل على تنشيط انقسام الخلايا الجذرية وزيادة معدل النمو ويشجع بقوة على تجذير العقل.',
+            'يعمل على زيادة كمية المحصول عن طريق زيادة حجم الثمار والحبوب لزيادة امتصاص عنصر البوتاسيوم.'
+          ],
+          usage: [
+            'الرش الورقي: 450 جم / 200 لتر ماء للفدان.',
+            'التسميد الأرضي (ري بالتنقيط): 900 جم - 1800 جم / فدان (وتضاعف الكمية في حالة الري بالغمر تبعا للظروف ونوع التربة).'
+          ],
+          meta: [
+            '🔹 تقنية أمريكية (Produced by American Technology).',
+            '🔹 رقم التسجيل: 22758 | تاريخ الإنتاج: أكتوبر 2026 | الصلاحية: 5 سنوات.',
+            '🔹 المستورد من الأردن: شركة البتراء للصناعات الزراعية - شركاء النجاح | الوزن: 1 كجم.'
+          ]
+        },
+        en: {
+          name: 'Vola Hum (Not Just a Humic)',
+          category: 'Potassium Humate 80% Soil Conditioner',
+          subtitle: 'Scales 100% Soluble: Humates 80% + K2O 10% + Fulvic 7% + Algae & Hormones 3%',
+          comp: [
+            { k: 'Potassium Humate', v: '80%' },
+            { k: 'Potassium (K₂O)', v: '10%' },
+            { k: 'Fulvic Acid', v: '7%' },
+            { k: 'Seaweed & Growth Factors', v: '3%' }
+          ],
+          features: [
+            '100% Water-soluble scales providing immediate humic and fulvic soil enrichment.',
+            'Relieves soil salinity stress by lowering osmotic salt pressure on root hairs.',
+            'Stimulates seed germination rate, root cutting establishment, and fruit sizing.'
+          ],
+          usage: [
+            'Foliar: 450 g per 200 Liters water per acre.',
+            'Drip Irrigation: 900 g - 1800 g per acre (double for flood irrigation).'
+          ],
+          meta: ['American Technology | Reg No: 22758 | Shelf Life: 5 Years | Pack: 1 Kg.']
+        }
+      },
+
+      // 21. موكا ميكس (Moka Mix 10L)
+      {
+        id: 'moka-mix',
+        category: 'fertilizer',
+        pack: '10 لتر | 10 Litre',
+        image: './images/moka-mix.png',
+        ar: {
+          name: 'موكا ميكس (Moka Mix)',
+          category: 'أسمدة ومخصبات ومستخلصات نباتية عالية التركيز',
+          subtitle: 'موكا بيعمل فرق .. مستخلصات نباتية 50% وبوتاسيوم 12% مدعمة بشيتوزان وسكريات وطحالب',
+          comp: [
+            { k: 'مستخلصات نباتية نقية', v: '50%' },
+            { k: 'بوتاسيوم (Potassium)', v: '12%' },
+            { k: 'ماغنسيوم (Magnesium)', v: '5%' },
+            { k: 'زنك مخلبي (Zinc)', v: '2%' },
+            { k: 'حديد مخلبي (Iron)', v: '1%' },
+            { k: 'منجنيز مخلبي (Mn)', v: '1%' },
+            { k: 'شيتوزان + سكريات كحولية + طحالب', v: 'مدعم' }
+          ],
+          features: [
+            'مركب متطور لرفع مناعة النبات وتعزيز قدرته على مقاومة الإجهاد لأطول فترة ممكنة.',
+            'غني بالمادة العضوية وبمادة الدوبال التي تحسن خواص التربة وتزيد من السعة التبادلية الكاتيونية (CEC) مما يزيد كفاءة الامتصاص ويقلل استهلاك الأسمدة.',
+            'سماد يعيد التوازن الغذائي إلى التربة التي عانت من تكرار إضافة الأسمدة الكيماوية ويوقف تدهور خواص التربة.',
+            'يحتوي على عناصر صغرى من الحديد والزنك والمنجنيز ويساعد على علاج أعراض نقص هذه العناصر الضرورية.',
+            'لا يؤدي تكرار إضافته إلى نشوء مركبات غير مرغوب فيها نظراً لتوازن محتواه المعدني والكيماوي ويحافظ على توازن البكتيريا النافعة.',
+            'مناسب لجميع أنواع المحاصيل: خضر، فاكهة، محاصيل حقلية، وزراعة عضوية.'
+          ],
+          usage: [
+            'الري بالتنقيط: 2.5 لتر للفدان ويكرر حسب الحالة.',
+            'الري بالغمر: 5 لتر للفدان وتكرر حسب توصية مهندس الدعم الفني.',
+            'الرش الورقي: 2.5 لتر لكل 600 لتر ماء رشاً متجانساً.'
+          ],
+          meta: [
+            '🔹 رقم التسجيل: 2/6892 | تاريخ الإنتاج: 2026/09 | الصلاحية: 5 سنوات.',
+            '🔹 المستورد من الأردن: شركة البتراء الأردنية للإنتاج الزراعي - شركاء النجاح.',
+            '🔹 سعة العبوة: 10 لتر جركن كبير عالي الكثافة.'
+          ]
+        },
+        en: {
+          name: 'Moka Mix (10 Litres)',
+          category: 'Bio-Organic Plant Extract & Micronutrients',
+          subtitle: '50% Plant Extracts + 12% Potassium fortified with Chitosan, Sugar Alcohols & Algae',
+          comp: [
+            { k: 'Plant Extracts', v: '50%' },
+            { k: 'Potassium (K)', v: '12%' },
+            { k: 'Magnesium (Mg)', v: '5%' },
+            { k: 'Zinc (Zn)', v: '2%' },
+            { k: 'Iron & Manganese', v: '1% each' },
+            { k: 'Chitosan & Algae', v: 'Enriched' }
+          ],
+          features: [
+            'Advanced formula boosting plant systemic immunity against thermal and salinity stress.',
+            'Rich in organic matter and humus, drastically optimizing Cation Exchange Capacity (CEC).',
+            'Restores nutritional balance in soils suffering from excessive chemical fertilizer salt build-up.',
+            'Safeguards beneficial microbial balance while delivering rapid micronutrient nutrition.'
+          ],
+          usage: [
+            'Drip Fertigation: 2.5 Liters per acre.',
+            'Flood Irrigation: 5 Liters per acre.',
+            'Foliar Application: 2.5 Liters per 600 Liters of water.'
+          ],
+          meta: ['Registration No: 2/6892 | Shelf Life: 5 Years | Pack: 10 Litres.']
         }
       }
     ];
@@ -1089,7 +1658,7 @@
     let currentProduct = null;
     let currentLang = 'ar';
 
-    // 1. شريط بعض من منتجاتنا
+    // 1. شريط بعض من منتجاتنا المحسّن للسرعة والتحميل الذكي
     const marqueeTrack = document.getElementById('marqueeTrack');
     function initMarquee() {
       const doubleList = [...productsDB, ...productsDB];
@@ -1100,7 +1669,7 @@
         item.onclick = () => openProductModal(prod.id);
         item.innerHTML = `
           <div class="h-44 flex items-center justify-center p-2 mb-3 bg-slate-50 dark:bg-slate-900/60 rounded-2xl group-hover:bg-emerald-50/50 dark:group-hover:bg-emerald-950/40 transition">
-            <img src="${prod.image}" alt="${prod.ar.name}" class="max-h-full object-contain pack-shadow group-hover:scale-110 transition duration-300" onerror="this.src='./images/vola-k.png'">
+            <img src="${prod.image}" alt="${prod.ar.name}" loading="lazy" decoding="async" class="max-h-full object-contain pack-shadow group-hover:scale-110 transition duration-300" onerror="this.src='./images/vola-k.png'">
           </div>
           <span class="text-[11px] bg-emerald-50 dark:bg-emerald-950/60 text-[#005660] dark:text-emerald-300 font-black px-3 py-1 rounded-full inline-block truncate max-w-full">${prod.ar.category}</span>
           <h4 class="text-sm font-black text-slate-900 dark:text-white truncate mt-2">${prod.ar.name}</h4>
@@ -1110,7 +1679,7 @@
       });
     }
 
-    // 2. رسم كروت كتالوج المنتجات الـ 16
+    // 2. رسم كروت كتالوج المنتجات الـ 21
     const grid = document.getElementById('productsGrid');
     function renderCatalog(items) {
       grid.innerHTML = '';
@@ -1123,7 +1692,7 @@
         card.innerHTML = `
           <div>
             <div class="h-60 flex items-center justify-center p-3 relative overflow-hidden bg-slate-50/80 dark:bg-slate-900/60 rounded-2xl mb-4 group-hover:bg-emerald-50/40 dark:group-hover:bg-emerald-950/40 transition">
-              <img src="${prod.image}" alt="${d.name}" class="max-h-full object-contain pack-shadow transition duration-300 group-hover:scale-105" onerror="this.src='./images/vola-k.png'">
+              <img src="${prod.image}" alt="${d.name}" loading="lazy" decoding="async" class="max-h-full object-contain pack-shadow transition duration-300 group-hover:scale-105" onerror="this.src='./images/vola-k.png'">
             </div>
             <span class="inline-block bg-emerald-50 dark:bg-emerald-950/60 text-[#005660] dark:text-emerald-300 text-[11px] font-black px-3 py-1 rounded-full mb-2">${d.category}</span>
             <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug">${d.name}</h3>
@@ -1151,7 +1720,7 @@
       else renderCatalog(productsDB.filter(p => p.category === cat));
     }
 
-    // 4. فتح النافذة المنبثقة وعرض صورة الـ HD مباشرة
+    // 4. فتح النافذة المنبثقة وتعبئة البيانات الكاملة
     function openProductModal(id) {
       currentProduct = productsDB.find(p => p.id === id);
       if (!currentProduct) return;
@@ -1179,6 +1748,7 @@
       updateModalTexts();
     }
 
+    // 6. تحديث النصوص داخل النافذة بدقة كاملة
     function updateModalTexts() {
       if (!currentProduct) return;
       const d = currentProduct[currentLang];
@@ -1196,34 +1766,40 @@
       document.getElementById('labelSales').innerText = isAr ? "المبيعات والتوريد المباشر:" : "Sales & Direct Supply:";
       document.getElementById('labelOrder').innerText = isAr ? "طلب تسعيرة عبر واتساب" : "Request Quote via WhatsApp";
 
-      // جدول التركيب
+      // جدول التركيب الكيميائي
       const compGrid = document.getElementById('modalCompGrid');
       compGrid.innerHTML = '';
       d.comp.forEach(c => {
         compGrid.innerHTML += `
-          <div class="bg-white dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
             <span class="text-[11px] text-slate-500 dark:text-slate-400 font-bold block">${c.k}</span>
-            <span class="text-emerald-700 dark:text-emerald-400 font-black text-sm">${c.v}</span>
+            <span class="text-emerald-700 dark:text-emerald-400 font-black text-sm mt-0.5 block">${c.v}</span>
           </div>
         `;
       });
 
-      // المميزات
+      // الخصائص والمميزات الفنية
       const featList = document.getElementById('modalFeaturesList');
       featList.innerHTML = '';
-      d.features.forEach(f => { featList.innerHTML += `<li>${f}</li>`; });
+      d.features.forEach(f => {
+        featList.innerHTML += `<li class="leading-relaxed text-slate-700 dark:text-slate-300">${f}</li>`;
+      });
 
-      // الاستخدام
+      // معدلات الاستخدام
       const usageList = document.getElementById('modalUsageList');
       usageList.innerHTML = '';
-      d.usage.forEach(u => { usageList.innerHTML += `<p>• ${u}</p>`; });
+      d.usage.forEach(u => {
+        usageList.innerHTML += `<p class="leading-relaxed">• ${u}</p>`;
+      });
 
-      // بيانات التسجيل
+      // بيانات التسجيل والاعتمادات
       const metaBox = document.getElementById('modalMetaBox');
       metaBox.innerHTML = '';
-      d.meta.forEach(m => { metaBox.innerHTML += `<p>• ${m}</p>`; });
+      d.meta.forEach(m => {
+        metaBox.innerHTML += `<p class="leading-relaxed">${m}</p>`;
+      });
 
-      // واتساب
+      // زر الواتساب
       const msg = isAr ? `السلام عليكم، أريد الاستفسار عن مركب ${d.name}` : `Hello, I'd like to inquire about ${d.name}`;
       document.getElementById('modalWhatsappBtn').href = `https://wa.me/201000008203?text=${encodeURIComponent(msg)}`;
     }
@@ -1238,7 +1814,7 @@
       if (e.target.id === 'productModal') closeProductModal();
     });
 
-    // تشغيل الصفحة
+    // تشغيل الصفحة عند التحميل
     initMarquee();
     renderCatalog(productsDB);
   </script>
