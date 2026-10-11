@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة إدارة منتجات ترستون | Dashboard</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- مكتبة Supabase الرسمية -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #f1f5f3; color: #0f172a; }
+  </style>
+</head>
+<body class="p-4 sm:p-8">
+
+  <!-- ==================== نافذة تسجيل الدخول للمدير ==================== -->
+  <div id="loginScreen" class="fixed inset-0 bg-[#005660] flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center space-y-5">
+      <h2 class="text-2xl font-black text-[#005660]">لوحة إدارة منتجات ترستون</h2>
+      <p class="text-xs text-gray-500 font-bold">يرجى إدخال كلمة مرور الإدارة للمتابعة</p>
+      
+      <input type="password" id="adminPasswordInput" placeholder="كلمة المرور..." class="w-full px-4 py-3 border border-slate-300 rounded-xl text-center outline-none focus:border-[#005660] text-lg font-bold">
+      
+      <button onclick="checkAdminPassword()" class="w-full bg-[#005660] hover:bg-teal-900 text-white font-black py-3 rounded-xl transition shadow-lg">
+        دخول للوحة التحكم
+      </button>
+      <p id="loginError" class="text-xs text-red-600 font-bold hidden">كلمة المرور غير صحيحة!</p>
+    </div>
+  </div>
+
+  <!-- ==================== لوحة التحكم الرئيسية ==================== -->
+  <div id="dashboardApp" class="max-w-7xl mx-auto space-y-6 hidden">
+    
+    <!-- هيدر اللوحة -->
+    <header class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <h1 class="text-2xl font-black text-[#005660]">إدارة كتالوج منتجات ترستون</h1>
+        <p class="text-xs text-slate-500 font-bold mt-1">تعديل وإضافة وحذف المركبات وحفظها سحابياً في لحظتها</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <button onclick="seedDatabaseIfEmpty()" id="seedBtn" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs transition shadow">
+          رفع الـ 21 منتجاً الحالية دفعة واحدة
+        </button>
+        <button onclick="openProductForm()" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center gap-1.5">
+          <span>+ إضافة منتج جديد</span>
+        </button>
+        <a href="index.html" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs transition">
+          معاينة الموقع
+        </a>
+      </div>
+    </header>
+
+    <!-- شريط البحث السريع والفلترة -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap gap-4 items-center justify-between">
+      <input type="text" id="searchInput" oninput="filterDashboardProducts()" placeholder="ابحث باسم المنتج أو المادة الفعالة..." class="flex-1 min-w-[260px] px-4 py-2 border border-slate-200 rounded-xl text-xs font-bold outline-none focus:border-[#005660]">
+      <span id="productCounter" class="text-xs font-black text-[#005660] bg-teal-50 px-3 py-1.5 rounded-lg">إجمالي المنتجات: 0</span>
+    </div>
+
+    <!-- جدول عرض المنتجات -->
+    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-right text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-black">
+            <tr>
+              <th class="p-4">الصورة</th>
+              <th class="p-4">اسم المنتج (عربي)</th>
+              <th class="p-4">الاسم (English)</th>
+              <th class="p-4">التصنيف</th>
+              <th class="p-4">العبوة</th>
+              <th class="p-4">فيديو</th>
+              <th class="p-4 text-center">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody" class="divide-y divide-slate-100 font-bold">
+            <!-- يتم الملء برمجياً -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== نافذة التعديل والإضافة ==================== -->
+  <div id="productFormModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+    <div class="bg-white w-full max-w-5xl max-h-[92vh] rounded-[32px] shadow-2xl flex flex-col overflow-hidden">
+      
+      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+        <h3 id="formModalTitle" class="font-black text-lg text-[#005660]">تعديل بيانات المنتج</h3>
+        <button onclick="closeProductForm()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 font-black flex items-center justify-center">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 flex-1">
+        
+        <!-- البيانات الأساسية -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+          <div>
+            <label class="block font-black text-slate-700 mb-1">المعرف الفريد (ID إنجليزي بدون مسافات):</label>
+            <input type="text" id="inpId" placeholder="مثال: vola-k" class="w-full p-2.5 border rounded-xl font-bold">
+          </div>
+          <div>
+            <label class="block font-black text-slate-700 mb-1">التصنيف الرئيسي:</label>
+            <select id="inpCategory" class="w-full p-2.5 border rounded-xl font-bold bg-white">
+              <option value="fertilizer">أسمدة ومخصبات</option>
+              <option value="growth">منظمات نمو وتزهير</option>
+              <option value="fungicide">مبيدات فطرية</option>
+              <option value="insecticide">مبيدات حشرية ونيماتودية</option>
+              <option value="salinity">معالجات ملوحة</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-black text-slate-700 mb-1">حجم العبوة:</label>
+            <input type="text" id="inpPack" placeholder="مثال: 5 لتر | 5 Litre" class="w-full p-2.5 border rounded-xl font-bold">
+          </div>
+          <div>
+            <label class="block font-black text-slate-700 mb-1">مسار صورة العبوة:</label>
+            <input type="text" id="inpImage" placeholder="./images/vola-k.png" class="w-full p-2.5 border rounded-xl font-bold" dir="ltr">
+          </div>
+          <div class="lg:col-span-4">
+            <label class="block font-black text-slate-700 mb-1">رابط الفيديو (Cloudinary URL):</label>
+            <input type="text" id="inpVideo" placeholder="https://res.cloudinary.com/..." class="w-full p-2.5 border rounded-xl font-bold" dir="ltr">
+          </div>
+        </div>
+
+        <!-- تبويبات اللغات -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
+          
+          <!-- القسم العربي -->
+          <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-200 space-y-4">
+            <h4 class="font-black text-emerald-900 text-sm border-r-4 border-emerald-600 pr-2">البيانات باللغة العربية</h4>
+            
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">اسم المنتج التجاري:</label>
+              <input type="text" id="inpNameAr" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">العنوان الفرعي / السلوجن:</label>
+              <input type="text" id="inpSubtitleAr" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">التصنيف المكتوب على الكارت:</label>
+              <input type="text" id="inpCatLabelAr" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">التركيب الكيميائي (سطر لكل عنصر: المادة = النسبة):</label>
+              <textarea id="inpCompAr" rows="3" placeholder="بوتاسيوم = 36%&#10;طحالب بحرية = مدعم" class="w-full p-2 border rounded-xl font-mono"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">المميزات والخصائص الفنية (سطر لكل ميزة):</label>
+              <textarea id="inpFeaturesAr" rows="4" placeholder="اكتب كل ميزة في سطر منفصل..." class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">معدلات الاستخدام (سطر لكل طريقة ري):</label>
+              <textarea id="inpUsageAr" rows="3" placeholder="الرش الورقي: 2.5 لتر للفدان&#10;الري بالتنقيط: 5 لتر للفدان" class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">بيانات التسجيل والصلاحية:</label>
+              <textarea id="inpMetaAr" rows="2" placeholder="رقم التسجيل: 2/8951&#10;الصلاحية: 5 سنوات" class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+          </div>
+
+          <!-- القسم الإنجليزي -->
+          <div class="bg-blue-50/50 p-5 rounded-2xl border border-blue-200 space-y-4 text-left" dir="ltr">
+            <h4 class="font-black text-blue-900 text-sm border-l-4 border-blue-600 pl-2">English Dossier</h4>
+            
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Product Name (EN):</label>
+              <input type="text" id="inpNameEn" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Subtitle / Key Claim:</label>
+              <input type="text" id="inpSubtitleEn" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Category Label (EN):</label>
+              <input type="text" id="inpCatLabelEn" class="w-full p-2 border rounded-xl font-bold">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Composition (one per line: Item = Value):</label>
+              <textarea id="inpCompEn" rows="3" placeholder="Potassium (K2O) = 36%&#10;Seaweed = Active" class="w-full p-2 border rounded-xl font-mono"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Key Features (one per line):</label>
+              <textarea id="inpFeaturesEn" rows="4" placeholder="Enter each feature on a new line..." class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Application Rates:</label>
+              <textarea id="inpUsageEn" rows="3" placeholder="Foliar Spray: 2.5 L / acre&#10;Drip: 5 L / acre" class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Meta / Registration:</label>
+              <textarea id="inpMetaEn" rows="2" placeholder="Registration No: 2/8951&#10;Shelf Life: 5 Years" class="w-full p-2 border rounded-xl"></textarea>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+        <button onclick="closeProductForm()" class="px-5 py-2.5 rounded-xl border border-slate-300 font-bold text-xs">إلغاء</button>
+        <button onclick="saveProductToSupabase()" class="bg-[#005660] hover:bg-teal-900 text-white font-black px-8 py-2.5 rounded-xl text-xs shadow-lg transition">حفظ ونشر التعديلات فوراً</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT & SUPABASE CONNECTION ==================== -->
+  <script>
+    // ⚙️ إعدادات Supabase الصحيحة والجاهزة الخاصة بك
+    const SUPABASE_URL = 'https://hyqdmulrbwgxnnsmviqo.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_KRtunZ-5Ih2TD0ZLtqflsA_RXSdDddk';
+    const ADMIN_PASSWORD = 'truston2026';
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let allLoadedProducts = [];
+
+    // التحقق من كلمة مرور الدخول
+    function checkAdminPassword() {
+      const pass = document.getElementById('adminPasswordInput').value;
+      if (pass === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('dashboardApp').classList.remove('hidden');
+        loadProducts();
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    }
+
+    // جلب المنتجات من السحابة
+    async function loadProducts() {
+      const { data, error } = await supabaseClient.from('products').select('*').order('created_at', { ascending: true });
+      if (error) {
+        alert('خطأ في الاتصال بقاعدة البيانات: ' + error.message);
+        return;
+      }
+      allLoadedProducts = data || [];
+      renderProductsTable(allLoadedProducts);
+    }
+
+    function renderProductsTable(items) {
+      const tbody = document.getElementById('productsTableBody');
+      const counter = document.getElementById('productCounter');
+      counter.innerText = `إجمالي المنتجات: ${items.length}`;
+      tbody.innerHTML = '';
+
+      items.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50/80 transition";
+        tr.innerHTML = `
+          <td class="p-4">
+            <img src="${p.image}" class="w-12 h-12 object-contain bg-slate-100 rounded-lg p-1" onerror="this.src='./images/vola-k.png'">
+          </td>
+          <td class="p-4 font-black text-slate-900">${p.ar.name}</td>
+          <td class="p-4 text-slate-500 dir-ltr text-right" dir="ltr">${p.en.name}</td>
+          <td class="p-4"><span class="bg-teal-50 text-[#005660] px-2.5 py-1 rounded-full text-[10px] font-black">${p.ar.category}</span></td>
+          <td class="p-4">${p.pack}</td>
+          <td class="p-4">${p.video ? '<span class="text-emerald-600 font-bold">متوفر</span>' : '<span class="text-slate-400">غير متوفر</span>'}</td>
+          <td class="p-4 text-center space-x-2 space-x-reverse">
+            <button onclick="editProduct('${p.id}')" class="bg-[#005660] text-white px-3 py-1.5 rounded-lg text-[11px] font-bold hover:bg-teal-900">تعديل</button>
+            <button onclick="deleteProduct('${p.id}')" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-[11px] font-bold hover:bg-red-600 hover:text-white transition">حذف</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterDashboardProducts() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allLoadedProducts.filter(p => 
+        p.ar.name.toLowerCase().includes(q) || 
+        p.en.name.toLowerCase().includes(q) || 
+        p.id.toLowerCase().includes(q)
+      );
+      renderProductsTable(filtered);
+    }
+
+    function openProductForm() {
+      document.getElementById('formModalTitle').innerText = "إضافة منتج جديد للكتالوج";
+      document.getElementById('inpId').disabled = false;
+      document.getElementById('inpId').value = "";
+      document.getElementById('inpCategory').value = "fertilizer";
+      document.getElementById('inpPack').value = "";
+      document.getElementById('inpImage').value = "./images/";
+      document.getElementById('inpVideo').value = "";
+      
+      document.getElementById('inpNameAr').value = "";
+      document.getElementById('inpSubtitleAr').value = "";
+      document.getElementById('inpCatLabelAr').value = "";
+      document.getElementById('inpCompAr').value = "";
+      document.getElementById('inpFeaturesAr').value = "";
+      document.getElementById('inpUsageAr').value = "";
+      document.getElementById('inpMetaAr').value = "";
+
+      document.getElementById('inpNameEn').value = "";
+      document.getElementById('inpSubtitleEn').value = "";
+      document.getElementById('inpCatLabelEn').value = "";
+      document.getElementById('inpCompEn').value = "";
+      document.getElementById('inpFeaturesEn').value = "";
+      document.getElementById('inpUsageEn').value = "";
+      document.getElementById('inpMetaEn').value = "";
+
+      document.getElementById('productFormModal').classList.remove('hidden');
+    }
+
+    function editProduct(id) {
+      const p = allLoadedProducts.find(x => x.id === id);
+      if (!p) return;
+
+      document.getElementById('formModalTitle').innerText = `تعديل مركب: ${p.ar.name}`;
+      document.getElementById('inpId').value = p.id;
+      document.getElementById('inpId').disabled = true;
+      document.getElementById('inpCategory').value = p.category;
+      document.getElementById('inpPack').value = p.pack;
+      document.getElementById('inpImage').value = p.image;
+      document.getElementById('inpVideo').value = p.video || "";
+
+      document.getElementById('inpNameAr').value = p.ar.name;
+      document.getElementById('inpSubtitleAr').value = p.ar.subtitle;
+      document.getElementById('inpCatLabelAr').value = p.ar.category;
+      document.getElementById('inpCompAr').value = p.ar.comp.map(c => `${c.k} = ${c.v}`).join('\n');
+      document.getElementById('inpFeaturesAr').value = p.ar.features.join('\n');
+      document.getElementById('inpUsageAr').value = p.ar.usage.join('\n');
+      document.getElementById('inpMetaAr').value = p.ar.meta.join('\n');
+
+      document.getElementById('inpNameEn').value = p.en.name;
+      document.getElementById('inpSubtitleEn').value = p.en.subtitle;
+      document.getElementById('inpCatLabelEn').value = p.en.category;
+      document.getElementById('inpCompEn').value = p.en.comp.map(c => `${c.k} = ${c.v}`).join('\n');
+      document.getElementById('inpFeaturesEn').value = p.en.features.join('\n');
+      document.getElementById('inpUsageEn').value = p.en.usage.join('\n');
+      document.getElementById('inpMetaEn').value = (p.en.meta || []).join('\n');
+
+      document.getElementById('productFormModal').classList.remove('hidden');
+    }
+
+    function closeProductForm() {
+      document.getElementById('productFormModal').classList.add('hidden');
+    }
+
+    async function saveProductToSupabase() {
+      const id = document.getElementById('inpId').value.trim();
+      if (!id) { alert('يرجى تحديد معرف المنتج ID'); return; }
+
+      const parseComp = (text) => text.split('\n').filter(l => l.includes('=')).map(l => {
+        const [k, v] = l.split('=');
+        return { k: k.trim(), v: v.trim() };
+      });
+
+      const parseLines = (text) => text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+      const payload = {
+        id: id,
+        category: document.getElementById('inpCategory').value,
+        pack: document.getElementById('inpPack').value.trim(),
+        image: document.getElementById('inpImage').value.trim(),
+        video: document.getElementById('inpVideo').value.trim() || null,
+        ar: {
+          name: document.getElementById('inpNameAr').value.trim(),
+          subtitle: document.getElementById('inpSubtitleAr').value.trim(),
+          category: document.getElementById('inpCatLabelAr').value.trim(),
+          comp: parseComp(document.getElementById('inpCompAr').value),
+          features: parseLines(document.getElementById('inpFeaturesAr').value),
+          usage: parseLines(document.getElementById('inpUsageAr').value),
+          meta: parseLines(document.getElementById('inpMetaAr').value)
+        },
+        en: {
+          name: document.getElementById('inpNameEn').value.trim(),
+          subtitle: document.getElementById('inpSubtitleEn').value.trim(),
+          category: document.getElementById('inpCatLabelEn').value.trim(),
+          comp: parseComp(document.getElementById('inpCompEn').value),
+          features: parseLines(document.getElementById('inpFeaturesEn').value),
+          usage: parseLines(document.getElementById('inpUsageEn').value),
+          meta: parseLines(document.getElementById('inpMetaEn').value)
+        }
+      };
+
+      const { error } = await supabaseClient.from('products').upsert(payload);
+      if (error) {
+        alert('حدث خطأ أثناء الحفظ: ' + error.message);
+      } else {
+        alert('تم حفظ ونشر بيانات المنتج بنجاح!');
+        closeProductForm();
+        loadProducts();
+      }
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm(`هل أنت متأكد من حذف المنتج (${id}) نهائياً؟`)) return;
+      const { error } = await supabaseClient.from('products').delete().eq('id', id);
+      if (error) alert('فشل الحذف: ' + error.message);
+      else loadProducts();
+    }
+
+    // زر رفع الـ 21 منتجاً الحالية دفعة واحدة لملء السحابة بضغطة زر
+    async function seedDatabaseIfEmpty() {
+      if (!confirm('هل تريد رفع ونشر الـ 21 منتجاً الحالية إلى قاعدة البيانات الآن؟')) return;
+      const seedBtn = document.getElementById('seedBtn');
+      seedBtn.innerText = 'جاري الرفع...';
+      seedBtn.disabled = true;
+
+      try {
+        // قراءة المنتجات من ملف index.html أو البيانات المخزنة
+        const response = await fetch('index.html');
+        const text = await response.text();
+        const jsonMatch = text.match(/let productsDB = (\[[\s\S]*?\]);\s*let currentProduct/);
+        
+        let initialList = [];
+        if (jsonMatch && jsonMatch[1]) {
+          initialList = eval(jsonMatch[1]);
+        }
+
+        if (initialList.length > 0) {
+          const { error } = await supabaseClient.from('products').upsert(initialList);
+          if (error) throw error;
+          alert(`تم رفع ونشر ${initialList.length} منتجاً إلى قاعدة البيانات بنجاح!`);
+          loadProducts();
+        } else {
+          alert('تم الرفع مسبقاً أو لم يتم العثور على القائمة.');
+        }
+      } catch (err) {
+        alert('حدث خطأ أثناء الرفع: ' + err.message);
+      } finally {
+        seedBtn.innerText = 'رفع الـ 21 منتجاً الحالية دفعة واحدة';
+        seedBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
